@@ -1,14 +1,22 @@
 @inject('request', 'Illuminate\Http\Request')
 <!-- Left side column. contains the sidebar -->
-<aside class="main-sidebar">
+<aside class="main-sidebar" style="background-color:rgb(0,0,0); color:white">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <ul class="sidebar-menu" >
 
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
-                    <i class="fa fa-wrench"></i>
-                    <span class="title">@lang('quickadmin.qa_dashboard')</span>
+                    <i class="fa fa-book"></i>
+                    <span class="title">Publicaciones - Libros</span>
+                </a>
+            </li>
+
+
+             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+                <a href="{{ url('/autor') }}">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Publicaciones - Autores</span>
                 </a>
             </li>
 

@@ -18,6 +18,9 @@
 <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+
+
+
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <script src="{{ url('adminlte/js') }}/bootstrap.min.js"></script>
 <script src="{{ url('adminlte/js') }}/select2.full.min.js"></script>
@@ -38,8 +41,42 @@
 
 <script>
 $(document).ready(function() {
-    $('.example').DataTable();
+    $('.libros').DataTable({
+  "columns": [
+    { "width": "5%" },
+    { "width": "30%" },
+    { "width": "25%" },
+    { "width": "15%" },
+    { "width": "25%" }
+  ]
 } );
+} );
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.autores').DataTable({
+  "columns": [
+    { "width": "5%" },
+    { "width": "8%" },
+    { "width": "30%" },
+    { "width": "25%" },
+    { "width": "10%" },
+    { "width": "20%" }
+  ]
+} );
+} );
+</script>
+
+<script>
+function add_autores(){
+        var number = $('#select2-autores-container').find('option:selected').attr('title');
+        var nombres = "";
+        var nombres = nombres.concat(number.toString()).concat(";");
+        console.log(nombres);  
+        $('#lista_autores').append("number"); 
+        $('#lista_autores').append(";"); 
+}
 </script>
 
 @yield('javascript')

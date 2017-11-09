@@ -1,7 +1,7 @@
-<div class="page-header-inner">
+<div class="page-header-inner" >
     <div class="page-header-inner">
         <div class="navbar-header">
-            <a href="{{ url('/') }}"
+            <a href="{{ secure_url('/') }}"
                class="navbar-brand">
                 @lang('quickadmin.quickadmin_title')
             </a>

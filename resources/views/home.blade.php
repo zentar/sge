@@ -14,80 +14,63 @@
     </div>
   -->
 
-    <div class="panel panel-default">
+      <!-- <div class="panel panel-default">
        <div class="panel-heading">
             @lang('quickadmin.qa_list')
-        </div>
+        </div>-->
+    
+      <div class="row container-fluid ">
+      <div class="box-body table-responsive">
+
+           {!! link_to_route('libro.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-primary "] ) !!}</p> 
         
-     <!--    <div><br><button type="button" class="btn">Nuevo</button></div> -->
-        
-        <div class="panel-body table-responsive">
-            <table id="example1" class="display example" cellspacing="0" width="100%">
+        <div class="panel-body">
+            <table id="example1" class="table table-striped table-bordered display compact libros" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Titulo</th>
-                <th>Autores</th>
-                <th>F Edicion</th>
-                <th>F Ingreso</th>
-                <th>Revision de Pares</th>
-                <th>F de Publicacion</th>
-                <th>ISBN</th>
-                <th>IEPI</th>
-                <th>Capitulos</th>
-                <th></th>      
+                 
+                <th class="dt-head-center">ID</th>
+                <th class="dt-head-center">Titulo</th>
+                <th class="dt-head-center">Autores</th>
+                <th class="dt-head-center">Fecha Publicacion</th>
+                <th class="dt-head-center"></th>   
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>Titulo</th>
-                <th>Autores</th>
-                <th>F Edicion</th>
-                <th>F Ingreso</th>
-                <th>Revision de Pares</th>
-                <th>F de Publicacion</th>
-                <th>ISBN</th>
-                <th>IEPI</th>
-                <th>Capitulos</th>
-                <th></th>              
+                 
+                <th class="dt-head-center">ID</th>
+                <th class="dt-head-center">Titulo</th>
+                <th class="dt-head-center">Autores</th>
+                <th class="dt-head-center">Fecha Publicacion</th>
+                <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
         <tbody>
+           @foreach($libros as $libro)
             <tr>
-                <td>AAA</td>
-                <td>BBB</td>
-                <td>CCC</td>
-                <td>DDD</td>
-                <td>EEE</td>
-                <td>FFF</td>
-                <td>GGG</td>
-                <td>HHH</td>
-                <td>III</td>
-                <td><button type="button" class="btn">Detalle</button>
-                    <button type="button" class="btn">Modificar</button>
-                    <button type="button" class="btn">Eliminar</button>
+              
+                <td class="dt-body-center">{{$libro->id}}</td>
+                <td>{{$libro->titulo}}</td>
+                <td>{{$libro->autores}}</td>
+                <td class="dt-body-center">{{$libro->created_at}}</td> 
+                 <td class="dt-body-center"> 
+                 <p>
+                {!!link_to_route('libro.consultar', $title = 'Consultar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
+
+                {!!link_to_route('libro.edit', $title = 'Editar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
+                
+                {!!link_to_route('libro.delete', $title = 'Eliminar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+               </p>
                 </td>
             </tr>
-            <tr>
-                  <td>AAA</td>
-                <td>BBB</td>
-                <td>CCC</td>
-                <td>DDD</td>
-                <td>EEE</td>
-                <td>FFF</td>
-                <td>GGG</td>
-                <td>HHH</td>
-                <td>III</td>
-                <td><button type="button" class="btn">Detalle</button>
-                    <button type="button" class="btn">Modificar</button>
-                    <button type="button" class="btn">Eliminar</button>
-                </td>
-            </tr>           
+            @endforeach        
         </tbody>
     </table>
         </div>
     </div>
 
-   <div class="container col-md-12">
+     <!-- <div class="container col-md-12">
   <h2>Estados</h2>
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Libro</a></li>
@@ -139,6 +122,9 @@
       <button type="button" class="btn">DOCUMENTO</button>
     </div>
 
-  </div>
-</div>    
+  </div>-->
+</div> 
+</div> 
+</div> 
+    
 @endsection
