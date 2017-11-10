@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use App\Book;
-use App\Autores;
+use App\Autor;
+use App\autorbook;
 
 class LibroController extends Controller
 {
@@ -27,7 +28,7 @@ class LibroController extends Controller
      */
     public function create()
     {
-        $autores = Autores::all();
+        $autores = Autor::all();
         $autores_nombre=[];       
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
@@ -44,7 +45,6 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-       
          $rules = array(
         'titulo' => 'required',
         'autores' => 'required',
@@ -66,9 +66,14 @@ class LibroController extends Controller
         }
         else{
            $libro = New Book;
+           
+           $libroAutor = new autorbook;
            $input = array_filter($data,'strlen');
-           $libro->fill($input);
+           $libro->fill($input);              
            $libro->save();
+           $libroAutor->book_id=$libro->id;
+           $libroAutor->autor_id=$data['autores']; 
+           $libroAutor->save();
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -94,12 +99,7 @@ class LibroController extends Controller
     public function edit($id)
     {
         $libro = Book::find($id);
-        $autores = Autores::all();
-        $autores_nombre=[];       
-           foreach($autores as $autors){
-                    $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
-                  }
-        return view('libros/editar', compact('libro','autores_nombre'));
+        return view('libros/editar', compact('libro'));
     }
 
     /**
@@ -161,17 +161,6 @@ class LibroController extends Controller
        public function consultar(Request $request, $id)
     {
         $libro = Book::find($id);
-        //$autores = Autores::find($libro->autores);
-
-           $autores = separar_autores($libro->autores);
-              $libro->autores = "";
-                  foreach($autores as $autors){
-                   $autor=Autores::find($autors);
-                   $libro->autores .= $autor->nombre." ".$autor->apellido." - ";
-                  }
-                 if(substr($libro->autores, -2)=='- ') 
-                 $libro->autores = substr($libro->autores,0, -2);  
-
         return view('libros/consultar', compact('libro'));
     }
 

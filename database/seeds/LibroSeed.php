@@ -15,7 +15,7 @@ class LibroSeed extends Seeder
             [
             'id' => 1, 
             'titulo' => 'Gestión para la formación en gobernabilidad en el escenario ecuatoriano', 
-            'autores' => '1',
+           // 'autores' => '1',
             'facultad' => 'Economía',
             'revision_pares' => '', 
             'contrato' => '',
@@ -27,7 +27,7 @@ class LibroSeed extends Seeder
             [
             'id' => 2, 
             'titulo' => 'La naturaleza del desvalor productivo crítica a los fundamentos de competencia', 
-            'autores' => '2;3;4',
+           // 'autores' => '2;3;4',
             'facultad' => 'Especialidades Empresariales', 
             'revision_pares' => '',
             'contrato' => '', 
@@ -37,7 +37,7 @@ class LibroSeed extends Seeder
             
             ['id' => 3, 
             'titulo' => 'Student perceptions of the use of SIDWEB for Learning English writing skills in an ecuadorian university', 
-            'autores' => '6', 
+           // 'autores' => '6', 
             'facultad' => 'Artes y Humanidades',
             'revision_pares' => '', 
             'contrato' => '',
@@ -48,7 +48,7 @@ class LibroSeed extends Seeder
              [
             'id' => 4, 
             'titulo' => 'Problemas sociales de la ciencia, la tecnología y la innovación: Reflexiones sobre el derecho, la educación y la salud humana',
-            'autores' => '5;7',
+          //  'autores' => '5;7',
             'facultad' => 'Aspirantes a doctorado', 
             'revision_pares' => '', 
             'contrato' => '', 

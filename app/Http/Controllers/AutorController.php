@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
-use App\Autores;
+use App\Autor;
+use App\autorbook;
+use DB;
 
 class AutorController extends Controller
 {
@@ -16,7 +18,7 @@ class AutorController extends Controller
      */
     public function index()
     {
-       $autores=Autores::get(); 
+       $autores=Autor::get(); 
        //dd($autores);
        return view("autores/index",compact('autores'));
     }
@@ -40,7 +42,6 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-       // dd($data);
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',
@@ -48,7 +49,6 @@ class AutorController extends Controller
         'email' => 'required',
         'telefono' => 'required'
         );
-
         if($data['filiacion']==null)$data['filiacion']='-';
         if($data['documentos']==null)$data['documentos']='-';
 
@@ -60,7 +60,7 @@ class AutorController extends Controller
                 ->withInput();
         }
         else{
-           $autor = New Autores;
+           $autor = New Autor;
            $input = array_filter($data,'strlen');
            $autor->fill($input);
            $autor->save();
@@ -88,7 +88,7 @@ class AutorController extends Controller
      */
     public function edit($id)
     {
-        $autor = Autores::find($id);
+        $autor = Autor::find($id);
         return view('autores/editar', compact('autor'));
     }
 
@@ -118,10 +118,9 @@ class AutorController extends Controller
                 ->withInput();
         }
         else{
-            $autor = Autores::find($id);
+            $autor = Autor::find($id);
             $input = array_filter($data,'strlen');
             $autor->fill($input);
-            //dd($libro);
             $autor->save();
             Session::flash('message','Registro editado correctamente');
             return redirect()->action('AutorController@index'); 
@@ -136,21 +135,25 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-         $autor = Autores::find($id);
+         $autor = Autor::find($id);
         if(empty($autor))
         {
             Session::flash('message','Registro no encontrado');
              return redirect()->action('AutorController@index'); 
         }else{
+            if(DB::table('autorbook')->where('autor_id',$autor->id)->value('id')){
+               Session::flash('message','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
+            }else{
             $autor->delete();
             Session::flash('message','Registro borrado sin problemas.');
+            } 
             return redirect()->action('AutorController@index'); 
         }
     }
 
      public function consultar(Request $request, $id)
     {
-        $autores = Autores::find($id); 
+        $autores = Autor::find($id); 
 
         return view('autores/consultar', compact('autores'));
     }

@@ -4,19 +4,14 @@
                        {!!Form::text('titulo',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200',])!!} 
                     </div>
+
+
                     <div class="form-group">
                       <label>Autores</label>
-                        {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores','autofocus'])!!} 
-                      </div>
-
-                    <!--  <button type="button" id="agregar_autores" onclick="add_autores()">Agregar</button>                         
-                    
-                    </div>
-
-                    <div id="lista_autores">
-                        Autores:
-                        
-                    </div>-->
+                    @foreach ($libro->autor as $name)
+                    <input class="form-control" placeholder="-" maxlength="10" disabled="" name="revision_pares" type="text" value="{{$name->nombre}} {{$name->apellido}}">
+                     @endforeach
+                    </div>                    
   
                     <div class="form-group">
                       <label>Facultad</label>

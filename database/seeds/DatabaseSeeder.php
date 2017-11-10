@@ -10,12 +10,12 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        
+    {        
         $this->call(RoleSeed::class);
         $this->call(UserSeed::class);
         $this->call(LibroSeed::class);
         $this->call(AutoresSeed::class);
+        $this->call(AutorBookSeed::class);
 
     }
 }

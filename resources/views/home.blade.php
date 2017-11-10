@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+   <h1 class="page-title">Libros</h1>
   <!--  <div class="row">
         <div class="col-md-10">
             <div class="panel panel-default">
@@ -47,12 +48,23 @@
             </tr>
         </tfoot>
         <tbody>
+           
+     
+
            @foreach($libros as $libro)
             <tr>
               
                 <td class="dt-body-center">{{$libro->id}}</td>
                 <td>{{$libro->titulo}}</td>
-                <td>{{$libro->autores}}</td>
+
+
+                <!-- LAZO DE RELACION MUCHO A MUCHOS LIBRO - AUTOR-->
+                <td>
+                @foreach ($libro->autor as $name) 
+                {{$name->nombre}} {{$name->apellido}} <br>               
+                @endforeach  
+                </td> 
+
                 <td class="dt-body-center">{{$libro->created_at}}</td> 
                  <td class="dt-body-center"> 
                  <p>

@@ -96,7 +96,7 @@ class AutoresSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Autores::create($item);
+            \App\Autor::create($item);
         }
     }
 }

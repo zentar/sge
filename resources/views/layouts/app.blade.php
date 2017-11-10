@@ -41,7 +41,9 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif      
+                    @endif 
+
+                  {{--   @include('layouts.titulo') --}}
 
                       @yield('content')
                       

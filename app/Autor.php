@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Autores extends Model
+class Autor extends Model
 {
 	use SoftDeletes;
 	
-    protected $table = 'autores';
+    protected $table = 'autors';
 
     const CREATED_AT = 'created_at';
 	
@@ -24,5 +24,10 @@ class Autores extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = ['cedula', 'nombre','apellido','email','telefono','filiacion','documentos'];
+
+     public function Book()
+    {
+        return $this->belongsToMany('App\Book','autorbook');
+    }
     
 }

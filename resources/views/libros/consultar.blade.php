@@ -7,12 +7,16 @@
                       <label>Título</label> 
                        {!!Form::text('titulo',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!} 
-                    </div>
+                    </div>                
+
                     <div class="form-group">
                       <label>Autores</label>
-                      {!!Form::text('autores',null,['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
+
+                    @foreach ($libro->autor as $name)
+                    <input class="form-control" placeholder="-" maxlength="10" disabled="" name="revision_pares" type="text" value="{{$name->nombre}} {{$name->apellido}}">
+                     @endforeach
                     </div>
+
                     <div class="form-group">
                       <label>Facultad</label>
                        {!!Form::text('facultad',null,['class'=>'form-control', 

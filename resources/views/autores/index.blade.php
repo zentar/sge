@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+     <h1 class="page-title">Autores</h1>
+
       <div class="row container-fluid ">
       <div class="box-body table-responsive">
            {!! link_to_route('autor.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-primary "] ) !!}</p>         
