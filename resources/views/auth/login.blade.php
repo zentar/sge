@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
-        
+       
             <div class="panel panel-default">
                 <div class="panel-heading text-center" style="background-color:rgb(153,9,42); color:white"> 
                 <img src="{{URL::asset('logos/dpB-big-white.png')}}" alt="SGD" width="50%" align="center">

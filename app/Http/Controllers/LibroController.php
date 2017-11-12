@@ -50,12 +50,12 @@ class LibroController extends Controller
         'autores' => 'required',
         'facultad' => 'required',
         'isbn' => 'required',
-        'paginas' => 'required'
+        'paginas' => 'required',
+        'autor' => 'required',
         );
         if($data['revision_pares']==null)$data['revision_pares']='-';
         if($data['contrato']==null)$data['contrato']='-';
         if($data['pi']==null)$data['pi']='-';
-        //dd($data);
 
         $v = Validator::make($data,$rules);
         if($v->fails())
@@ -65,15 +65,22 @@ class LibroController extends Controller
                 ->withInput();
         }
         else{
+           $autores= $data['autor']; 
+           unset($data['autor']);
            $libro = New Book;
-           
-           $libroAutor = new autorbook;
            $input = array_filter($data,'strlen');
            $libro->fill($input);              
            $libro->save();
-           $libroAutor->book_id=$libro->id;
-           $libroAutor->autor_id=$data['autores']; 
-           $libroAutor->save();
+           
+
+           foreach($autores as $autor){
+            $libroAutor = new autorbook;
+            $libroAutor->book_id=$libro->id;
+            $libroAutor->autor_id=$autor; 
+            $libroAutor->save();
+           }
+
+           
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -99,7 +106,14 @@ class LibroController extends Controller
     public function edit($id)
     {
         $libro = Book::find($id);
-        return view('libros/editar', compact('libro'));
+        $autores = Autor::all();
+        $flag_editar_autor=1;
+        $autores_nombre=[];       
+           foreach($autores as $autors){
+                    $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
+                  }
+      // dd($libro->autor);
+        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor'));
     }
 
     /**
@@ -112,10 +126,12 @@ class LibroController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+       // dd($data);
         $rules = array(
            "titulo" => 'required',
            "facultad" => 'required',
            "isbn" => 'required',
+           "autor" => 'required',
            "paginas" => 'required'
         );
 
@@ -127,11 +143,25 @@ class LibroController extends Controller
                 ->withInput();
         }
         else{
+            $autores= $data['autor']; 
+            unset($data['autor']);
             $libro = Book::find($id);
             $input = array_filter($data,'strlen');
             $libro->fill($input);
-            //dd($libro);
             $libro->save();
+
+             $eliminar = autorbook::where('book_id', $libro->id);
+
+            if(!$eliminar==null)
+            $eliminar->delete();  
+
+        foreach($autores as $autor){                 
+
+            $libroAutor = new autorbook;
+            $libroAutor->book_id=$libro->id;
+            $libroAutor->autor_id=$autor; 
+            $libroAutor->save();
+           }
             Session::flash('message','Registro editado correctamente');
             return redirect()->action('HomeController@index'); 
         }

@@ -5,11 +5,38 @@
                       'placeholder'=>'-','maxlength'=>'200',])!!} 
                     </div>
 
-                    <div class="form-group">
-                      <label>Autores</label>
+                    
+                   <!-- <div class="form-group">
+                      <div class="col-md-1">
+                         <label>Autores</label>
+                      </div>
+                      <div class="col-md-6">
                         {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores','autofocus'])!!} 
                       </div>
-                      
+                        <div class="col-md-5">
+                        <button type="button" class="btn btn-primary">+</button>
+                      </div>
+                    </div>-->
+              
+
+                   <div class="panel panel-default">
+                     <div class="panel-heading">
+                       <h3 class="panel-title">Autores</h3>
+                     </div>
+                     <div class="panel-body">
+
+                     <div class="form-group col-md-6">        
+                      {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores','autofocus'])!!}
+                     </div>
+
+                     <div class="form-group col-md-6">
+                     <button type="button" class="btn btn-primary" id="Agregar_autores" onclick="myFunction()">Agregar</button>
+                    </div>
+
+                     <div class="form-group col-md-8" id="demo">  </div>                   
+                     </div>
+                   </div>                
+                    
                     <div class="form-group">
                       <label>Facultad</label>
                        {!!Form::text('facultad',null,['class'=>'form-control', 

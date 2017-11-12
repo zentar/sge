@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class autorbook extends Model
 {
-	
-	use SoftDeletes;
 
     protected $table = 'autorbook';
 
@@ -17,10 +15,6 @@ class autorbook extends Model
 	const UPDATED_AT = 'updated_at';
 
 	const DELETED_AT = 'deleted_at';
-
-    protected $softDelete = true;
-
-    protected $dates = ['deleted_at'];
 
 	protected $primaryKey = 'id';
 
