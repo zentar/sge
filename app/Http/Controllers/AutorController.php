@@ -8,9 +8,21 @@ use Session;
 use App\Autor;
 use App\autorbook;
 use DB;
+use Illuminate\Support\Facades\Input;
 
 class AutorController extends Controller
 {
+ /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }   
+
+
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +77,7 @@ class AutorController extends Controller
            $autor->fill($input);
            $autor->save();
            Session::flash('message','Registro agregado correctamente');
-           return redirect()->action('AutorController@index'); 
+           return redirect()->back();          
         }
     }
 

@@ -67,13 +67,12 @@
 
                 <td class="dt-body-center">{{$libro->created_at}}</td> 
                  <td class="dt-body-center"> 
-                 <p>
+         
                 {!!link_to_route('libro.consultar', $title = 'Consultar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
-
                 {!!link_to_route('libro.edit', $title = 'Editar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
-                
+              
                 {!!link_to_route('libro.delete', $title = 'Eliminar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
-               </p>
+             
                 </td>
             </tr>
             @endforeach        

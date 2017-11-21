@@ -5,7 +5,11 @@
                       'placeholder'=>'-','maxlength'=>'200',])!!} 
                     </div>
 
-
+                    <div class="form-group">
+                      <label>Facultad</label>
+                       {!!Form::text('facultad',null,['class'=>'form-control', 
+                      'placeholder'=>'-','maxlength'=>'100',])!!}
+                    </div>
                <!--<div class="form-group">
                       <label>Autores</label>
                     @foreach ($libro->autor as $name)
@@ -28,23 +32,16 @@
                      <button type="button" class="btn btn-primary" id="Agregar_autores" onclick="myFunction()">Agregar</button>
                     </div>
 
-                     <div class="form-group col-md-8" id="demo">
-                      @foreach ($libro->autor as $name)
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">                 
+                      @foreach ($libro->autor as $name)                    
 
-                      <input class='col-md-6' maxlength='200' disabled id='autors{{$name->id}}' type='text' name='text[]' value='{{$name->nombre}} {{$name->apellido}}'>
+                      <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$name->id}}' type='text' name='text[]' value='{{$name->nombre}} {{$name->apellido}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger col-xs-2 col-sm-12 col-md-12 col-lg-12' id='autor-{{$name->id}}' onclick='myFunction2({{$name->id}})'>Quitar </button></div>
 
-                      <button type='button' class='btn-danger col-md-1' id='autor-{{$name->id}}' onclick='myFunction2({{$name->id}})'>Quitar </button>
                       @endforeach
                       </div>                   
                      </div>
-                   </div>          
-
-           
-                    <div class="form-group">
-                      <label>Facultad</label>
-                       {!!Form::text('facultad',null,['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100',])!!}
-                    </div>
+                   </div> 
+                   
                     <div class="form-group">
                       <label>Revisión de Pares</label>
                         {!!Form::text('revision_pares',null,['class'=>'form-control',

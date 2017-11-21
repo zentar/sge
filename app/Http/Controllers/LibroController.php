@@ -11,6 +11,18 @@ use App\autorbook;
 
 class LibroController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +41,8 @@ class LibroController extends Controller
     public function create()
     {
         $autores = Autor::all();
-        $autores_nombre=[];       
+        $autores_nombre=[];
+        array_push($autores_nombre,"Seleccionar Autor");       
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
@@ -108,7 +121,8 @@ class LibroController extends Controller
         $libro = Book::find($id);
         $autores = Autor::all();
         $flag_editar_autor=1;
-        $autores_nombre=[];       
+        $autores_nombre=[];
+        array_push($autores_nombre,"Seleccionar Autor");  
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
