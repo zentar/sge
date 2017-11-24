@@ -54,6 +54,7 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+      // dd($data);
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',
@@ -61,6 +62,7 @@ class AutorController extends Controller
         'email' => 'required',
         'telefono' => 'required'
         );
+        
         if($data['filiacion']==null)$data['filiacion']='-';
         if($data['documentos']==null)$data['documentos']='-';
 
@@ -69,15 +71,23 @@ class AutorController extends Controller
         {
             return redirect()->back()
                 ->withErrors($v->errors())
-                ->withInput();
+                ->withInput()->with('error_code', 5);
         }
         else{
-           $autor = New Autor;
-           $input = array_filter($data,'strlen');
-           $autor->fill($input);
+           $autor = New Autor;           
+            $autor->cedula    =  $data['cedula'];
+            $autor->nombre    =  $data['nombre'];
+            $autor->apellido  =  $data['apellido'];
+            $autor->email     =  $data['email'];
+            $autor->telefono  =  $data['telefono'];
+            $autor->filiacion =  $data['filiacion'];
+            $autor->documentos=  $data['documentos'];
+          // $input = array_filter($data,'strlen');
+          // $autor->fill($input);
+           // dd($autor);
            $autor->save();
            Session::flash('message','Registro agregado correctamente');
-           return redirect()->back();          
+           return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"));          
         }
     }
 
@@ -114,6 +124,7 @@ class AutorController extends Controller
     public function update(Request $request, $id)
     {
          $data = $request->all();
+       
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',

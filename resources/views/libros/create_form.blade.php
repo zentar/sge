@@ -1,12 +1,12 @@
 
               <div class="form-group">    
                   <label>Título</label>                   
-                  {!!Form::text('titulo',null,['class'=>'form-control','placeholder'=>'-','maxlength'=>'200',])!!}                  
+                  {!!Form::text('titulo',Request::old('titulo'),['class'=>'form-control','placeholder'=>'-','maxlength'=>'200',])!!}                  
               </div>  
                     
                     <div class="form-group">
                       <label>Facultad</label>
-                       {!!Form::text('facultad',null,['class'=>'form-control', 
+                       {!!Form::text('facultad',Request::old('facultad'),['class'=>'form-control', 
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
 
@@ -30,36 +30,46 @@
                     </div>
                   </div>
 
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">  
+                       @if (count(old('autor'))>0)                        
+                       @foreach (old('autor') as $user)
+                      <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$user}}' type='text' name='text[]' value='{{$autores_nombre[$user]}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger col-xs-2 col-sm-12 col-md-12 col-lg-12' id='autor-{{$user}}' onclick='myFunction2({{$user}})'>Quitar </button></div>
+           
+                       @endforeach
+                       @endif
+                
+
                     </div>                       
                    
                    </div> </div>
 
                     <div class="form-group">
                       <label>Revisión de Pares</label>
-                        {!!Form::text('revision_pares',null,['class'=>'form-control',
+                        {!!Form::text('revision_pares',Request::old('revision_pares'),['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'10',])!!}
                     </div>
                     <div class="form-group">
                       <label>Contrato</label>
-                        {!!Form::text('contrato',null,['class'=>'form-control',
+                        {!!Form::text('contrato',Request::old('contrato'),['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'10',])!!}
                     </div>
                     <div class="form-group">
                       <label>ISBN</label>
-                        {!!Form::text('isbn',null,['class'=>'form-control',
+                        {!!Form::text('isbn',Request::old('isbn'),['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
                      <div class="form-group">
                       <label>PI</label>
-                        {!!Form::text('pi',null,['class'=>'form-control',
+                        {!!Form::text('pi',Request::old('pi'),['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
                      <div class="form-group">
                       <label>N paginas</label>
-                      {!!Form::text('paginas',null,['class'=>'form-control', 
+                      {!!Form::text('paginas',Request::old('paginas'),['class'=>'form-control', 
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
+
+
 
 
 

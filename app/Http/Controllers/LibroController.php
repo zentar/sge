@@ -46,6 +46,7 @@ class LibroController extends Controller
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
+
         return view('libros/create', compact('libro','autores_nombre'));
     }
 
@@ -58,6 +59,7 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        //dd($data);
          $rules = array(
         'titulo' => 'required',
         'autores' => 'required',
@@ -75,7 +77,7 @@ class LibroController extends Controller
         {
             return redirect()->back()
                 ->withErrors($v->errors())
-                ->withInput();
+                ->withInput()->with('error_code', 4);
         }
         else{
            $autores= $data['autor']; 

@@ -32,7 +32,7 @@
                             <p>{{ Session::get('message') }}</p>
                         </div>
                     @endif
-                    @if ($errors->count() > 0)
+                    @if ($errors->count() > 0 and Session::get('error_code') != 4 and Session::get('error_code') != 5)
                         <div class="alert alert-danger">
                             <ul class="list-unstyled">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -41,7 +41,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif 
+                    @endif
 
                   {{--   @include('layouts.titulo') --}}
 

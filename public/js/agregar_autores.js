@@ -38,7 +38,19 @@
          return "-1"; 
    }
 
-    $("#crear_autores").submit( function(eventObj) {
+    $("#crear_libro").submit( function(eventObj) {
+      var tamano = autor_global.length;
+      for(var i=0;i<tamano;i++){
+      $('<input />').attr('type', 'hidden')
+          .attr('name', "autor[]")
+          .attr('value', autor_global[i])
+          .appendTo('#crear_libro');
+        }
+      console.log(autor_global);
+      return true;
+  });
+
+     $("#crear_autores").submit( function(eventObj) {
       var tamano = autor_global.length;
       for(var i=0;i<tamano;i++){
       $('<input />').attr('type', 'hidden')
@@ -46,6 +58,7 @@
           .attr('value', autor_global[i])
           .appendTo('#crear_autores');
         }
+      console.log(autor_global);
       return true;
   });
     

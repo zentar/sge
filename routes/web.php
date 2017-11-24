@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'AutorController@consultar',
         ]);
 
-            Route::post('autor/{id}/update', [
+        Route::post('autor/{id}/update', [
             'as' => 'autor.update',
             'uses' => 'AutorController@update',
         ]);
