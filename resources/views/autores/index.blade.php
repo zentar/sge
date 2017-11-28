@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('content')
-     <h1 class="page-title">Autores</h1>
+    <h1 class="page-title">@lang('quickadmin.qa_au_index')</h1>
 
       <div class="row container-fluid ">
       <div class="box-body table-responsive">
-           {!! link_to_route('autor.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-primary "] ) !!}</p>         
+           {!! link_to_route('autor.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-success "] ) !!}</p>         
         <div class="panel-body">
             <table id="table_autores" class="table table-striped table-bordered display compact autores" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th class="dt-head-center">Id</th>
-                <th class="dt-head-center">Cedula</th>
+                <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center">Email</th>
-                <th class="dt-head-center">Telefono</th>
+                <th class="dt-head-center">Teléfono</th>
                 <th class="dt-head-center"></th>   
 
             </tr>
@@ -21,10 +21,10 @@
         <tfoot>
             <tr>
                 <th class="dt-head-center">Id</th>
-                <th class="dt-head-center">Cedula</th>
+                <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center">Email</th>
-                <th class="dt-head-center">Telefono</th>
+                <th class="dt-head-center">Teléfono</th>
                 <th class="dt-head-center"></th>                
             </tr>
         </tfoot>

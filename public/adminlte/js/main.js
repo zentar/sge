@@ -8,10 +8,13 @@ $(document).ready(function () {
     }
     window.dtDefaultOptions = {
         retrieve: true,
-        dom: 'lBfrtip<"actions">',
+       // dom: 'lBfrtip<"actions">',   HABILITA CONTROL DOM PARA BOTONES DE EXPORTACION 
         columnDefs: [],
-        "iDisplayLength": 100,
+        "iDisplayLength": 10,
         "aaSorting": [],
+           "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
         buttons: [
             {
                 extend: 'copy',

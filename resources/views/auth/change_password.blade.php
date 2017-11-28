@@ -13,10 +13,10 @@
 	@else
 		{!! Form::open(['method' => 'PATCH', 'route' => ['auth.change_password']]) !!}
 		<!-- If no success message in flash session show change password form  -->
-		<div class="panel panel-default">
+	{{--	<div class="panel panel-default">
 			<div class="panel-heading">
 				@lang('quickadmin.qa_edit')
-			</div>
+			</div>--}}
 
 			<div class="panel-body">
 				<div class="row">
@@ -58,9 +58,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
+		{{--</div>--}}
+        <div class="col-md-6">
 		{!! Form::submit(trans('quickadmin.qa_save'), ['class' => 'btn btn-danger']) !!}
+		</div>
 		{!! Form::close() !!}
 	@endif
 @stop

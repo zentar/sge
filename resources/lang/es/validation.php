@@ -38,5 +38,6 @@ return [
         'numeric' => 'El :attribute no debe ser mas grande que :max.',
         'file' => 'El :attribute no debe ser mas grande que :max kilobytes.',
     ],
+    'required' => 'El campo :attribute es obligatorio.',
 
 ];

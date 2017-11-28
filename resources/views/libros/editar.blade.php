@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+           <h1 class="page-title">@lang('quickadmin.qa_li_actualizar')</h1>
               <div class="box container col-md-6 ">
                <div class="box-body">
 

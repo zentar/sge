@@ -2,12 +2,11 @@
               <div class="form-group">    
                   <label>Título</label>                   
                   {!!Form::text('titulo',Request::old('titulo'),['class'=>'form-control','placeholder'=>'-','maxlength'=>'200',])!!}                  
-              </div>  
-                    
+              </div>
+
                     <div class="form-group">
                       <label>Facultad</label>
-                       {!!Form::text('facultad',Request::old('facultad'),['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100',])!!}
+                       {!!Form::select('facultad_id',$facultades_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'facultad_id'])!!}
                     </div>
 
                     <div class="panel panel-default">
@@ -17,7 +16,7 @@
                      <div class="panel-body">
 
                      <div class="form-group col-md-6">        
-                     {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores','autofocus'])!!}
+                     {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores'])!!}
                      </div>
                   
                   <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">

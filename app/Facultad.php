@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Book extends Model
+class Facultad extends Model
 {
   
     use SoftDeletes;
 
-    protected $table = 'books';
+    protected $table = 'facultad';
 
     const CREATED_AT = 'created_at';
 	
@@ -24,17 +24,12 @@ class Book extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','pi','paginas'];
+    protected $fillable = ['nombre'];
 
 
-    public function autor()
+
+    public function book()
     {
-        return $this->belongsToMany('App\Autor','autorbook');
-    }
-
-    public function facultad()
-    {
-        return $this->belongsTo('App\Facultad');
-    }
-    
+        return $this->hasMany('App\Book');
+    }  
 }

@@ -23,6 +23,7 @@
 <script src="{{ url('js') }}/tables.js"></script>
 <script src="{{ url('js') }}/agregar_autores.js"></script>
 <script src="{{ url('js') }}/agregar_capitulos.js"></script>
+<script src="{{ url('js') }}/agregar_libros.js"></script>
 
 <script src="{{ url('adminlte/js') }}/bootstrap.min.js"></script>
 <script src="{{ url('adminlte/js') }}/select2.full.min.js"></script>
@@ -44,60 +45,19 @@
 
 
 <script>
-   var libro = [];
-   var auto = []; 
+     var capitulo_global=1;
+
+
+    
+
+     function agregarCapitulo(){
+       var contenido = $('input[name=titulo_capitulo]').val(); 
+       document.getElementById('capitulos').innerHTML +="<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Capítulo "+capitulo_global+"</h3></div><div class='panel-body'><div class='form-group col-md-6'><input class='form-control' placeholder='Ingrese capitulo' disabled maxlength='200' name='capitulo' type='text' value="+contenido+"></div><div class='form-group col-xs-12 col-sm-12 col-md-6 col-lg-6'><div class='form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2'><button type='button' class='btn btn-primary col-sm-12 col-md-12 col-lg-12' id='Agregar_autores' onclick='myFunction()'>Agregar</button></div><div class='form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2'><button type='button' class='btn btn-primary col-sm-12 col-md-12 col-lg-12' id='nuevo_autores' onclick='myFunction()'>Quitar</button></div></div></div></div><div id='autores_capitulo"+capitulo_global+"'></div>";  
 
  
-
-   $("#crear_autores").submit( function(eventObj) {
-      var tamano = autor_global.length;
-      libro['titulo']         = $('input[name=titulo]').val();
-        libro['facultad']       = $('input[name=facultad]').val();
-        libro['revision_pares'] = $('input[name=revision_pares]').val();
-        libro['contrato']       = $('input[name=contrato]').val();
-        libro['isbn']           = $('input[name=isbn]').val();
-        libro['pi']             = $('input[name=pi]').val();
-        libro['paginas']        = $('input[name=paginas]').val();
-        
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "titulo")
-          .attr('value', libro['titulo'])
-          .appendTo('#crear_autores');
-
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "facultad")
-          .attr('value', libro['facultad'])
-          .appendTo('#crear_autores');
-          
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "revision_pares")
-          .attr('value', libro['revision_pares'])
-          .appendTo('#crear_autores');
-
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "contrato")
-          .attr('value', libro['contrato'])
-          .appendTo('#crear_autores');
-
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "isbn")
-          .attr('value', libro['isbn'])
-          .appendTo('#crear_autores');
-           
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "pi")
-          .attr('value', libro['pi'])
-          .appendTo('#crear_autores');
-
-    $('<input />').attr('type', 'hidden')
-          .attr('name', "paginas")
-          .attr('value', libro['paginas'])
-          .appendTo('#crear_autores');  
-     
-      return true;
-  });
-
-</script>
+       capitulo_global= capitulo_global+1;
+    }
+    </script>
 
 @yield('javascript')
 

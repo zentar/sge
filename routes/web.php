@@ -106,6 +106,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         ]);
 
 
+         Route::get('capitulos', [
+            'as' => 'libro.capitulos',
+            'uses' => 'LibroController@capitulos',
+        ]);
+
+
 
 
       

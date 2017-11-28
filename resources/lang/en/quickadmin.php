@@ -1,9 +1,32 @@
 <?php
 
 return [
-		'user-management' => [		'title' => 'Administración de usuarios',		'fields' => [		],	],
-		'roles' => [		'title' => 'Roles',		'fields' => [			'title' => 'Título',		],	],
-		'users' => [		'title' => 'Usuarios',		'fields' => [			'name' => 'Nombre',			'email' => 'Correo',			'password' => 'Contraseña',			'role' => 'Rol',			'remember-token' => 'Recordar token',		],	],
+	
+	'user-management' => [
+		'title' => 'Administración de usuarios',
+		'fields' => [
+		],
+		'libros' => 'Publicaciones - Libros',
+		'autores' => 'Publicaciones - Autores'
+	],
+	
+	'roles' => [
+		'title' => 'Roles',
+		'fields' => [
+			'title' => 'Título',
+		],
+	],
+	
+	'users' => [
+		'title' => 'Usuarios',
+		'fields' => [
+			'name' => 'Nombre',
+			'email' => 'Correo',
+			'password' => 'Contraseña',
+			'role' => 'Rol',
+			'remember-token' => 'Recordar token',
+		],
+	],
 	'qa_create' => 'Create',
 	'qa_save' => 'Save',
 	'qa_edit' => 'Edit',

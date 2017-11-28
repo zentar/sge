@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.users.title')</h3>
+    <h1 class="page-title">@lang('quickadmin.users.title')</h1>
     @can('user_create')
     <p>
         <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang('quickadmin.qa_add_new')</a>
@@ -12,10 +12,10 @@
 
     
 
-    <div class="panel panel-default">
+    {{--<div class="panel panel-default">
         <div class="panel-heading">
             @lang('quickadmin.qa_list')
-        </div>
+        </div>--}}
 
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} @can('user_delete') dt-select @endcan">
@@ -46,10 +46,10 @@
                                 <td field-key='role'>{{ $user->role->title or '' }}</td>
                                                                 <td>
                                     @can('user_view')
-                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
+                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary">@lang('quickadmin.qa_view')</a>
                                     @endcan
                                     @can('user_edit')
-                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
+                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-info">@lang('quickadmin.qa_edit')</a>
                                     @endcan
                                     @can('user_delete')
                                     {!! Form::open(array(
@@ -57,7 +57,7 @@
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
                                         'route' => ['admin.users.destroy', $user->id])) !!}
-                                    {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-danger')) !!}
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>
@@ -72,7 +72,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+   {{-- </div> --}}
 @stop
 
 @section('javascript') 

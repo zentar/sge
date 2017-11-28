@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 use App\Book;
 use App\Autor;
+use App\Facultad;
 use App\autorbook;
 
 class LibroController extends Controller
@@ -41,13 +42,19 @@ class LibroController extends Controller
     public function create()
     {
         $autores = Autor::all();
+        $facultades = Facultad::all();
         $autores_nombre=[];
-        array_push($autores_nombre,"Seleccionar Autor");       
-           foreach($autores as $autors){
+        $facultades_nombre=[];
+        array_push($autores_nombre,"Seleccionar Autor"); 
+        $facultades_nombre[null] = "Seleccionar Facultad";  
+
+        foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
-
-        return view('libros/create', compact('libro','autores_nombre'));
+        foreach($facultades as $facultad){
+                    $facultades_nombre[$facultad->id] = $facultad->nombre;                   
+                  }          
+        return view('libros/create', compact('libro','autores_nombre','facultades_nombre'));
     }
 
     /**
@@ -58,12 +65,11 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        //dd($data);
+        $data = $request->all();        
          $rules = array(
         'titulo' => 'required',
         'autores' => 'required',
-        'facultad' => 'required',
+        'facultad_id' => 'required',
         'isbn' => 'required',
         'paginas' => 'required',
         'autor' => 'required',
@@ -85,8 +91,7 @@ class LibroController extends Controller
            $libro = New Book;
            $input = array_filter($data,'strlen');
            $libro->fill($input);              
-           $libro->save();
-           
+           $libro->save();          
 
            foreach($autores as $autor){
             $libroAutor = new autorbook;
@@ -128,8 +133,14 @@ class LibroController extends Controller
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
-      // dd($libro->autor);
-        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor'));
+         $facultades = Facultad::all();
+        $facultades_nombre=[];
+        $facultades_nombre[null] = "Seleccionar Facultad";  
+        foreach($facultades as $facultad){
+                    $facultades_nombre[$facultad->id] = $facultad->nombre;                   
+                  }  
+        //dd($libro->facultad_id);                 
+        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre'));
     }
 
     /**
@@ -145,7 +156,7 @@ class LibroController extends Controller
        // dd($data);
         $rules = array(
            "titulo" => 'required',
-           "facultad" => 'required',
+           "facultad_id" => 'required',
            "isbn" => 'required',
            "autor" => 'required',
            "paginas" => 'required'
@@ -209,5 +220,21 @@ class LibroController extends Controller
         $libro = Book::find($id);
         return view('libros/consultar', compact('libro'));
     }
+
+      public function capitulos()
+    {
+        $libros = Book::all();
+        //  dd($libro[0]->titulo);
+        $libro_nombre=[]; 
+        $libro_nombre[null] = "Seleccionar Libro";  
+
+        foreach($libros as $libro){
+                    $libro_nombre[$libro->id] = $libro->titulo;                   
+                  }
+      //  dd($libro_nombre);
+
+        return view('libros/capitulos', compact('libro_nombre'));
+    }
+
 
 }

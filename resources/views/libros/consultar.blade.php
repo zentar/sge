@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+       <h1 class="page-title">@lang('quickadmin.qa_li_consultar')</h1>
               <div class="box container col-md-6 ">
                 <div class="box-body">
                   {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'PUT'])!!}
@@ -19,7 +20,7 @@
 
                     <div class="form-group">
                       <label>Facultad</label>
-                       {!!Form::text('facultad',null,['class'=>'form-control', 
+                       {!!Form::text('facultad',$libro->facultad->nombre,['class'=>'form-control', 
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
                     </div>
                     <div class="form-group">

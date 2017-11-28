@@ -1,9 +1,30 @@
 <?php
 
 return [
-		'user-management' => [		'title' => 'Administración de usuarios',		'fields' => [		],	],
-		'roles' => [		'title' => 'Roles',		'fields' => [			'title' => 'Título',		],	],
-		'users' => [		'title' => 'Usuarios',		'fields' => [			'name' => 'Nombre',			'email' => 'Correo',			'password' => 'Contraseña',			'role' => 'Rol',			'remember-token' => 'Recordar token',		],	],
+	
+	'user-management' => [
+		'title' => 'Administración de usuarios',
+		'fields' => [
+		],
+	],
+	
+	'roles' => [
+		'title' => 'Roles',
+		'fields' => [
+			'title' => 'Título',
+		],
+	],
+	
+	'users' => [
+		'title' => 'Usuarios',
+		'fields' => [
+			'name' => 'Nombre',
+			'email' => 'Correo',
+			'password' => 'Contraseña',
+			'role' => 'Rol',
+			'remember-token' => 'Recordar token',
+		],
+	],
 	'qa_create' => 'Crear',
 	'qa_save' => 'Guardar',
 	'qa_edit' => 'Editar',
@@ -216,11 +237,27 @@ return [
 	'qa_main_currency' => 'Moneda Principal',
 	'qa_documents' => 'Documentos',
 	'qa_not_approved_title' => 'No estas aprovado',
-	'qa_there_were_problems_with_input' => 'Hubo problemas con esta entrada',
+	'qa_there_were_problems_with_input' => 'Hubo algunos problemas con esta entrada',
 	'qa_csvImport' => 'Importar CSV',
 	'qa_csv_file_to_import' => 'Archivo CSV a Importar',
 	'qa_parse_csv' => 'Parsear CSV',
 	'qa_imported_rows_to_table' => 'Importados :rows filas a la tabla :table',
 	'qa_if_you_are_having_trouble' => 'Si estás teniendo problemas dale click a ',
 	'quickadmin_title' => 'SGD',
+	'qa_titulo_error' => 'Error - ',
+	'qa_capitulos' => 'Ingreso de Capitulos',
+
+	//TITULOS @lang('quickadmin.qa_titulo_error')
+    'qa_li_index' => 'Libros',   //index libros
+    'qa_li_crear' => 'Ingreso de Libro',   //crear libros
+    'qa_li_actualizar' => 'Edición Libro',   //actualizar libros
+    'qa_li_consultar' => 'Consulta Libro',   //consultar libros
+    'qa_li_capitulos' => 'Ingreso de Capítulos',
+
+    'qa_au_index' => 'Autores',   //index autores
+    'qa_au_crear' => 'Ingreso de Autor',   //crear autores
+    'qa_au_actualizar' => 'Edición Autor',   //actualizar autores
+    'qa_au_consultar' => 'Consulta Autor'   //consultar autores
+
+
 ];

@@ -3,12 +3,12 @@
 <aside class="main-sidebar" style="background-color:rgb(0,0,0); color:white">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-        <ul class="sidebar-menu" >
 
+        <ul class="sidebar-menu" >
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-book"></i>
-                    <span class="title">Publicaciones - Libros</span>
+                    <span class="title">@lang('quickadmin.user-management.libros')</span>
                 </a>
             </li>
 
@@ -16,9 +16,17 @@
              <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/autor') }}">
                     <i class="fa fa-user"></i>
-                    <span class="title">Publicaciones - Autores</span>
+                    <span class="title">@lang('quickadmin.user-management.autores')</span>
                 </a>
             </li>
+
+
+          {{--  <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+                <a href="{{ url('/capitulos') }}">
+                    <i class="fa fa-bookmark"></i>
+                    <span class="title">@lang('quickadmin.qa_capitulos')</span>
+                </a>
+            </li> --}}
 
             
             @can('user_management_access')
