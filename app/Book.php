@@ -36,5 +36,10 @@ class Book extends Model
     {
         return $this->belongsTo('App\Facultad');
     }
+
+    public function capitulos()
+    {
+         return $this->hasMany('App\capitulos');
+    }
     
 }

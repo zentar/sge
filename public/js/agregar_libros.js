@@ -4,8 +4,11 @@
 
    $("#crear_autores").submit( function(eventObj) {
       var tamano = autor_global.length;
-      libro['titulo']         = $('input[name=titulo]').val();
-        libro['facultad']       = $('input[name=facultad]').val();
+      var e = document.getElementById("facultad_id");
+      var facultad_old = e.options[e.selectedIndex].value;
+
+        libro['titulo']         = $('input[name=titulo]').val();
+        libro['facultad_old']   = facultad_old;
         libro['revision_pares'] = $('input[name=revision_pares]').val();
         libro['contrato']       = $('input[name=contrato]').val();
         libro['isbn']           = $('input[name=isbn]').val();
@@ -18,8 +21,8 @@
           .appendTo('#crear_autores');
 
     $('<input />').attr('type', 'hidden')
-          .attr('name', "facultad")
-          .attr('value', libro['facultad'])
+          .attr('name', "facultad_old")
+          .attr('value', libro['facultad_old'])
           .appendTo('#crear_autores');
           
     $('<input />').attr('type', 'hidden')

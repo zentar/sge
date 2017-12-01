@@ -21,12 +21,19 @@
             </li>
 
 
-          {{--  <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/capitulos') }}">
                     <i class="fa fa-bookmark"></i>
                     <span class="title">@lang('quickadmin.qa_capitulos')</span>
                 </a>
-            </li> --}}
+            </li> 
+
+              <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+                <a href="{{ url('/capitulos/consultar') }}">
+                    <i class="fa fa-bookmark"></i>
+                    <span class="title">Revisar capitulos (temporal)</span>
+                </a>
+            </li> 
 
             
             @can('user_management_access')

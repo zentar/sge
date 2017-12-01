@@ -22,6 +22,7 @@ class LibroSeed extends Seeder
             'isbn' => '978-9942-904-62-1',
             'pi' => 'GYE-008607', 
             'paginas' => '128'
+      
             ],
 
             [
@@ -33,7 +34,8 @@ class LibroSeed extends Seeder
             'contrato' => '', 
             'isbn' => '978-9942-904-75-1', 
             'pi' => 'GYE-008647',
-            'paginas' => '320'],
+            'paginas' => '320'
+    ],
             
             ['id' => 3, 
             'titulo' => 'Student perceptions of the use of SIDWEB for Learning English writing skills in an ecuadorian university', 
@@ -43,7 +45,8 @@ class LibroSeed extends Seeder
             'contrato' => '',
             'isbn' => '978-9942-904-97-3',
             'pi' => '',
-            'paginas' => '96'],
+            'paginas' => '96'
+            ],
 
              [
             'id' => 4, 
@@ -55,6 +58,7 @@ class LibroSeed extends Seeder
             'isbn' => '978-9942-769-02-2',
             'pi' => '', 
             'paginas' => '106'
+    
              ]
 
 

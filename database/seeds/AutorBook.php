@@ -60,7 +60,7 @@ class AutorBookSeed extends Seeder
         ];
 
         foreach ($items as $item) {            
-            \App\AutorBook::create($item);
+            \App\autorbook::create($item);
         }
     }
 }

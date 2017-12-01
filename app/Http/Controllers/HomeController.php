@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $libros=Book::get();
-        
+        //dd($libros[1]->Capitulos);
         return view('home', compact('libros'));
     }
 }

@@ -31,6 +31,7 @@
 
    function buscar_array(array,elemento){
       var tamano = array.length;
+      console.log(array);
       for(var i=0;i<tamano;i++){
          if(array[i]==elemento)
             return i;

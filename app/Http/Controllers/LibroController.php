@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 use App\Book;
 use App\Autor;
+use App\Capitulos;
 use App\Facultad;
 use App\autorbook;
+use App\autorcapitulos;
+use DB;
 
 class LibroController extends Controller
 {
@@ -53,8 +56,9 @@ class LibroController extends Controller
                   }
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
-                  }          
-        return view('libros/create', compact('libro','autores_nombre','facultades_nombre'));
+                  }        
+                //  dd($facultades);  
+        return view('libros/create', compact('libro','autores_nombre','facultades'));
     }
 
     /**
@@ -65,10 +69,9 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();        
+        $data = $request->all(); 
          $rules = array(
         'titulo' => 'required',
-        'autores' => 'required',
         'facultad_id' => 'required',
         'isbn' => 'required',
         'paginas' => 'required',
@@ -77,13 +80,14 @@ class LibroController extends Controller
         if($data['revision_pares']==null)$data['revision_pares']='-';
         if($data['contrato']==null)$data['contrato']='-';
         if($data['pi']==null)$data['pi']='-';
+        if($data['facultad_id']=="null")$data['facultad_id']=null;
 
         $v = Validator::make($data,$rules);
         if($v->fails())
         {
-            return redirect()->back()
+        return redirect()->back()
                 ->withErrors($v->errors())
-                ->withInput()->with('error_code', 4);
+                ->withInput()->with('error_code', 4)->with('facultad_old', $request->facultad_id);
         }
         else{
            $autores= $data['autor']; 
@@ -100,7 +104,6 @@ class LibroController extends Controller
             $libroAutor->save();
            }
 
-           
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -203,12 +206,17 @@ class LibroController extends Controller
     public function destroy($id)
     {
         $libro = Book::find($id);
+        $libro_autor =  autorbook::all()->where('book_id',$id);
         if(empty($libro))
         {
             Session::flash('message','Registro no encontrado');
             return redirect(route('admin.home'));
         }else{
             $libro->delete();
+            foreach($libro_autor as $relacion){
+              $relacion->delete();
+            }
+
             Session::flash('message','Registro borrado sin problemas.');
             return redirect(route('admin.home')); 
         }
@@ -227,14 +235,48 @@ class LibroController extends Controller
         //  dd($libro[0]->titulo);
         $libro_nombre=[]; 
         $libro_nombre[null] = "Seleccionar Libro";  
-
+        $autores = Autor::all();
+        
         foreach($libros as $libro){
                     $libro_nombre[$libro->id] = $libro->titulo;                   
-                  }
-      //  dd($libro_nombre);
-
-        return view('libros/capitulos', compact('libro_nombre'));
+                  } 
+    
+        return view('libros/capitulos', compact('libro_nombre','autores'));
     }
+
+    public function agregarCapitulos(Request $request){
+         $data = $request->all();
+         $cuerpos = json_decode($data["data"],true);  
+     
+         foreach($cuerpos as $cuerpo){
+              $capitulo = new capitulos();
+              $capitulo->book_id = $data["libro_id"];
+              $capitulo->titulo = $cuerpo["titulo"];
+              $capitulo->descripcion = $cuerpo["descripcion"];
+              $capitulo->save();
+              
+                
+              foreach($cuerpo["autores"] as $autor){
+                $autorcapitulos = new autorcapitulos();
+                $autorcapitulos->capitulos_id = $capitulo->id;
+                $autorcapitulos->autor_id = $autor; 
+                $autorcapitulos->save();
+               }
+         }
+
+        Session::flash('message','Capitulos ingresados sin problemas.');
+      return redirect()->action('HomeController@index');
+    }
+
+     public function capitulosConsultar (Request $request){
+      $libro = Book::get();  
+      $capitulos = Capitulos::get();
+      $autores = Autor::get();
+      $autorcapitulos = autorcapitulos::get();
+
+      return view('libros/consultarCapitulos', compact('libro','capitulos','autores','autorcapitulos'));
+
+     }
 
 
 }

@@ -5,8 +5,15 @@
               </div>
 
                     <div class="form-group">
-                      <label>Facultad</label>
-                       {!!Form::select('facultad_id',$facultades_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'facultad_id'])!!}
+                      <label>Facultad</label>              
+
+                      <select id="facultad_id" style="width: 100%" class="form-control select2" name="facultad_id">
+                        <option value='null'> Seleccionar Facultad </option>
+                       @foreach($facultades as $facultad)
+                        <option value="{{ $facultad->id }}" @if(Session::get('facultad_old') == $facultad->id) selected @endif> {{ $facultad->nombre }} </option>
+                       @endforeach
+
+                      </select>
                     </div>
 
                     <div class="panel panel-default">
@@ -35,9 +42,8 @@
                       <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$user}}' type='text' name='text[]' value='{{$autores_nombre[$user]}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger col-xs-2 col-sm-12 col-md-12 col-lg-12' id='autor-{{$user}}' onclick='myFunction2({{$user}})'>Quitar </button></div>
            
                        @endforeach
-                       @endif
-                
-
+                       @endif 
+                       
                     </div>                       
                    
                    </div> </div>

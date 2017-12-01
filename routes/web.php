@@ -66,6 +66,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@create',
         ]);
 
+        Route::post('capitulos', [
+            'as' => 'libro.capitulos',
+            'uses' => 'LibroController@agregarCapitulos',
+        ]);
+
 //CRUD AUTORES
          Route::resource('autor','AutorController');
 
@@ -109,6 +114,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
          Route::get('capitulos', [
             'as' => 'libro.capitulos',
             'uses' => 'LibroController@capitulos',
+        ]);
+
+        Route::get('capitulos/consultar', [
+            'as' => 'capitulos.consultar',
+            'uses' => 'LibroController@capitulosConsultar',
         ]);
 
 

@@ -29,5 +29,10 @@ class Autor extends Model
     {
         return $this->belongsToMany('App\Book','autorbook');
     }
+
+        public function Capitulos()
+    {
+        return $this->belongsToMany('App\Capitulos','autorcapitulos');
+    }
     
 }

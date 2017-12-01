@@ -31,7 +31,7 @@ class AutorController extends Controller
     public function index()
     {
        $autores=Autor::get(); 
-       //dd($autores);
+      // dd($autores[0]->capitulos);
        return view("autores/index",compact('autores'));
     }
 
@@ -69,9 +69,9 @@ class AutorController extends Controller
         $v = Validator::make($data,$rules);
         if($v->fails())
         {
-            return redirect()->back()
+          return redirect()->back()
                 ->withErrors($v->errors())
-                ->withInput()->with('error_code', 5);
+                ->withInput()->with('error_code', 5)->with('facultad_old', $request->facultad_old);
         }
         else{
            $autor = New Autor;           
@@ -87,7 +87,7 @@ class AutorController extends Controller
            // dd($autor);
            $autor->save();
            Session::flash('message','Registro agregado correctamente');
-           return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"));          
+           return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"))->with('facultad_old', $request->facultad_old);          
         }
     }
 
@@ -158,7 +158,7 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-         $autor = Autor::find($id);
+        $autor = Autor::find($id);
         if(empty($autor))
         {
             Session::flash('message','Registro no encontrado');
