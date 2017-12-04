@@ -30,7 +30,6 @@
                      <div class="form-group col-md-6">
                      <button type="button" class="btn btn-primary" id="Agregar_autores" onclick="myFunction()">Agregar</button>
                     </div>
-
                     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">                 
                       @foreach ($libro->autor as $name)                    
 
@@ -41,30 +40,58 @@
                      </div>
                    </div> 
                    
-                    <div class="form-group">
+                    <div class="form-group ">
                       <label>Revisión de Pares</label>
                         {!!Form::text('revision_pares',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'10',])!!}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ">
                       <label>Contrato</label>
                         {!!Form::text('contrato',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'10',])!!}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ">
                       <label>ISBN</label>
                         {!!Form::text('isbn',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
-                     <div class="form-group">
+                     <div class="form-group ">
                       <label>PI</label>
                         {!!Form::text('pi',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
-                     <div class="form-group">
+                     <div class="form-group ">
                       <label>N paginas</label>
                       {!!Form::text('paginas',null,['class'=>'form-control', 
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
+                    
 
+                     @if($libro->capitulos->count() > 0)  
+                    <div class="form-group col-md-12">
+                       <strong>Capítulos</strong>{!!link_to_route('libro.agregarcapitulos', $title = "Editar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
+                     </div>
+                    @foreach ($libro->capitulos as $capitulos)
+                    <div class="form-group panel panel-default col-md-6">
+                      <ul>
+                    <li> {{$capitulos->titulo}}</li>
+                    <strong>{{$capitulos->descripcion}}</strong>
+                             <ul>
+                                  @foreach ($capitulos->autor as $autor)
+                                 <p>{{$autor->nombre}} {{$autor->apellido}}</p>
+                                 @endforeach 
+                             </ul>
 
+                  </ul>
+                    </div>                      
+                     @endforeach
+
+                     @else
+                     <div class="form-group col-md-12">
+                       <label>Capítulos</label>
+                       <p> No se ha ingresado ningún capitulo.
+                           {!!link_to_route('libro.agregarcapitulos', $title = "Agregar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}
+                      </p>       
+                     </div>
+
+                    @endif

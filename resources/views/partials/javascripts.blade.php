@@ -44,15 +44,17 @@
 </script>
 
 
-@if(isset($autores))    
+@if(isset($autores) and isset($libro)) 
 <script>
      var capitulo_global=0;
      var autor_global=['1','1','1'];
+     var autor_quitar=['0'];
+
      function agregarCapitulo(){
        //var contenido = $('input[name=titulo_capitulo]').val();
       capitulo_global = capitulo_global+1;
        var contenido = "prueba"; 
-      $('#capitulos').append('<div id=id_global'+capitulo_global+' class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Nombre y descripcion del Capítulo</h3></div><div class="panel-body"><div class="form-group col-md-6"><input class="form-control" placeholder="Titulo" maxlength="200" name="titulo'+capitulo_global+'" type="text" value=""></div><div class="form-group col-md-6"><input class="form-control" placeholder="Descripcion" maxlength="200" name="descripcion'+capitulo_global+'" type="text" value=""></div><div class="form-group col-md-6"><select id="autores'+capitulo_global+'" style="width: 100%" class="form-control select2" name="autores[]"><option value="null">Seleccionar Autor </option>@foreach($autores as $autor)<option value="{{ $autor->id }}"> {{ $autor->nombre }} {{ $autor->apellido }} </option>@endforeach</select></div><div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2"><button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="Agregar_autores'+capitulo_global+'" onclick="agregar_autores_capitulos('+capitulo_global+')">Agregar</button></div><div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2"><button type="button" class="btn btn-danger col-sm-12 col-md-12 col-lg-12" id="nuevo_autores'+capitulo_global+' data-toggle="modal" disabled onclick="eliminar_autores_capitulos('+capitulo_global+')" data-target=".bd-example-modal-lg">Quitar</button></div></div><div id="demo'+capitulo_global+'"></div></div></div>');
+      $('#capitulos').append('<div class="col-md-12" id="id_global'+capitulo_global+'"><div class="panel-heading"></div><div class="panel-body"><div class="form-group col-md-6"><input class="form-control" placeholder="Titulo" maxlength="200" name="titulo'+capitulo_global+'" type="text" value=""></div><div class="form-group col-md-6"><input class="form-control" placeholder="Descripcion" maxlength="200" name="descripcion'+capitulo_global+'" type="text" value=""></div><div class="form-group col-md-6"><select id="autores'+capitulo_global+'" style="width: 100%" class="form-control select2" name="autores[]"><option value="null">Seleccionar Autor </option>@foreach($autores as $autor)<option value="{{ $autor->id }}"> {{ $autor->nombre }} {{ $autor->apellido }} </option>@endforeach</select></div><div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2"><button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="Agregar_autores'+capitulo_global+'" onclick="agregar_autores_capitulos('+capitulo_global+')">Agregar</button></div><div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2"><button type="button" class="btn btn-danger col-sm-12 col-md-12 col-lg-12" id="nuevo_autores'+capitulo_global+' data-toggle="modal" onclick="eliminar_autores_capitulos('+capitulo_global+')" data-target=".bd-example-modal-lg">Quitar</button></div></div><div id="demo'+capitulo_global+'"></div></div></div>');
           autor_global[capitulo_global]=[];
           console.log(autor_global);
     }
@@ -104,9 +106,8 @@ function agregar_autores_capitulos(id){
 
    function eliminar_autores_capitulos(id){
      $( "#id_global"+id).remove();
-        autor_global.splice(id,1); 
-        console.log(autor_global,id);
-
+        autor_quitar.push(id);
+        console.log(capitulo_global,autor_global,id,autor_quitar);
    }
 
 
@@ -118,10 +119,20 @@ function agregar_autores_capitulos(id){
         var descripcion = $('input[name=descripcion'+i+']').val();
         data["capitulo"+i] = {"titulo": titulo,"descripcion":descripcion,"autores":autor_global[i]};
       }
-         
+      
       $('<input />').attr('type', 'hidden')
           .attr('name', "data")
           .attr('value', JSON.stringify(data))
+          .appendTo('#crear_capitulos_libro');
+
+      $('<input />').attr('type', 'hidden')
+          .attr('name', "libro_id")
+          .attr('value', {{$libro->id}})
+          .appendTo('#crear_capitulos_libro');
+
+      $('<input />').attr('type', 'hidden')
+          .attr('name', "capitulos_quitar")
+          .attr('value', JSON.stringify(autor_quitar))
           .appendTo('#crear_capitulos_libro');
      
       return true;
@@ -129,6 +140,23 @@ function agregar_autores_capitulos(id){
 
 
 </script>
+
+@if($libro->capitulos->count() > 0)
+     
+     @foreach ($libro->capitulos as $capitulos)
+      <script>
+      capitulo_global = capitulo_global + 1;
+      autor_global[capitulo_global]=[]; 
+     </script>
+       @foreach ($capitulos->autor as $capitulo)
+                 <script>
+                  autor_global[capitulo_global].push({{$capitulo->id}});
+                 </script>
+       @endforeach
+     
+      @endforeach
+   @endif
+   <script>console.log(capitulo_global,autor_global);</script>
 @endif
 
 @yield('javascript')

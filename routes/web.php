@@ -66,6 +66,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@create',
         ]);
 
+
+         Route::get('libro/agregar/capitulos/{id}', [
+            'as' => 'libro.agregarcapitulos',
+            'uses' => 'LibroController@capitulos',
+        ]);
+
         Route::post('capitulos', [
             'as' => 'libro.capitulos',
             'uses' => 'LibroController@agregarCapitulos',
@@ -111,15 +117,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         ]);
 
 
-         Route::get('capitulos', [
-            'as' => 'libro.capitulos',
-            'uses' => 'LibroController@capitulos',
-        ]);
-
-        Route::get('capitulos/consultar', [
-            'as' => 'capitulos.consultar',
-            'uses' => 'LibroController@capitulosConsultar',
-        ]);
 
 
 

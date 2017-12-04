@@ -1,5 +1,4 @@
-
-              <div class="form-group">    
+ <div class="form-group">    
                   <label>Título</label>                   
                   {!!Form::text('titulo',Request::old('titulo'),['class'=>'form-control','placeholder'=>'-','maxlength'=>'200',])!!}                  
               </div>
@@ -73,6 +72,11 @@
                       {!!Form::text('paginas',Request::old('paginas'),['class'=>'form-control', 
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
+
+
+
+
+             
 
 
 

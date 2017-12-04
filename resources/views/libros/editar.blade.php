@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
            <h1 class="page-title">@lang('quickadmin.qa_li_actualizar')</h1>
-              <div class="box container col-md-6 ">
+              <div class="box container">
                <div class="box-body">
 
                   {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_autores",'name'=>"editar_autores"])!!}
                 
                     @include('libros/editar_form')
-                     <div class="box-footer">
+                     <div class="box-footer col-md-12">
                     <button type="submit" class="btn btn-primary">Grabar</button>
                   </div>                    
                   {!!Form::close()!!}                        

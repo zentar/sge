@@ -229,25 +229,46 @@ class LibroController extends Controller
         return view('libros/consultar', compact('libro'));
     }
 
-      public function capitulos()
+      public function capitulos(Request $request,$id)
     {
-        $libros = Book::all();
-        //  dd($libro[0]->titulo);
-        $libro_nombre=[]; 
-        $libro_nombre[null] = "Seleccionar Libro";  
-        $autores = Autor::all();
-        
-        foreach($libros as $libro){
-                    $libro_nombre[$libro->id] = $libro->titulo;                   
-                  } 
-    
-        return view('libros/capitulos', compact('libro_nombre','autores'));
+        $libro = Book::find($id);     
+        $autores = Autor::all();  
+        return view('libros/capitulos', compact('libro','autores'));
     }
 
     public function agregarCapitulos(Request $request){
          $data = $request->all();
-         $cuerpos = json_decode($data["data"],true);  
-     
+        // dd(json_decode($data["capitulos_quitar"],true));
+        $eliminados = json_decode($data["capitulos_quitar"],true);
+        $cuerpos = json_decode($data["data"],true);  
+       // dd($cuerpos);
+        $cuerpos = quitar_capitulos_eliminados($cuerpos,$eliminados);
+       // dd($cuerpos);
+        $rules = array(
+           "titulo" => 'required',
+           "descripcion" => 'required',
+        );
+        foreach($cuerpos as $cuerpo){   
+        $v=Validator::make($cuerpo,$rules);
+        if($v->fails())
+        {
+            return redirect()->back()
+                ->withErrors($v->errors())
+                ->withInput();
+        }
+        }
+         $existe_capitulos = capitulos::get()->where('book_id',$data["libro_id"]);
+
+         if(count($existe_capitulos)>0){
+             foreach($existe_capitulos as $borrar){               
+              $relacion_capitulos_autor = autorcapitulos::get()->where('capitulos_id',$borrar->id);
+                foreach($relacion_capitulos_autor as $borrar_relacion){   
+                   $borrar_relacion->delete();  
+               }              
+              $borrar->delete();
+          }
+         }
+
          foreach($cuerpos as $cuerpo){
               $capitulo = new capitulos();
               $capitulo->book_id = $data["libro_id"];
@@ -264,19 +285,7 @@ class LibroController extends Controller
                }
          }
 
-        Session::flash('message','Capitulos ingresados sin problemas.');
-      return redirect()->action('HomeController@index');
+      Session::flash('message','Capitulos ingresados sin problemas.');
+      return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
     }
-
-     public function capitulosConsultar (Request $request){
-      $libro = Book::get();  
-      $capitulos = Capitulos::get();
-      $autores = Autor::get();
-      $autorcapitulos = autorcapitulos::get();
-
-      return view('libros/consultarCapitulos', compact('libro','capitulos','autores','autorcapitulos'));
-
-     }
-
-
 }
