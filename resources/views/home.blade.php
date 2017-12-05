@@ -16,7 +16,7 @@
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
-                <th class="dt-head-center">Fecha Publicación</th>
+                <th class="dt-head-center">Fecha de ingreso</th>
                 <th class="dt-head-center"></th>   
             </tr>
         </thead>
@@ -26,7 +26,7 @@
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
-                <th class="dt-head-center">Fecha Publicación</th>
+                <th class="dt-head-center">Fecha de ingreso</th>
                 <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
@@ -51,10 +51,11 @@
                 <td class="dt-body-center">{{$libro->created_at}}</td> 
                  <td class="dt-body-center"> 
          
-                {!!link_to_route('libro.consultar', $title = 'Consultar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
-                {!!link_to_route('libro.edit', $title = 'Editar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary "])!!}
+                {!!link_to_route('libro.consultar', $title = 'Consultar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary .btn-sm"])!!}
+                
+                {!!link_to_route('libro.edit', $title = 'Editar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary .btn-sm"])!!}
               
-                {!!link_to_route('libro.delete', $title = 'Eliminar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('libro.delete', $title = 'Eliminar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger .btn-sm",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
              
                 </td>
             </tr>

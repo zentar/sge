@@ -21,6 +21,7 @@ class CreateBookTable extends Migration
             $table->string('isbn');
             $table->string('pi');
             $table->string('paginas');
+            $table->integer('estados_id');
             $table->softDeletes();        
             $table->timestamps();
         });

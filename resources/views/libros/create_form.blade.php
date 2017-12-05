@@ -50,27 +50,37 @@
                     <div class="form-group">
                       <label>Revisión de Pares</label>
                         {!!Form::text('revision_pares',Request::old('revision_pares'),['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'10',])!!}
+                      'placeholder'=>'-','maxlength'=>'10'])!!}
                     </div>
                     <div class="form-group">
                       <label>Contrato</label>
                         {!!Form::text('contrato',Request::old('contrato'),['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'10',])!!}
+                      'placeholder'=>'-','maxlength'=>'10'])!!}
                     </div>
                     <div class="form-group">
                       <label>ISBN</label>
                         {!!Form::text('isbn',Request::old('isbn'),['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100',])!!}
+                      'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>
                      <div class="form-group">
                       <label>PI</label>
                         {!!Form::text('pi',Request::old('pi'),['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100',])!!}
+                      'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>
                      <div class="form-group">
                       <label>N paginas</label>
                       {!!Form::text('paginas',Request::old('paginas'),['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100',])!!}
+                      'placeholder'=>'-','maxlength'=>'100'])!!}
+                    </div>
+
+                    <div class="form-group">
+                      <label>Estado</label>
+                      <select id="estados_id" style="width: 100%" class="form-control" name="estados_id">
+                        <option value='null'> Seleccionar Estado </option>
+                       @foreach($estados as $estado)
+                        <option value="{{ $estado->id }}"> {{ $estado->nombre }} </option>
+                       @endforeach
+                      </select>
                     </div>
 
 

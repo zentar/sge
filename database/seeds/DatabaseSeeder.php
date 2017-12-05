@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AutoresSeed::class);
         $this->call(AutorBookSeed::class);
         $this->call(FacultadSeed::class);
-
+        $this->call(EstadosSeed::class);
     }
 }

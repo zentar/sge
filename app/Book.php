@@ -24,7 +24,7 @@ class Book extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','pi','paginas'];
+    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','pi','paginas','estados_id'];
 
 
     public function autor()
@@ -40,6 +40,11 @@ class Book extends Model
     public function capitulos()
     {
          return $this->hasMany('App\capitulos');
+    }
+
+    public function estados()
+    {
+         return $this->belongsTo('App\estados');
     }
     
 }

@@ -9,6 +9,7 @@ use App\Book;
 use App\Autor;
 use App\Capitulos;
 use App\Facultad;
+use App\Estados;
 use App\autorbook;
 use App\autorcapitulos;
 use DB;
@@ -46,6 +47,7 @@ class LibroController extends Controller
     {
         $autores = Autor::all();
         $facultades = Facultad::all();
+        $estados = Estados::all();
         $autores_nombre=[];
         $facultades_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor"); 
@@ -57,8 +59,8 @@ class LibroController extends Controller
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }        
-                //  dd($facultades);  
-        return view('libros/create', compact('libro','autores_nombre','facultades'));
+                 // dd($estados);  
+        return view('libros/create', compact('libro','autores_nombre','facultades','estados'));
     }
 
     /**
@@ -69,7 +71,8 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all(); 
+        $data = $request->all();
+        //dd($data); 
          $rules = array(
         'titulo' => 'required',
         'facultad_id' => 'required',
@@ -130,6 +133,7 @@ class LibroController extends Controller
     {
         $libro = Book::find($id);
         $autores = Autor::all();
+        $estados = Estados::all();
         $flag_editar_autor=1;
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
@@ -143,7 +147,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
         //dd($libro->facultad_id);                 
-        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre'));
+        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','estados'));
     }
 
     /**
@@ -226,6 +230,7 @@ class LibroController extends Controller
        public function consultar(Request $request, $id)
     {
         $libro = Book::find($id);
+       // dd($libro->estados);
         return view('libros/consultar', compact('libro'));
     }
 

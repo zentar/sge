@@ -9,6 +9,8 @@ use App\Autor;
 use App\autorbook;
 use DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class AutorController extends Controller
 {
@@ -54,13 +56,18 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-      // dd($data);
+        $file = $request->file('documentos');
+        $path="";
+        $path = Storage::putFile('public', $file);
+     
+
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required',
         'telefono' => 'required'
+     // 'documentos' =>'required|mimes:png'
         );
         
         if($data['filiacion']==null)$data['filiacion']='-';
@@ -74,14 +81,15 @@ class AutorController extends Controller
                 ->withInput()->with('error_code', 5)->with('facultad_old', $request->facultad_old);
         }
         else{
-           $autor = New Autor;           
+           
+            $autor = New Autor;           
             $autor->cedula    =  $data['cedula'];
             $autor->nombre    =  $data['nombre'];
             $autor->apellido  =  $data['apellido'];
             $autor->email     =  $data['email'];
             $autor->telefono  =  $data['telefono'];
             $autor->filiacion =  $data['filiacion'];
-            $autor->documentos=  $data['documentos'];
+            $autor->documentos=  $path;
           // $input = array_filter($data,'strlen');
           // $autor->fill($input);
            // dd($autor);
@@ -177,7 +185,8 @@ class AutorController extends Controller
      public function consultar(Request $request, $id)
     {
         $autores = Autor::find($id); 
-
-        return view('autores/consultar', compact('autores'));
+        $url = Storage::url($autores->documentos); 
+       // dd($url);    
+        return view('autores/consultar', compact('autores','url'));
     }
 }

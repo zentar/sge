@@ -38,11 +38,11 @@
                 <td class="dt-body-center">{{$autor->telefono}}</td>
                 <td class="dt-body-center"> 
                  <p>
-                {!!link_to_route('autor.consultar', $title = 'Consultar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-primary "])!!}
+                {!!link_to_route('autor.consultar', $title = 'Consultar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-primary btn-sm"])!!}
 
-                {!!link_to_route('autor.edit', $title = 'Editar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-primary "])!!}
+                {!!link_to_route('autor.edit', $title = 'Editar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-primary btn-sm"])!!}
                 
-                {!!link_to_route('autor.delete', $title = 'Eliminar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-danger ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('autor.delete', $title = 'Eliminar', $parameters = $autor->id, $attributes = ['class'=>"btn btn-danger btn-sm",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td>
             </tr>

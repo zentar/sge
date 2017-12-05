@@ -49,6 +49,12 @@
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
                     </div>  
                     
+                    <div class="form-group col-md-6">
+                      <label>Estado</label>
+                        {!!Form::text('estado_id',$libro->estados->nombre,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
+                    </div>
+
                     @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
                        <label>Capítulos</label>
@@ -68,7 +74,7 @@
                     </div>                      
                      @endforeach
                     @endif
-
+                  
                   {!!Form::close()!!}
                      <div class="col-md-12">
                       {!! link_to_route('admin.home', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}

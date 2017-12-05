@@ -36,10 +36,14 @@
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
                     </div>
                      <div class="form-group col-md-6">
-                      <label>Documentos</label>
-                        {!!Form::text('documentos',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
-                    </div>                                     
+                      <label>Documentos</label> 
+
+                  <a href="{{asset($url)}}" target="_blank">
+                         <strong>Ver Imagen</strong>
+                  </a>
+
+                    </div>
+
                   {!!Form::close()!!}
                     <div class="col-md-12">
                       {!! link_to_route('autor.index', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p>

@@ -5,7 +5,7 @@
 
               <div class="box box-primary">
                 <div class="box-body">
-                  {!!Form::open(['route'=>'autor.store', 'method'=>'POST'])!!}
+                  {!!Form::open(['route'=>'autor.store', 'method'=>'POST','files' => true])!!}
                    @include('autores/create_form')
                    <div class="box-footer col-md-12">
 

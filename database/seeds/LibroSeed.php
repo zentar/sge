@@ -21,7 +21,8 @@ class LibroSeed extends Seeder
             'contrato' => '',
             'isbn' => '978-9942-904-62-1',
             'pi' => 'GYE-008607', 
-            'paginas' => '128'
+            'paginas' => '128',
+            'estados_id' => '1'
       
             ],
 
@@ -34,7 +35,8 @@ class LibroSeed extends Seeder
             'contrato' => '', 
             'isbn' => '978-9942-904-75-1', 
             'pi' => 'GYE-008647',
-            'paginas' => '320'
+            'paginas' => '320',
+            'estados_id' => '2'
     ],
             
             ['id' => 3, 
@@ -45,7 +47,8 @@ class LibroSeed extends Seeder
             'contrato' => '',
             'isbn' => '978-9942-904-97-3',
             'pi' => '',
-            'paginas' => '96'
+            'paginas' => '96',
+            'estados_id' => '3'
             ],
 
              [
@@ -57,10 +60,9 @@ class LibroSeed extends Seeder
             'contrato' => '', 
             'isbn' => '978-9942-769-02-2',
             'pi' => '', 
-            'paginas' => '106'
-    
+            'paginas' => '106',
+            'estados_id' => '4'    
              ]
-
 
         ];
 
