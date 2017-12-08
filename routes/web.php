@@ -77,6 +77,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@agregarCapitulos',
         ]);
 
+         Route::get('capitulos/delete/{id}', [
+            'as' => 'capitulo.delete',
+            'uses' => 'LibroController@eliminarCapitulos',
+        ]);
+
 //CRUD AUTORES
          Route::resource('autor','AutorController');
 
@@ -115,19 +120,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'autor.create',
             'uses' => 'AutorController@create',
         ]);
-
-Route::get('storage/{archivo}', function ($archivo) {
-     $public_path = public_path();
-     $url = $public_path.'/storage/'.$archivo;
-     //verificamos si el archivo existe y lo retornamos
-     if (Storage::exists($archivo))
-     {
-       return response()->download($url);
-     }
-     //si no se encuentra lanzamos un error 404.
-     abort(404);
-
-});
 
 
 

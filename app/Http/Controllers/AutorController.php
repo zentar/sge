@@ -56,18 +56,18 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $file = $request->file('documentos');
-        $path="";
-        $path = Storage::putFile('public', $file);
-     
+       // $file = $request->file('documentos');
+       // dd($data);
+       // $path="";
+      //  $path = Storage::putFile('public', $file);
 
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required',
-        'telefono' => 'required'
-     // 'documentos' =>'required|mimes:png'
+        'telefono' => 'required',
+        'documentos' =>'required'
         );
         
         if($data['filiacion']==null)$data['filiacion']='-';
@@ -89,13 +89,18 @@ class AutorController extends Controller
             $autor->email     =  $data['email'];
             $autor->telefono  =  $data['telefono'];
             $autor->filiacion =  $data['filiacion'];
-            $autor->documentos=  $path;
+            $autor->documentos=  $data['documentos'];
           // $input = array_filter($data,'strlen');
           // $autor->fill($input);
            // dd($autor);
            $autor->save();
            Session::flash('message','Registro agregado correctamente');
-           return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"))->with('facultad_old', $request->facultad_old);          
+ 
+          if(isset($data['editar'])){           
+            return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"))->with('facultad_old', $request->facultad_old); 
+          }else{
+            return redirect()->action('AutorController@index');
+           }         
         }
     }
 

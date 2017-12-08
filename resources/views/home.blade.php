@@ -51,11 +51,11 @@
                 <td class="dt-body-center">{{$libro->created_at}}</td> 
                  <td class="dt-body-center"> 
          
-                {!!link_to_route('libro.consultar', $title = 'Consultar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary .btn-sm"])!!}
+                {!!link_to_route('libro.consultar', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
                 
-                {!!link_to_route('libro.edit', $title = 'Editar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary .btn-sm"])!!}
+                {!!link_to_route('libro.edit', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary btn-warning btn-md fa fa-pencil-square-o"])!!}
               
-                {!!link_to_route('libro.delete', $title = 'Eliminar', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger .btn-sm",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('libro.delete', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger btn-danger btn-md fa fa-trash-o ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
              
                 </td>
             </tr>

@@ -31,5 +31,6 @@
                     </div>
                      <div class="form-group col-md-6">
                       <label>Documentos</label>
-                      {{ Form::file('documentos',['name'=>'documentos']) }}
+                      {!!Form::text('documentos',null,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>             

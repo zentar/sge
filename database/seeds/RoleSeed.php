@@ -15,6 +15,10 @@ class RoleSeed extends Seeder
             
             ['id' => 1, 'title' => 'Administrador (puede crear otros usuarios)',],
             ['id' => 2, 'title' => 'Usuario Simple',],
+            ['id' => 3, 'title' => 'Director',],
+            ['id' => 4, 'title' => 'Secretaria Administrativa',],
+            ['id' => 5, 'title' => 'Editor',],
+            ['id' => 6, 'title' => 'Secretaria Cotizaciones',],
 
         ];
 

@@ -59,8 +59,32 @@
           .attr('value', autor_global[i])
           .appendTo('#crear_autores');
         }
+
+       $('<input />').attr('type', 'hidden')
+          .attr('name', "editar")
+          .attr('value', 1)
+          .appendTo('#crear_autores'); 
+          
       console.log(autor_global);
       return true;
   });
-    
+
+
+    $("#crear_capitulos_libro").submit( function(eventObj) {
+      var tamano = autor_global.length;
+
+        $('<input />').attr('type', 'hidden')
+          .attr('name', "autor[]")
+          .attr('value', null)
+          .appendTo('#crear_capitulos_libro');
+
+      for(var i=0;i<tamano;i++){
+      $('<input />').attr('type', 'hidden')
+          .attr('name', "autor[]")
+          .attr('value', autor_global[i])
+          .appendTo('#crear_capitulos_libro');
+        }
+      console.log(autor_global);
+      return true;
+  });
 

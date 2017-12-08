@@ -119,6 +119,28 @@ $(document).ready(function() {
 } );
 } );
 
+$(document).ready(function() {
+    $('.capitulos').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "2%" },
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "40%" },
+    { "width": "8%" }
+  ],
+} );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

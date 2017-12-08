@@ -14,6 +14,8 @@
                 <!--  {!! link_to_route('admin.home', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p> -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
+
+              @include('general/autor_modal')
 @stop
 
 

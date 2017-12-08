@@ -14,55 +14,44 @@ class EstadosSeed extends Seeder
         $items = [
             [
             'id' => 1, 
-            'nombre' => 'Estado1',
+            'nombre' => 'Ingresado',
             'descripcion' => 'Estado1'
             ],
                 [
             'id' => 2, 
-            'nombre' => 'Estado2',
+            'nombre' => 'Aprobado - Edición',
             'descripcion' => 'Estado2'
             ],
                 [
             'id' => 3, 
-            'nombre' => 'Estado3',
+            'nombre' => 'Edición',
             'descripcion' => 'Estado3'
             ],
                 [
             'id' => 4, 
-            'nombre' => 'Estado4',
+            'nombre' => 'Cotización',
             'descripcion' => 'Estado4'
             ],
                 [
             'id' => 5, 
-            'nombre' => 'Estado5',
+            'nombre' => 'Aprobado - Cotización',
             'descripcion' => 'Estado5'
             ],
                 [
             'id' => 6, 
-            'nombre' => 'Estado6',
+            'nombre' => 'Tramites de documentación',
             'descripcion' => 'Estado6'
             ],
                 [
             'id' => 7, 
-            'nombre' => 'Estado7',
+            'nombre' => 'Producción',
             'descripcion' => 'Estado7'
             ],
                 [
             'id' => 8, 
-            'nombre' => 'Estado8',
+            'nombre' => 'Publicado',
             'descripcion' => 'Estado8'
-            ],
-                [
-            'id' => 9, 
-            'nombre' => 'Estado9',
-            'descripcion' => 'Estado9'
-            ],
-                [
-            'id' => 10, 
-            'nombre' => 'Estado10',
-            'descripcion' => 'Estado10'
-            ]
-         
+            ]         
         ];
 
         foreach ($items as $item) {

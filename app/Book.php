@@ -39,12 +39,12 @@ class Book extends Model
 
     public function capitulos()
     {
-         return $this->hasMany('App\capitulos');
+         return $this->hasMany('App\Capitulos');
     }
 
     public function estados()
     {
-         return $this->belongsTo('App\estados');
+         return $this->belongsTo('App\Estados');
     }
     
 }

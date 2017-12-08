@@ -78,7 +78,7 @@ class LibroController extends Controller
         'facultad_id' => 'required',
         'isbn' => 'required',
         'paginas' => 'required',
-        'autor' => 'required',
+        'autor' => 'required'
         );
         if($data['revision_pares']==null)$data['revision_pares']='-';
         if($data['contrato']==null)$data['contrato']='-';
@@ -97,7 +97,8 @@ class LibroController extends Controller
            unset($data['autor']);
            $libro = New Book;
            $input = array_filter($data,'strlen');
-           $libro->fill($input);              
+           $libro->fill($input); 
+           $libro->estados_id=1;             
            $libro->save();          
 
            foreach($autores as $autor){
@@ -243,54 +244,74 @@ class LibroController extends Controller
 
     public function agregarCapitulos(Request $request){
          $data = $request->all();
-        // dd(json_decode($data["capitulos_quitar"],true));
-        $eliminados = json_decode($data["capitulos_quitar"],true);
-        $cuerpos = json_decode($data["data"],true);  
-       // dd($cuerpos);
-        $cuerpos = quitar_capitulos_eliminados($cuerpos,$eliminados);
-       // dd($cuerpos);
-        $rules = array(
+        // dd($data);
+          $rules = array(
            "titulo" => 'required',
            "descripcion" => 'required',
         );
-        foreach($cuerpos as $cuerpo){   
-        $v=Validator::make($cuerpo,$rules);
+       
+        $v=Validator::make($data,$rules);
         if($v->fails())
         {
             return redirect()->back()
                 ->withErrors($v->errors())
                 ->withInput();
         }
-        }
-         $existe_capitulos = capitulos::get()->where('book_id',$data["libro_id"]);
+   
+         if(isset($data['capitulo_edit'])){
+             $capitulo = capitulos::where('id',$data['capitulo_edit'])->first();             
+              $capitulo->titulo = $data["titulo"];
+              $capitulo->descripcion = $data["descripcion"];             
+              $capitulo->save();
 
-         if(count($existe_capitulos)>0){
-             foreach($existe_capitulos as $borrar){               
-              $relacion_capitulos_autor = autorcapitulos::get()->where('capitulos_id',$borrar->id);
-                foreach($relacion_capitulos_autor as $borrar_relacion){   
-                   $borrar_relacion->delete();  
-               }              
-              $borrar->delete();
-          }
-         }
+              $borrar_capitulos = autorcapitulos::get()->where('capitulos_id',$data['capitulo_edit']);
+             // dd($borrar_capitulos);
+              if(count($borrar_capitulos)>0){  
+                 foreach($borrar_capitulos as $borrar)  
+                 $borrar->delete();        
+              }
 
-         foreach($cuerpos as $cuerpo){
+              foreach($data["autor"] as $autor){ 
+                 if($autor != null){   
+                 $autorcapitulos = new autorcapitulos();
+                 $autorcapitulos->capitulos_id = $capitulo->id;
+                 $autorcapitulos->autor_id = $autor; 
+                 // dd($autorcapitulos);
+                 $autorcapitulos->save();
+               }
+              }   
+
+         }else{
               $capitulo = new capitulos();
               $capitulo->book_id = $data["libro_id"];
-              $capitulo->titulo = $cuerpo["titulo"];
-              $capitulo->descripcion = $cuerpo["descripcion"];
+              $capitulo->titulo = $data["titulo"];
+              $capitulo->descripcion = $data["descripcion"];
               $capitulo->save();
-              
-                
-              foreach($cuerpo["autores"] as $autor){
-                $autorcapitulos = new autorcapitulos();
-                $autorcapitulos->capitulos_id = $capitulo->id;
-                $autorcapitulos->autor_id = $autor; 
-                $autorcapitulos->save();
+
+              foreach($data["autor"] as $autor){ 
+                 if($autor != null){   
+                 $autorcapitulos = new autorcapitulos();
+                 $autorcapitulos->capitulos_id = $capitulo->id;
+                 $autorcapitulos->autor_id = $autor; 
+                 $autorcapitulos->save();
                }
-         }
+              }
+            }
 
       Session::flash('message','Capitulos ingresados sin problemas.');
       return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
+    }
+
+    public function eliminarCapitulos(Request $request,$id){
+      $autorcapitulos = autorcapitulos::get()->where('capitulos_id',$id);
+       foreach($autorcapitulos as $borrar_relacion){   
+                   $borrar_relacion->delete();  
+               }    
+      $existe_capitulos = capitulos::get()->where('id',$id);
+      foreach($existe_capitulos as $borrar){ 
+        $borrar->delete();
+    }
+      Session::flash('message','Capitulo eliminado sin problemas.');
+      return redirect()->back()->withInput();
     }
 }

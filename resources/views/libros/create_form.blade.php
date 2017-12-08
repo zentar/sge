@@ -73,15 +73,6 @@
                       'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>
 
-                    <div class="form-group">
-                      <label>Estado</label>
-                      <select id="estados_id" style="width: 100%" class="form-control" name="estados_id">
-                        <option value='null'> Seleccionar Estado </option>
-                       @foreach($estados as $estado)
-                        <option value="{{ $estado->id }}"> {{ $estado->nombre }} </option>
-                       @endforeach
-                      </select>
-                    </div>
 
 
 

@@ -48,7 +48,12 @@
     $('<input />').attr('type', 'hidden')
           .attr('name', "paginas")
           .attr('value', libro['paginas'])
-          .appendTo('#crear_autores');  
+          .appendTo('#crear_autores'); 
+
+    $('<input />').attr('type', 'hidden')
+          .attr('name', "editar")
+          .attr('value', 1)
+          .appendTo('#crear_autores'); 
      
       return true;
   });

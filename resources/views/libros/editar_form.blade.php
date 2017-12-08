@@ -27,9 +27,16 @@
                       {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores'])!!}
                      </div>
 
-                     <div class="form-group col-md-6">
-                     <button type="button" class="btn btn-primary" id="Agregar_autores" onclick="myFunction()">Agregar</button>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                     <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="Agregar_autores" onclick="myFunction()">Agregar</button>
                     </div>
+
+                    <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo</button>
+                    </div>
+                  </div>
+                    
                     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">                 
                       @foreach ($libro->autor as $name)                    
 
