@@ -141,6 +141,27 @@ $(document).ready(function() {
 } );
 } );
 
+$(document).ready(function() {
+     $('.estados').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "2%" },
+    { "width": "38%" },
+    { "width": "30%" },
+    { "width": "30%" }
+  ],
+} );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

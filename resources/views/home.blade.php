@@ -40,9 +40,8 @@
                 <td class="dt-body-center">{{$libro->id}}</td>
                 <td>{{$libro->titulo}}</td>
 
-
                 <!-- LAZO DE RELACION MUCHO A MUCHOS LIBRO - AUTOR-->
-                <td>
+                <td class="dt-body-center">
                 @foreach ($libro->autor as $name) 
                 {{$name->nombre}} {{$name->apellido}} <br>               
                 @endforeach  
@@ -65,7 +64,7 @@
         </div>
     </div>
 
-     <!-- <div class="container col-md-12">
+<!--   <div class="container col-md-12">
   <h2>Estados</h2>
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Libro</a></li>
@@ -85,8 +84,7 @@
      <button type="button" class="btn">DOCUMENTO</button>
     </div>
     <div id="estado1" class="tab-pane fade">
-      <h3>ESTADO 1: INGRESADO</h3>
-      <button type="button" class="btn">DOCUMENTO</button>
+        @include('autores/create_form')
     </div>
     <div id="estado2" class="tab-pane fade">
       <h3>ESTADO 2: APROBADO PARA EDICION</h3>
@@ -117,8 +115,9 @@
       <button type="button" class="btn">DOCUMENTO</button>
     </div>
 
-  </div>-->
-</div> 
+  </div>
+
+</div> -->
 </div> 
 </div> 
     

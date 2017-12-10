@@ -7,6 +7,7 @@
     window.printButtonTrans = '{{ trans("quickadmin.qa_print") }}';
     window.colvisButtonTrans = '{{ trans("quickadmin.qa_colvis") }}';
 </script>
+
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
@@ -51,7 +52,6 @@
 
 <script>
     function editar_capitulo(id,titulo,descripcion,autor){
-       console.log(id,titulo,descripcion,autor);
        document.getElementById('titulo').value = titulo;
        document.getElementById('descripcion').value = descripcion;
        $('#demo').empty();
@@ -66,6 +66,13 @@
           .attr('name', "capitulo_edit")
           .attr('value', id)
           .appendTo('#crear_capitulos_libro');
+    }
+
+    function nuevoCapitulo(){
+       document.getElementById('titulo').value = "";
+       document.getElementById('descripcion').value = "";
+       document.getElementById('demo').innerHTML ="";   
+       autor_global=[];
     }
 </script>
 

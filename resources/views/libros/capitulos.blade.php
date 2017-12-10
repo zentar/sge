@@ -13,11 +13,15 @@
                    <div class="panel panel-default">
                      <div class="panel-body">{{$libro->titulo}}</div>
                      {{ Form::hidden('libro_id', $libro->id) }}
-                   </div>           
+                   </div> 
+
+               <a type="button" href="{{route('libro.editar',$libro->id)}}" class="btn btn-primary">Regresar</a>
+
+               <button type="button" class="btn btn-success" id="nuevo_capitulo" onclick="nuevoCapitulo()" >Nuevo</button>
 
                <button type="submit" class="btn btn-primary" id="grabar_capitulos">Grabar</button>
 
-               <button type="button" class="btn btn-primary" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo Autor</button>
+           
      
              </div></div> 
                <div class='panel panel-body'>
@@ -32,8 +36,11 @@
 
                 <div class='form-group col-xs-12 col-sm-12 col-md-6 col-lg-6'>
                     <div class='form-group col-xs-12 col-sm-6 col-md-6 col-lg-2'><button type='button' class='btn btn-primary col-sm-12 col-md-12 col-lg-12' id='Agregar_autores1' onclick="myFunction()">Agregar</button></div>
+                        <button type="button" class="btn btn-primary" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo Autor</button>
+
                
-                </div> 
+                </div>
+
                 <div class="col-md-12" id="demo"></div>
 
                 <div class='col-md-12' style="padding-top: 3%;">
@@ -68,10 +75,10 @@
                 <td class="dt-body-center">{{$capitulos->titulo}}</td>
                 <td class="dt-body-center">{{$capitulos->descripcion}}</td>
                  <td class="dt-body-center">
-                  <p>
+                 
                   @foreach ($capitulos->autor as $autor)
-                 | {{$autor->nombre}} {{$autor->apellido}} |
-                  @endforeach</p> 
+                   <p>{{$autor->nombre}} {{$autor->apellido}}</p>
+                  @endforeach 
                 </td>
                
                 <td class="dt-body-center">          

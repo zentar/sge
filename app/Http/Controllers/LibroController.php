@@ -298,8 +298,9 @@ class LibroController extends Controller
               }
             }
 
-      Session::flash('message','Capitulos ingresados sin problemas.');
-      return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
+      Session::flash('message','Capitulo ingresado sin problemas.');
+    //  return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
+       return redirect()->back()->withInput();
     }
 
     public function eliminarCapitulos(Request $request,$id){

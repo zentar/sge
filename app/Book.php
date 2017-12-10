@@ -14,11 +14,11 @@ class Book extends Model
 
     const CREATED_AT = 'created_at';
 	
-	  const UPDATED_AT = 'updated_at';
+    const UPDATED_AT = 'updated_at';
 
-	  const DELETED_AT = 'deleted_at';
+    const DELETED_AT = 'deleted_at';
 
-	  protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
 
     protected $softDelete = true;
 
@@ -47,4 +47,8 @@ class Book extends Model
          return $this->belongsTo('App\Estados');
     }
     
+    public function coleccion()
+    {
+        return $this->belongsTo('App\Coleccion');
+    }
 }

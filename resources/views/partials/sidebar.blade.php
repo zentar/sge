@@ -55,6 +55,63 @@
             </li>
             @endcan
 
+            @can('user_management_access')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i>
+                    <span class="title">@lang('quickadmin.administrador.title')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                @can('user_access')
+                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('estados.index') }}">
+                            <i class="fa  fa-check"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.estado')
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+
+             {{--   @can('role_access')
+                <li class="{{ $request->segment(2) == 'roles' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('admin.roles.index') }}">
+                            <i class="fa fa-building-o"></i>
+                            <span class="title">
+                                @lang('quickadmin.administrador.fields.facultad')
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+             
+                @can('user_access')
+                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('admin.users.index') }}">
+                            <i class="fa fa-archive"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.auditoria')
+                            </span>
+                        </a>
+                    </li>
+                @endcan 
+
+                @can('user_access')
+                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('admin.users.index') }}">
+                            <i class="fa fa-sitemap"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.coleccion')
+                            </span>
+                        </a>
+                    </li>
+                @endcan  --}}
+                </ul>
+            </li>
+            @endcan
+
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('auth.change_password') }}">

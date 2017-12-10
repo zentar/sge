@@ -121,8 +121,24 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'AutorController@create',
         ]);
 
+ //Estados
+        
+ //Auditoria
 
+ //Colecciones
 
+ //Facultades
+         Route::resource('estados','EstadosController');
 
+         Route::post('estados/{id}/update', [
+            'as' => 'estados.update',
+            'uses' => 'EstadosController@update',
+        ]);
+
+          Route::get('estados/{id}/delete', [
+            'as' => 'estados.destroy',
+            'uses' => 'EstadosController@destroy',
+        ]);
+ 
       
 

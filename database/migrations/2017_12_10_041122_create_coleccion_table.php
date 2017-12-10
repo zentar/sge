@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookTable extends Migration
+class CreateColeccionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,20 +13,10 @@ class CreateBookTable extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('coleccion', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->string('revision_pares');
-            $table->string('contrato');
-            $table->string('isbn');
-            $table->string('pi');
-            $table->string('paginas');
-            $table->integer('estados_id');
-            $table->integer('coleccion_id');
-
-            $table->integer('facultad_id')->unsigned();
-      
-
+            $table->string('descripcion');
             $table->softDeletes();        
             $table->timestamps();
         });
@@ -38,7 +29,6 @@ class CreateBookTable extends Migration
      */
     public function down()
     {
-        Schema::drop('books');
+        Schema::dropIfExists('coleccion');
     }
-    
 }

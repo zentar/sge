@@ -7,6 +7,17 @@ return [
 		'fields' => [
 		],
 	],
+
+
+	'administrador' => [
+		'title' => 'Mantenimientos Generales',
+		'fields' => [
+			'facultad'=>'Facultades',
+			'estado'=>'Estados',
+			'auditoria'=>'Auditoria',
+			'coleccion'=>'Colecciónes'
+		],
+	],
 	
 	'roles' => [
 		'title' => 'Roles',
@@ -257,7 +268,12 @@ return [
     'qa_au_index' => 'Autores',   //index autores
     'qa_au_crear' => 'Ingreso de Autor',   //crear autores
     'qa_au_actualizar' => 'Edición Autor',   //actualizar autores
-    'qa_au_consultar' => 'Consulta Autor'   //consultar autores
+    'qa_au_consultar' => 'Consulta Autor',   //consultar autores
+    
 
+    'qa_es_index' => 'Estados',
+    'qa_es_create' => 'Crear Estado',
+    'qa_es_consultar' => 'Consulta de Estado',
+    'qa_es_actualizar' => 'Edición de Estado'
 
 ];
