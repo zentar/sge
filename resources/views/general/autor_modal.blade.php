@@ -14,7 +14,7 @@
            <div class="box box-primary">
                 <div class="box-body">
                   
-                 {!!Form::open(['route'=>'autor.store', 'method'=>'POST', 'id'=>"crear_autores",'name'=>"crear_autores"])!!} 
+                 {!!Form::open(['route'=>'autor.store', 'method'=>'POST', 'id'=>"crear_autores",'name'=>"crear_autores",'files' => true])!!} 
       
                @if ($errors->count() > 0 and Session::get('error_code') == 5)
                           @include('general/errors')

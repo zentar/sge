@@ -56,10 +56,10 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-       // $file = $request->file('documentos');
        // dd($data);
+       // dd($file);
        // $path="";
-      //  $path = Storage::putFile('public', $file);
+        $path = Storage::putFile(null,$request->file('documentos'));
 
         $rules = array(
         'cedula' => 'required',
@@ -89,7 +89,7 @@ class AutorController extends Controller
             $autor->email     =  $data['email'];
             $autor->telefono  =  $data['telefono'];
             $autor->filiacion =  $data['filiacion'];
-            $autor->documentos=  $data['documentos'];
+            $autor->documentos=  $path;
           // $input = array_filter($data,'strlen');
           // $autor->fill($input);
            // dd($autor);
@@ -190,8 +190,8 @@ class AutorController extends Controller
      public function consultar(Request $request, $id)
     {
         $autores = Autor::find($id); 
-        $url = Storage::url($autores->documentos); 
-       // dd($url);    
+        $url = storage_path($autores->documentos);
+        //dd($url);
         return view('autores/consultar', compact('autores','url'));
     }
 }

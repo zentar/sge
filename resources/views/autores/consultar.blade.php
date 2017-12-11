@@ -38,9 +38,7 @@
                      <div class="form-group col-md-6">
                       <label>Documentos</label> 
 
-                  <a href="{{asset($url)}}" target="_blank">
-                         <strong>Ver Imagen</strong>
-                  </a>
+                      {!! link_to_route('image.documentos', $title = 'Ver Imágen',$parameters =[$autores->id],$attributes = ['class'=>"btn btn-link"] ) !!}
 
                     </div>
 

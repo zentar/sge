@@ -139,6 +139,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'estados.destroy',
             'uses' => 'EstadosController@destroy',
         ]);
+
+
+          Route::get('image/{id}/documento', [
+            'as' => 'image.documentos',
+            'uses' => 'ImageController@show',
+        ]);
  
       
 
