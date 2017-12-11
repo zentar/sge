@@ -141,7 +141,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         ]);
 
 
-          Route::get('image/{id}/documento', [
+          Route::post('image/{id}/documento', [
             'as' => 'image.documentos',
             'uses' => 'ImageController@show',
         ]);

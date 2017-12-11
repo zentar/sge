@@ -35,14 +35,22 @@
                         {!!Form::text('filiaciones',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
                     </div>
-                     <div class="form-group col-md-6">
+
+                
+
+                          {!!Form::close()!!}
+           
+            <div class="form-group col-md-6">
                       <label>Documentos</label> 
+                    {!! Form::model($autores,['route'=> ['image.documentos',$autores->id],'method'=>'POST'])!!}
+                    
+                     {{--link_to_route('image.documentos', $title = 'Ver Imágen',$parameters =[$autores->id],$attributes = ['class'=>"btn btn-link"] )  --}}
 
-                      {!! link_to_route('image.documentos', $title = 'Ver Imágen',$parameters =[$autores->id],$attributes = ['class'=>"btn btn-link"] ) !!}
+                      <button type="submit" class="btn btn-link"> Consultar Documento</button>                
 
+                    {!!Form::close()!!}
                     </div>
-
-                  {!!Form::close()!!}
+            
                     <div class="col-md-12">
                       {!! link_to_route('autor.index', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p>
                 </div>
