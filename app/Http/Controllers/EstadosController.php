@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Estados;
 use Illuminate\Support\Facades\Validator;
 use Session;
-
+use DB;
 class EstadosController extends Controller
 {
 
@@ -143,12 +143,17 @@ class EstadosController extends Controller
         $estado = Estados::find($id);
         if(empty($estado))
         {
-            Session::flash('message','Registro no encontrado');
+            Session::flash('danger','Registro no encontrado');
             return redirect(route('estados.index'));
         }else{
-            $estado->delete();          
 
+            if(DB::table('books')->where('estados_id',$estado->id)->value('id')){
+               Session::flash('danger','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
+            }else{
+            $estado->delete();
             Session::flash('message','Registro borrado sin problemas.');
+            }           
+
            return redirect(route('estados.index'));
         }
     }

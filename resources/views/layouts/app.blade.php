@@ -27,11 +27,27 @@
                 <div class="col-md-12">
 
                     @if (Session::has('message'))
-                        <div class="alert alert-info">
+                        <div class="alert alert-success">
                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <p>{{ Session::get('message') }}</p>
                         </div>
                     @endif
+
+                    @if (Session::has('danger'))
+                        <div class="alert alert-danger">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p>{{ Session::get('danger') }}</p>
+                        </div>
+                    @endif
+
+                    @if (Session::has('warning'))
+                        <div class="alert alert-warning">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p>{{ Session::get('warning') }}</p>
+                        </div>
+                    @endif
+
+
                     @if ($errors->count() > 0 and Session::get('error_code') != 4 and Session::get('error_code') != 5)
                         <div class="alert alert-danger">
                             <ul class="list-unstyled">

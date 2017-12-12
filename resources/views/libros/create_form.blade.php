@@ -73,6 +73,17 @@
                       'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>
 
+                    <div class="form-group">
+                      <label>Colección</label>              
+
+                      <select id="coleccion_id" style="width: 100%" class="form-control select2" name="coleccion_id">
+                        <option value='null'> Seleccionar Coleccion </option>
+                       @foreach($colecciones as $coleccion)
+                        <option value="{{ $coleccion->id }}"> {{ $coleccion->titulo }} </option>
+                       @endforeach
+                      </select>
+                    </div>
+
 
 
 

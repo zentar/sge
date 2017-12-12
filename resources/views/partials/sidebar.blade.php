@@ -76,9 +76,9 @@
                     </li>
                 @endcan
 
-             {{--   @can('role_access')
+               @can('role_access')
                 <li class="{{ $request->segment(2) == 'roles' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('admin.roles.index') }}">
+                        <a href="{{ route('facultad.index') }}">
                             <i class="fa fa-building-o"></i>
                             <span class="title">
                                 @lang('quickadmin.administrador.fields.facultad')
@@ -86,8 +86,18 @@
                         </a>
                     </li>
                 @endcan
-             
                 @can('user_access')
+                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('coleccion.index') }}">
+                            <i class="fa fa-sitemap"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.coleccion')
+                            </span>
+                        </a>
+                    </li>
+                @endcan  
+
+               {{-- @can('user_access')
                 <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
                         <a href="{{ route('admin.users.index') }}">
                             <i class="fa fa-archive"></i>
@@ -96,18 +106,7 @@
                             </span>
                         </a>
                     </li>
-                @endcan 
-
-                @can('user_access')
-                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('admin.users.index') }}">
-                            <i class="fa fa-sitemap"></i>
-                            <span class="title">
-                               @lang('quickadmin.administrador.fields.coleccion')
-                            </span>
-                        </a>
-                    </li>
-                @endcan  --}}
+                @endcan --}}
                 </ul>
             </li>
             @endcan

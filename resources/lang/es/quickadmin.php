@@ -274,6 +274,16 @@ return [
     'qa_es_index' => 'Estados',
     'qa_es_create' => 'Crear Estado',
     'qa_es_consultar' => 'Consulta de Estado',
-    'qa_es_actualizar' => 'Edición de Estado'
+    'qa_es_actualizar' => 'Edición de Estado',
+
+    'qa_fa_index' => 'Facultades',
+    'qa_fa_create' => 'Crear Facultad',
+    'qa_fa_consultar' => 'Consulta de Facultad',
+    'qa_fa_actualizar' => 'Edición de Facultad',
+
+    'qa_col_index' => 'Colecciones',
+    'qa_col_create' => 'Crear Colección',
+    'qa_col_consultar' => 'Consulta de Colección',
+    'qa_col_actualizar' => 'Edición de Colección'
 
 ];

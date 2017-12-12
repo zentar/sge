@@ -121,13 +121,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'AutorController@create',
         ]);
 
+
  //Estados
-        
- //Auditoria
-
- //Colecciones
-
- //Facultades
          Route::resource('estados','EstadosController');
 
          Route::post('estados/{id}/update', [
@@ -144,6 +139,37 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
           Route::post('image/{id}/documento', [
             'as' => 'image.documentos',
             'uses' => 'ImageController@show',
+        ]);
+
+ //Facultades
+        Route::resource('facultad','FacultadController');
+
+        Route::post('facultad/{id}/update', [
+            'as' => 'facultad.update',
+            'uses' => 'FacultadController@update',
+        ]);
+
+        Route::get('facultad/{id}/delete', [
+            'as' => 'facultad.destroy',
+            'uses' => 'FacultadController@destroy',
+        ]);
+
+        
+ //Auditoria
+
+
+ //Colecciones
+
+        Route::resource('coleccion','ColeccionController');
+
+        Route::post('coleccion/{id}/update', [
+            'as' => 'coleccion.update',
+            'uses' => 'ColeccionController@update',
+        ]);
+
+        Route::get('coleccion/{id}/delete', [
+            'as' => 'coleccion.destroy',
+            'uses' => 'ColeccionController@destroy',
         ]);
  
       

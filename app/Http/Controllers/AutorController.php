@@ -136,7 +136,7 @@ class AutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $data = $request->all();
+        $data = $request->all();
        
         $rules = array(
         'cedula' => 'required',
@@ -155,8 +155,15 @@ class AutorController extends Controller
         }
         else{
             $autor = Autor::find($id);
+            
+            Storage::delete($autor->documentos);
+            $path = Storage::putFile(null,$request->file('documentos'));            
+             
             $input = array_filter($data,'strlen');
+            
             $autor->fill($input);
+            $autor->documentos=$path;           
+
             $autor->save();
             Session::flash('message','Registro editado correctamente');
             return redirect()->action('AutorController@index'); 
@@ -174,12 +181,13 @@ class AutorController extends Controller
         $autor = Autor::find($id);
         if(empty($autor))
         {
-            Session::flash('message','Registro no encontrado');
+            Session::flash('danger','Registro no encontrado');
              return redirect()->action('AutorController@index'); 
         }else{
             if(DB::table('autorbook')->where('autor_id',$autor->id)->value('id')){
-               Session::flash('message','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
+               Session::flash('danger','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
             }else{
+            Storage::delete($autor->documentos);
             $autor->delete();
             Session::flash('message','Registro borrado sin problemas.');
             } 

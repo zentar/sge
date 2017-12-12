@@ -73,15 +73,15 @@
                       'placeholder'=>'-','maxlength'=>'100',])!!}
                     </div>
 
-                     <div class="form-group">
-                      <label>Estado</label>
-                      <select id="estados_id" style="width: 100%" class="form-control" name="estados_id">
-                        <option value='null'> Seleccionar Estado </option>
-                       @foreach($estados as $estado)
-                        <option value="{{ $estado->id }}" @if($estado->id == $libro->estados->id) selected @endif> {{ $estado->nombre }} </option>
+                    <div class="form-group">
+                      <label>Colección</label>
+                      <select id="coleccion_id" style="width: 100%" class="form-control" name="coleccion_id">
+                        <option value='null'> Seleccionar Colección </option>
+                       @foreach($colecciones as $coleccion)
+                        <option value="{{ $coleccion->id }}" @if($coleccion->id == $libro->coleccion->id) selected @endif> {{ $coleccion->titulo }} </option>
                        @endforeach
                       </select>
-                    </div>
+                    </div> 
                     
 
                      @if($libro->capitulos->count() > 0)  

@@ -24,7 +24,7 @@ class Book extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','pi','paginas','estados_id'];
+    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','pi','paginas','estados_id','coleccion_id'];
 
 
     public function autor()

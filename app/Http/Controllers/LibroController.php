@@ -12,11 +12,12 @@ use App\Facultad;
 use App\Estados;
 use App\autorbook;
 use App\autorcapitulos;
+use App\Coleccion;
 use DB;
 
 class LibroController extends Controller
 {
-
+  //@if(Session::get('coleccion_id_old') == $coleccion->id) selected @endif>
     /**
      * Create a new controller instance.
      *
@@ -47,7 +48,7 @@ class LibroController extends Controller
     {
         $autores = Autor::all();
         $facultades = Facultad::all();
-        $estados = Estados::all();
+        $colecciones = Coleccion::all();
         $autores_nombre=[];
         $facultades_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor"); 
@@ -60,7 +61,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }        
                  // dd($estados);  
-        return view('libros/create', compact('libro','autores_nombre','facultades','estados'));
+        return view('libros/create', compact('libro','autores_nombre','facultades','colecciones'));
     }
 
     /**
@@ -78,12 +79,14 @@ class LibroController extends Controller
         'facultad_id' => 'required',
         'isbn' => 'required',
         'paginas' => 'required',
-        'autor' => 'required'
+        'autor' => 'required',
+        'coleccion_id' => 'required'
         );
         if($data['revision_pares']==null)$data['revision_pares']='-';
         if($data['contrato']==null)$data['contrato']='-';
         if($data['pi']==null)$data['pi']='-';
         if($data['facultad_id']=="null")$data['facultad_id']=null;
+        if($data['coleccion_id']=="null")$data['coleccion_id']=null;
 
         $v = Validator::make($data,$rules);
         if($v->fails())
@@ -98,7 +101,7 @@ class LibroController extends Controller
            $libro = New Book;
            $input = array_filter($data,'strlen');
            $libro->fill($input); 
-           $libro->estados_id=1;             
+           $libro->estados_id=1;                 
            $libro->save();          
 
            foreach($autores as $autor){
@@ -107,7 +110,7 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
-
+           
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -134,7 +137,7 @@ class LibroController extends Controller
     {
         $libro = Book::find($id);
         $autores = Autor::all();
-        $estados = Estados::all();
+        $colecciones = Coleccion::all();
         $flag_editar_autor=1;
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
@@ -148,7 +151,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
         //dd($libro->facultad_id);                 
-        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','estados'));
+        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones'));
     }
 
     /**
@@ -161,13 +164,14 @@ class LibroController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-       // dd($data);
+        //dd($data);
         $rules = array(
            "titulo" => 'required',
            "facultad_id" => 'required',
            "isbn" => 'required',
            "autor" => 'required',
-           "paginas" => 'required'
+           "paginas" => 'required',
+           "coleccion_id" => 'required'
         );
 
         $v=Validator::make($data,$rules);
@@ -183,15 +187,15 @@ class LibroController extends Controller
             $libro = Book::find($id);
             $input = array_filter($data,'strlen');
             $libro->fill($input);
+           // dd($libro);
             $libro->save();
 
-             $eliminar = autorbook::where('book_id', $libro->id);
+            $eliminar = autorbook::where('book_id', $libro->id);
 
             if(!$eliminar==null)
             $eliminar->delete();  
 
-        foreach($autores as $autor){                 
-
+        foreach($autores as $autor){  
             $libroAutor = new autorbook;
             $libroAutor->book_id=$libro->id;
             $libroAutor->autor_id=$autor; 

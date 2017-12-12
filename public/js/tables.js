@@ -120,7 +120,7 @@ $(document).ready(function() {
 } );
 
 $(document).ready(function() {
-    $('.capitulos').DataTable({
+   var table = $('.capitulos').DataTable({
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
@@ -139,6 +139,17 @@ $(document).ready(function() {
     { "width": "8%" }
   ],
 } );
+
+     $('#example1 tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+     
 } );
 
 $(document).ready(function() {
@@ -161,6 +172,49 @@ $(document).ready(function() {
   ],
 } );
 } );
+
+$(document).ready(function() {
+     $('.facultades').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "5%" },
+    { "width": "10%" },
+    { "width": "10%" }
+  ],
+} );
+} );
+
+
+$(document).ready(function() {
+     $('.colecciones').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "5%" },
+    { "width": "20%" },
+    { "width": "20%" },
+    { "width": "20%" }
+  ],
+} );
+} );
+
 
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
