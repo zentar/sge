@@ -15,7 +15,7 @@
                      {{ Form::hidden('libro_id', $libro->id) }}
                    </div> 
 
-               <a type="button" href="{{route('libro.editar',$libro->id)}}" class="btn btn-primary">Regresar</a>
+               <a type="button" href="{{route('libro.editar',$libro->id)}}" class="btn btn-primary fa fa-arrow-left"></a>
 
                <button type="button" class="btn btn-success" id="nuevo_capitulo" onclick="nuevoCapitulo()" >Nuevo</button>
 
@@ -34,11 +34,9 @@
 
                   <div class='form-group col-md-6'><select id='autores' style='width: 100%' class='form-control select2' name='autores[]'><option value='null'>Seleccionar Autor </option>@foreach($autores as $autor)<option value='{{ $autor->id }}' @if(Session::get('facultad_old') == $autor->id) selected @endif> {{ $autor->nombre }} {{ $autor->apellido }} </option>@endforeach</select></div>
 
-                <div class='form-group col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-                    <div class='form-group col-xs-12 col-sm-6 col-md-6 col-lg-2'><button type='button' class='btn btn-primary col-sm-12 col-md-12 col-lg-12' id='Agregar_autores1' onclick="myFunction()">Agregar</button></div>
-                        <button type="button" class="btn btn-primary" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo Autor</button>
-
-               
+                <div class='form-group col-xs-12 col-sm-12 col-md-6 col-lg-6'>  
+                      <button type='button' class='btn btn-primary fa fa-arrow-down' id='Agregar_autores1' onclick="myFunction()"></button>
+                        <button type="button" class="btn btn-success fa fa-plus" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg"></button>               
                 </div>
 
                 <div class="col-md-12" id="demo"></div>

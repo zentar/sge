@@ -32,11 +32,11 @@
                 <td class="dt-body-center">{{$coleccion->descripcion}}</td>
                 <td class="dt-body-center"> 
                  <p>
-                {!!link_to_route('coleccion.show', $title = 'Consultar', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-primary btn-xs fa fa-eye"])!!}
+                {!!link_to_route('coleccion.show', $title = '', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
 
-                {!!link_to_route('coleccion.edit', $title = 'Editar', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-warning btn-xs fa fa-pencil-square-o"])!!}
+                {!!link_to_route('coleccion.edit', $title = '', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-warning fa fa-pencil-square-o"])!!}
                 
-                {!!link_to_route('coleccion.destroy', $title = 'Eliminar', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-danger btn-xs fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('coleccion.destroy', $title = '', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td>
             </tr>

@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th class="dt-head-center">Id</th>
-                <th class="dt-head-center">Cédula</th>
+                <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center"></th>   
 
@@ -19,7 +19,7 @@
         <tfoot>
             <tr>
                 <th class="dt-head-center">Id</th>
-                <th class="dt-head-center">Cédula</th>
+                <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center"></th>                
             </tr>
@@ -32,11 +32,11 @@
                 <td class="dt-body-center">{{$estado->descripcion}}</td>
                 <td class="dt-body-center"> 
                  <p>
-                {!!link_to_route('estados.show', $title = 'Consultar', $parameters = $estado->id, $attributes = ['class'=>"btn btn-primary btn-xs fa fa-eye"])!!}
+                {!!link_to_route('estados.show', $title = '', $parameters = $estado->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
 
-                {!!link_to_route('estados.edit', $title = 'Editar', $parameters = $estado->id, $attributes = ['class'=>"btn btn-warning btn-xs fa fa-pencil-square-o"])!!}
+                {!!link_to_route('estados.edit', $title = '', $parameters = $estado->id, $attributes = ['class'=>"btn btn-warning fa fa-pencil-square-o"])!!}
                 
-                {!!link_to_route('estados.destroy', $title = 'Eliminar', $parameters = $estado->id, $attributes = ['class'=>"btn btn-danger btn-xs fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('estados.destroy', $title = '', $parameters = $estado->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td>
             </tr>

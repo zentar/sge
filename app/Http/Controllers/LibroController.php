@@ -17,7 +17,6 @@ use DB;
 
 class LibroController extends Controller
 {
-  //@if(Session::get('coleccion_id_old') == $coleccion->id) selected @endif>
     /**
      * Create a new controller instance.
      *
@@ -102,7 +101,8 @@ class LibroController extends Controller
            $input = array_filter($data,'strlen');
            $libro->fill($input); 
            $libro->estados_id=1;                 
-           $libro->save();          
+           $libro->save();
+                    
 
            foreach($autores as $autor){
             $libroAutor = new autorbook;
@@ -110,6 +110,8 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
+
+           crearDirectorio('libro',$libro); 
            
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
@@ -250,9 +252,10 @@ class LibroController extends Controller
          $data = $request->all();
         // dd($data);
           $rules = array(
-           "titulo" => 'required',
-           "descripcion" => 'required',
+           "titulo" => 'required' 
         );
+
+       if($data['descripcion']==null)$data['descripcion']='-';
        
         $v=Validator::make($data,$rules);
         if($v->fails())
@@ -261,7 +264,7 @@ class LibroController extends Controller
                 ->withErrors($v->errors())
                 ->withInput();
         }
-   
+         //PIPO
          if(isset($data['capitulo_edit'])){
              $capitulo = capitulos::where('id',$data['capitulo_edit'])->first();             
               $capitulo->titulo = $data["titulo"];

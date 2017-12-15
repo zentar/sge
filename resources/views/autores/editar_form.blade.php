@@ -29,9 +29,33 @@
                       <label>Filiaciones</label>
                         {!!Form::text('filiacion',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100'])!!}
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label>Documentos</label>
-                      {!!Form::file('documentos',null,['class'=>'form-control',
-                      'placeholder'=>'-'])!!}
-                    </div>             
+                    </div>         
+
+                    @if($autor->file->count() > 0)  
+                    <div class="form-group col-md-12">
+                       <label>Documentos</label>{!!link_to_route('autor.editardocumentos', $title = "Editar documentos", $parameters = $autor->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
+                     </div>
+                    @foreach ($autor->file as $file)
+                    <div class="form-group panel panel-default col-md-12">
+                      <ul>
+                    <li>{{$file->tipodoc->nombre}}
+
+                    {!!link_to_route('image.documentos', $title = 'Ver', $parameters = $file->id, $attributes = ['class'=>"btn btn-link"])!!}
+
+                     </li>
+
+                    </ul>
+                    </div>                 
+
+                     @endforeach
+
+
+                     @else
+                     <div class="form-group col-md-12">
+                       <label>Documentos</label>
+                       <p> No se ha ingresado ningún Documento.
+                           {!!link_to_route('autor.agregardocumentos', $title = "Agregar documentos", $parameters = $autor->id, $attributes = ['class'=>"btn btn-link"])!!}
+                      </p>       
+                     </div>
+
+                    @endif

@@ -14,8 +14,13 @@ class CreateAutorBook extends Migration
     {
         Schema::create('autorbook', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('book_id');
-            $table->integer('autor_id');
+
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')->references('id')->on('books');
+
+            $table->integer('autor_id')->unsigned();
+            $table->foreign('autor_id')->references('id')->on('autors');
+
              $table->timestamps();
         });
     }

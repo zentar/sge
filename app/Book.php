@@ -51,4 +51,19 @@ class Book extends Model
     {
         return $this->belongsTo('App\Coleccion');
     }
+
+    public function cotizacion()
+    {
+         return $this->hasMany('App\Cotizacion');
+    }
+
+    public function caracteristicas()
+    {
+        return $this->hasOne('App\Caracteristicas');
+    }
+
+    public function file()
+    {
+        return $this->belongsToMany('App\file','filebook');
+    }
 }

@@ -6,6 +6,11 @@
               <div class="box box-primary">
                 <div class="box-body">
                   {!!Form::open(['route'=>'autor.store', 'method'=>'POST','files' => true])!!}
+
+                     @if ($errors->count() > 0 and Session::get('error_code') == 5)
+                      @include('general/errors')
+                    @endif
+
                    @include('autores/create_form')
                    <div class="box-footer col-md-12">
 

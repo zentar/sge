@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCapitulosTable extends Migration
+class CreateCotizacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +13,18 @@ class CreateCapitulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('capitulos', function (Blueprint $table) {
-            $table->increments('id');            
+        Schema::create('cotizaciones', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');
 
-            $table->string('titulo');
-            $table->string('descripcion');
-            $table->softDeletes();        
+            $table->string('imprenta');
+            $table->string('tiraje');
+            $table->double('valor');
+            $table->integer('estado');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,8 +36,6 @@ class CreateCapitulosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('capitulos');
+        Schema::dropIfExists('cotizaciones');
     }
-
-
 }

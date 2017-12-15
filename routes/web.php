@@ -135,13 +135,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'EstadosController@destroy',
         ]);
 
-
-          Route::post('image/{id}/documento', [
+          Route::get('image/{file}/documento', [
             'as' => 'image.documentos',
             'uses' => 'ImageController@show',
         ]);
 
- //Facultades
+          Route::post('image/caut', [
+            'as' => 'image.crear_autor',
+            'uses' => 'ImageController@crear_autor',
+        ]);  
+
+   
+
+//Facultades
         Route::resource('facultad','FacultadController');
 
         Route::post('facultad/{id}/update', [
@@ -170,6 +176,24 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('coleccion/{id}/delete', [
             'as' => 'coleccion.destroy',
             'uses' => 'ColeccionController@destroy',
+        ]);
+
+
+//DOCUMENTOS
+
+        Route::get('autor/{id}/agregardocumentos', [
+            'as' => 'autor.agregardocumentos',
+            'uses' => 'autorController@agregarDocumentos',
+        ]);
+
+        Route::get('autor/{id}/editardocumentos', [
+            'as' => 'autor.editardocumentos',
+            'uses' => 'autorController@editarDocumentos',
+        ]);
+
+        Route::get('autor/{id}/editardocumentos', [
+            'as' => 'autor.editardocumentos',
+            'uses' => 'autorController@editarDocumentos',
         ]);
  
       

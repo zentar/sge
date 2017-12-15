@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 use App\Autor;
 use App\autorbook;
+use App\Tipodoc;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class AutorController extends Controller
     public function index()
     {
        $autores=Autor::get(); 
-      // dd($autores[0]->capitulos);
+      // dd($autores[0]->file);
        return view("autores/index",compact('autores'));
     }
 
@@ -56,22 +57,16 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-       // dd($data);
-       // dd($file);
-       // $path="";
-        $path = Storage::putFile(null,$request->file('documentos'));
-
+       //dd($data);
         $rules = array(
         'cedula' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'email' => 'required',
-        'telefono' => 'required',
-        'documentos' =>'required'
+        'telefono' => 'required'
         );
         
         if($data['filiacion']==null)$data['filiacion']='-';
-        if($data['documentos']==null)$data['documentos']='-';
 
         $v = Validator::make($data,$rules);
         if($v->fails())
@@ -82,18 +77,22 @@ class AutorController extends Controller
         }
         else{
            
-            $autor = New Autor;           
-            $autor->cedula    =  $data['cedula'];
-            $autor->nombre    =  $data['nombre'];
-            $autor->apellido  =  $data['apellido'];
-            $autor->email     =  $data['email'];
-            $autor->telefono  =  $data['telefono'];
-            $autor->filiacion =  $data['filiacion'];
-            $autor->documentos=  $path;
-          // $input = array_filter($data,'strlen');
-          // $autor->fill($input);
-           // dd($autor);
+           $autor = New Autor;           
+           $autor->cedula    =  $data['cedula'];
+           $autor->nombre    =  $data['nombre'];
+           $autor->apellido  =  $data['apellido'];
+           $autor->email     =  $data['email'];
+           $autor->telefono  =  $data['telefono'];
+           $autor->filiacion =  $data['filiacion'];
            $autor->save();
+
+           crearDirectorio('autor',$autor);
+           
+          /* $path = Storage::putFile('/autor/autor'.$autor->id,$request->file('documentos'));
+           
+           $autor->documentos = $path;
+           $autor->save();*/
+
            Session::flash('message','Registro agregado correctamente');
  
           if(isset($data['editar'])){           
@@ -187,7 +186,7 @@ class AutorController extends Controller
             if(DB::table('autorbook')->where('autor_id',$autor->id)->value('id')){
                Session::flash('danger','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
             }else{
-            Storage::delete($autor->documentos);
+          // Storage::delete($autor->documentos);
             $autor->delete();
             Session::flash('message','Registro borrado sin problemas.');
             } 
@@ -197,9 +196,21 @@ class AutorController extends Controller
 
      public function consultar(Request $request, $id)
     {
-        $autores = Autor::find($id); 
-        $url = storage_path($autores->documentos);
-        //dd($url);
-        return view('autores/consultar', compact('autores','url'));
+        $autores = Autor::find($id);
+        return view('autores/consultar', compact('autores'));
+    }
+
+    public function agregarDocumentos(Request $request, $id)
+    {
+      $tipos = Tipodoc::get();
+      $autor = Autor::find($id);
+      return view('autores/documentos', compact('tipos','autor'));
+    }
+
+    public function editarDocumentos(Request $request, $id)
+    {
+      $tipos = Tipodoc::get();
+      $autor = Autor::find($id);
+      return view('autores/documentos', compact('tipos','autor'));
     }
 }

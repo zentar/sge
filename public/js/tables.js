@@ -216,6 +216,31 @@ $(document).ready(function() {
 } );
 
 
+$(document).ready(function() {
+     $('.fileautor').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" },
+    { "width": "12%" }
+  ],
+} );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

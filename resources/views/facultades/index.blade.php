@@ -29,11 +29,11 @@
                 <td class="dt-body-center">{{$facultad->nombre}}</td>
                 <td class="dt-body-center"> 
                  <p>
-                {!!link_to_route('facultad.show', $title = 'Consultar', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-primary btn-xs fa fa-eye"])!!}
+                {!!link_to_route('facultad.show', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
 
-                {!!link_to_route('facultad.edit', $title = 'Editar', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-warning btn-xs fa fa-pencil-square-o"])!!}
+                {!!link_to_route('facultad.edit', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-warning fa fa-pencil-square-o"])!!}
                 
-                {!!link_to_route('facultad.destroy', $title = 'Eliminar', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-danger btn-xs fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('facultad.destroy', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td>
             </tr>

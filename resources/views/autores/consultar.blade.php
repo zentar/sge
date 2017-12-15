@@ -36,22 +36,30 @@
                       'placeholder'=>'-','maxlength'=>'100','disabled'])!!}
                     </div>
 
-                
 
-                          {!!Form::close()!!}
-           
-            <div class="form-group col-md-6">
-                      <label>Documentos</label> 
-                    {!! Form::model($autores,['route'=> ['image.documentos',$autores->id],'method'=>'POST'])!!}
-                    
-                     {{--link_to_route('image.documentos', $title = 'Ver Imágen',$parameters =[$autores->id],$attributes = ['class'=>"btn btn-link"] )  --}}
+                    @if($autores->file->count() > 0)  
+                    <div class="form-group col-md-12">
+                       <label>Documentos</label>
+                     </div>
+                    @foreach ($autores->file as $file)
+                    <div class="form-group panel panel-default col-md-12">
+                      <ul>
+                    <li>{{$file->tipodoc->nombre}}
 
-                      <button type="submit" class="btn btn-link"> Consultar Documento</button>                
+                    {!!link_to_route('image.documentos', $title = 'Ver', $parameters = $file->id, $attributes = ['class'=>"btn btn-link"])!!}
 
-                    {!!Form::close()!!}
-                    </div>
-            
-                    <div class="col-md-12">
+                     </li>
+
+                    </ul>
+                    </div>                 
+
+                     @endforeach
+                    @endif
+
+                       {!!Form::close()!!}
+                  
+             
+                 <div class="col-md-12">
                       {!! link_to_route('autor.index', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p>
                 </div>
                 </div><!-- /.box-body -->

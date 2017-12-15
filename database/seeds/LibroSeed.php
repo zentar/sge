@@ -23,7 +23,8 @@ class LibroSeed extends Seeder
             'pi' => 'GYE-008607', 
             'paginas' => '128',
             'estados_id' => '1',
-            'coleccion_id' =>'1'      
+            'coleccion_id' =>'1'
+           // 'caracteristicas_id' =>'1'       
             ],
 
             [
@@ -37,7 +38,8 @@ class LibroSeed extends Seeder
             'pi' => 'GYE-008647',
             'paginas' => '320',
             'estados_id' => '2',
-            'coleccion_id' =>'1'  
+            'coleccion_id' =>'1'
+           // 'caracteristicas_id' =>'1'    
     ],
             
             ['id' => 3, 
@@ -50,7 +52,8 @@ class LibroSeed extends Seeder
             'pi' => '',
             'paginas' => '96',
             'estados_id' => '3',
-            'coleccion_id' =>'1'  
+            'coleccion_id' =>'1'
+           // 'caracteristicas_id' =>'1'    
             ],
 
              [
@@ -64,7 +67,8 @@ class LibroSeed extends Seeder
             'pi' => '', 
             'paginas' => '106',
             'estados_id' => '4', 
-            'coleccion_id' =>'1'     
+            'coleccion_id' =>'1'
+           // 'caracteristicas_id' =>'1'       
              ]
 
         ];

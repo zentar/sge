@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCapitulosTable extends Migration
+class CreateFileBook extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +13,16 @@ class CreateCapitulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('capitulos', function (Blueprint $table) {
-            $table->increments('id');            
+        Schema::create('filebook', function(Blueprint $table) {
+            $table->increments('id');
 
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');
 
-            $table->string('titulo');
-            $table->string('descripcion');
-            $table->softDeletes();        
-            $table->timestamps();
+            $table->integer('file_id')->unsigned();
+            $table->foreign('file_id')->references('id')->on('file');
+
+             $table->timestamps();
         });
     }
 
@@ -32,8 +33,8 @@ class CreateCapitulosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('capitulos');
+         Schema::table('filebook', function(Blueprint $table) {
+            
+        });
     }
-
-
 }
