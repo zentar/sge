@@ -9,7 +9,7 @@
             <table id="table_autores" class="table table-striped table-bordered display compact autores" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th class="dt-head-center">Id</th>
+                <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center">Email</th>
@@ -20,7 +20,7 @@
         </thead>
         <tfoot>
             <tr>
-                <th class="dt-head-center">Id</th>
+                <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
                 <th class="dt-head-center">Email</th>

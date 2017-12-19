@@ -13,6 +13,8 @@ use App\Estados;
 use App\autorbook;
 use App\autorcapitulos;
 use App\Coleccion;
+use App\Tipodoc;
+use App\Caracteristicas;
 use DB;
 
 class LibroController extends Controller
@@ -35,7 +37,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->action('HomeController@index');
     }
 
     /**
@@ -60,7 +62,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }        
                  // dd($estados);  
-        return view('libros/create', compact('libro','autores_nombre','facultades','colecciones'));
+        return view('libros/create/create', compact('libro','autores_nombre','facultades','colecciones'));
     }
 
     /**
@@ -76,14 +78,9 @@ class LibroController extends Controller
          $rules = array(
         'titulo' => 'required',
         'facultad_id' => 'required',
-        'isbn' => 'required',
-        'paginas' => 'required',
         'autor' => 'required',
         'coleccion_id' => 'required'
         );
-        if($data['revision_pares']==null)$data['revision_pares']='-';
-        if($data['contrato']==null)$data['contrato']='-';
-        if($data['pi']==null)$data['pi']='-';
         if($data['facultad_id']=="null")$data['facultad_id']=null;
         if($data['coleccion_id']=="null")$data['coleccion_id']=null;
 
@@ -95,21 +92,35 @@ class LibroController extends Controller
                 ->withInput()->with('error_code', 4)->with('facultad_old', $request->facultad_id);
         }
         else{
-           $autores= $data['autor']; 
-           unset($data['autor']);
-           $libro = New Book;
-           $input = array_filter($data,'strlen');
-           $libro->fill($input); 
-           $libro->estados_id=1;                 
-           $libro->save();
-                    
+                   
+          
 
-           foreach($autores as $autor){
-            $libroAutor = new autorbook;
-            $libroAutor->book_id=$libro->id;
-            $libroAutor->autor_id=$autor; 
-            $libroAutor->save();
-           }
+              //LIBRO            
+              $libro = new Book;            
+              $libro->titulo = $data["titulo"];
+              $libro->coleccion_id = $data["coleccion_id"];
+              $libro->facultad_id = $data["facultad_id"];
+              $libro->estados_id = 1;
+              $libro->save();
+
+                  //CARACTERISTICAS
+              $caracteristicas = new Caracteristicas;
+              $caracteristicas->book_id = $libro->id;
+            /*  $caracteristicas->tamano = $data['tamano'];
+              $caracteristicas->tipo_papel = $data['tpapel'];
+              $caracteristicas->n_paginas = $data['paginas'];
+              $caracteristicas->color = $data['color'];
+              $caracteristicas->cubierta = $data['cubierta'];
+              $caracteristicas->solapas = $data['solapa'];
+              $caracteristicas->observaciones = $data['observaciones'];*/
+              $caracteristicas->save();
+
+               foreach($data['autor'] as $autor){  
+                 $libroAutor = new autorbook;
+                 $libroAutor->book_id=$libro->id;
+                 $libroAutor->autor_id=$autor; 
+                 $libroAutor->save();
+               }
 
            crearDirectorio('libro',$libro); 
            
@@ -140,6 +151,9 @@ class LibroController extends Controller
         $libro = Book::find($id);
         $autores = Autor::all();
         $colecciones = Coleccion::all();
+
+        $tipos = Tipodoc::all();
+
         $flag_editar_autor=1;
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
@@ -152,8 +166,8 @@ class LibroController extends Controller
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
-        //dd($libro->facultad_id);                 
-        return view('libros/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones'));
+       // dd($libro->cotizacion[0]->file->id);                 
+        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos'));
     }
 
     /**
@@ -166,13 +180,9 @@ class LibroController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        //dd($data);
         $rules = array(
-           "titulo" => 'required',
            "facultad_id" => 'required',
-           "isbn" => 'required',
            "autor" => 'required',
-           "paginas" => 'required',
            "coleccion_id" => 'required'
         );
 
@@ -184,20 +194,59 @@ class LibroController extends Controller
                 ->withInput();
         }
         else{
-            $autores= $data['autor']; 
-            unset($data['autor']);
-            $libro = Book::find($id);
-            $input = array_filter($data,'strlen');
-            $libro->fill($input);
-           // dd($libro);
-            $libro->save();
+              //CARACTERISTICAS
+              $caracteristicas = Caracteristicas::get()->where('book_id',$id)->first();
+              if(isset($data['tamano']))
+              $caracteristicas->tamano = $data['tamano'];
+              else
+              $caracteristicas->tamano = "-";  
 
-            $eliminar = autorbook::where('book_id', $libro->id);
+              if(isset($data['tpapel']))
+              $caracteristicas->tipo_papel = $data['tpapel'];
+              else
+              $caracteristicas->tipo_papel = "-";  
 
-            if(!$eliminar==null)
-            $eliminar->delete();  
+              if(isset($data['paginas']))
+              $caracteristicas->n_paginas = $data['paginas'];
+              else
+              $caracteristicas->n_paginas = "-";  
 
-        foreach($autores as $autor){  
+              if(isset($data['color']))
+              $caracteristicas->color = $data['color'];
+              else
+              $caracteristicas->color = "-";  
+
+              if(isset($data['cubierta']))
+              $caracteristicas->cubierta = $data['cubierta'];
+              else
+              $caracteristicas->cubierta = "-";  
+
+              if(isset($data['solapa']))
+              $caracteristicas->solapas = $data['solapa'];
+              else
+              $caracteristicas->solapas = "-";  
+
+              if(isset($data['observaciones']))
+              $caracteristicas->observaciones = $data['observaciones'];
+              else
+              $caracteristicas->observaciones = "-";  
+
+              $caracteristicas->save();
+
+              //LIBRO            
+              $libro = Book::find($id);            
+              $libro->titulo = $data["titulo"];
+              $libro->coleccion_id = $data["coleccion_id"];
+              $libro->facultad_id = $data["facultad_id"];
+              $libro->save();
+            
+              //ELIMINA RELACION CON AUTORES CARACTERISTICAS
+              $eliminar = autorbook::where('book_id', $libro->id);
+              if(!$eliminar==null)
+              $eliminar->delete();  
+
+        //CREA RELACIONES NUEVAS DE LIBROS CON AUTORES
+        foreach($data['autor'] as $autor){  
             $libroAutor = new autorbook;
             $libroAutor->book_id=$libro->id;
             $libroAutor->autor_id=$autor; 
@@ -322,4 +371,31 @@ class LibroController extends Controller
       Session::flash('message','Capitulo eliminado sin problemas.');
       return redirect()->back()->withInput();
     }
+
+    public function agregarDocumentos(Request $request, $id)
+    {
+      $tipos = Tipodoc::get();
+      $libro = Book::find($id);
+      return view('libros/documentos', compact('tipos','libro'));
+    }
+
+    public function editarDocumentos(Request $request, $id)
+    {
+      $tipos = Tipodoc::get();
+      $libro = Book::find($id);
+      return view('libros/documentos', compact('tipos','libro'));
+    }
+
+    public function agregarCotizacion(Request $request, $id)
+    {
+       $libro = Book::find($id);
+      return view('libros/cotizacion', compact('tipos','libro'));
+    }
+
+    public function editarCotizacion(Request $request, $id)
+    {
+      $libro = Book::find($id); 
+     // dd($libro->cotizacion[0]->file);
+     return view('libros/cotizacion', compact('tipos','libro'));
+}
 }

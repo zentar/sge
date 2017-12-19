@@ -15,13 +15,7 @@ class CreateBookTable extends Migration
         Schema::create('books', function (Blueprint $table) {            
             $table->increments('id');
             $table->string('titulo');
-            $table->string('revision_pares');
-            $table->string('contrato');
-            $table->string('isbn');
-            $table->string('pi');
-            $table->string('paginas');
-
-
+   
             $table->integer('estados_id')->unsigned();
             $table->foreign('estados_id')->references('id')->on('estados');
 

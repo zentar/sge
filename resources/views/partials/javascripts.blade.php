@@ -76,3 +76,40 @@
     }
 </script>
 
+
+<script>
+    function editar_cotizacion(id,file_id,imprenta,tiraje,valor){
+       document.getElementById('imprenta').value = imprenta;
+       document.getElementById('tiraje').value = tiraje;
+       document.getElementById('valor').value = valor;
+       $("#documento").val('');
+
+         $('<input />').attr('type', 'hidden')
+          .attr('name', "cotizacion_edit")
+          .attr('value', id)
+          .appendTo('#crear_libro_cotizacion');
+
+          $('<input />').attr('type', 'hidden')
+          .attr('name', "file_id")
+          .attr('value', file_id)
+          .appendTo('#crear_libro_cotizacion');
+    }
+
+    function nuevoCotizacion(){
+       document.getElementById('imprenta').value = "";
+       document.getElementById('tiraje').value = "";
+       document.getElementById('valor').value = "";
+       $("#documento").val('');
+
+       $('<input />').attr('type', 'hidden')
+          .attr('name', "cotizacion_edit")
+          .attr('value', 0)
+          .appendTo('#crear_libro_cotizacion');  
+    }
+
+       $('<input />').attr('type', 'hidden')
+          .attr('name', "cotizacion_edit")
+          .attr('value', 0)
+          .appendTo('#crear_libro_cotizacion'); 
+</script>
+

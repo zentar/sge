@@ -19,10 +19,13 @@ class CreateCotizacionesTable extends Migration
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');
 
+            $table->integer('file_id')->unsigned();
+            $table->foreign('file_id')->references('id')->on('file');
+
             $table->string('imprenta');
             $table->string('tiraje');
-            $table->double('valor');
-            $table->integer('estado');
+            $table->string('valor');
+            $table->string('estado');
 
             $table->softDeletes();
             $table->timestamps();

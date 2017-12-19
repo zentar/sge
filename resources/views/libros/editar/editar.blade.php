@@ -6,10 +6,10 @@
 
                   {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_autores",'name'=>"editar_autores"])!!}
                 
-                    @include('libros/editar_form')
-                     <div class="box-footer col-md-12">
+                    @include('libros/editar/editar_form2')
+                 <div class="box-footer col-md-12">
                     <button type="submit" class="btn btn-primary">Grabar</button>
-                  </div>                    
+                  </div>                  
                   {!!Form::close()!!}                        
                 <!--  {!! link_to_route('admin.home', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p> -->
                 </div><!-- /.box-body -->

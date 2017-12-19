@@ -24,6 +24,16 @@ class Caracteristicas extends Model
 
     protected $fillable = ['tamano','tipo_papel','n_paginas','color','cubierta','solapas','observaciones'];
 
+    protected $attributes = [
+        'tamano' => '-',
+        'tipo_papel' => '-',
+        'n_paginas' => '-',
+        'color' => '-',
+        'cubierta' => '-',
+        'solapas' => '-',
+        'observaciones' => '-'
+    ];
+
     public function book()
     {
         return $this->belongsTo('App\Book');

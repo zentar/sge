@@ -1,20 +1,17 @@
 @extends('layouts.app')
 @section('content')
-
   <div class="box container">
                 <div class="box-body">
-                   {!!Form::open(['route'=>'image.crear_autor', 'method'=>'POST','files'=>'true', 'id'=>"crear_autor_documentos",'name'=>"crear_autor_documentos"])!!}
-
+                   {!!Form::open(['route'=>'image.crear_libro', 'method'=>'POST','files'=>'true', 'id'=>"crear_libro_documentos",'name'=>"crear_libro_documentos"])!!}
              <div class="col-md-12">
                    <div class="form-group">
 
-                   <label>Autor</label>
+                   <label>Libro</label>
                    <div class="panel panel-default">
-                     <div class="panel-body">{{$autor->nombre}} {{$autor->apellido}}</div>
-                     {{ Form::hidden('autor_id', $autor->id) }}
-                   </div> 
-
-               <a type="button" href="{{route('autor.editar',$autor->id)}}" class="btn btn-primary fa fa-arrow-left"></a>    
+                     <div class="panel-body">{{$libro->titulo}}</div>
+                     {{ Form::hidden('libro_id', $libro->id) }}
+                   </div>
+               <a type="button" href="{{route('libro.editar',$libro->id)}}" class="btn btn-primary fa fa-arrow-left"></a>    
 
                <button type="submit" class="btn btn-primary" id="agregar_documento_autor">Grabar</button>     
      
@@ -32,7 +29,7 @@
 
 
 
-         <table id="documentos_autor" class="table table-striped table-bordered display compact fileautor" cellspacing="0" width="100%">
+         <table id="documentos_libro" class="table table-striped table-bordered display compact filelibro" cellspacing="0" width="100%">
         <thead>
             <tr>
                  
@@ -61,7 +58,7 @@
         </tfoot>
         <tbody>
       
-          @foreach($autor->file as $file)
+          @foreach($libro->file as $file)
           <tr>
                 <td class="dt-body-center">{{$file->id}}</td>
                 <td class="dt-body-center">{{$file->tipodoc->nombre}}</td>
@@ -74,7 +71,7 @@
               <p>
                 {!!link_to_route('image.documentos', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
 
-                {!!link_to_route('image.delete_autor', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('image.delete_libro', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td> 
               </tr>

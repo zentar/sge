@@ -12,62 +12,61 @@ class TipoDocSeed extends Seeder
     public function run()
     {
         $items = [
-            [
+             [
             'id' => 1, 
+            'nombre' => 'Cotizacion',
+            'descripcion' => 'Cotizacion'
+            ],
+            [
+            'id' => 2, 
             'nombre' => 'Contrato',
             'descripcion' => 'Contrato'
             ],
                 [
-            'id' => 2, 
+            'id' => 3, 
             'nombre' => 'ISBN - Papeleta de pago',
             'descripcion' => 'ISBN - Papeleta de pago'
             ],
                 [
-            'id' => 3, 
+            'id' => 4, 
             'nombre' => 'ISBN - Formulario de Registro',
             'descripcion' => 'ISBN - Formulario de Registro'
             ],
                 [
-            'id' => 4, 
+            'id' => 5, 
             'nombre' => 'ISBN - Código',
             'descripcion' => 'ISBN - Código'
             ],
                 [
-            'id' => 5, 
+            'id' => 6, 
             'nombre' => 'PI',
             'descripcion' => 'PI'
             ],
                 [
-            'id' => 6, 
+            'id' => 7, 
             'nombre' => 'IEPI - Solicitud',
             'descripcion' => 'IEPI - Solicitud'
             ],
             [
-            'id' => 7, 
+            'id' => 8, 
             'nombre' => 'IEPI - Papeleta pago',
             'descripcion' => 'IEPI - Papeleta pago'
             ],
             [
-            'id' => 8, 
+            'id' => 9, 
             'nombre' => 'IEPI - código',
             'descripcion' => 'IEPI - código'
             ],
              [
-            'id' => 9, 
+            'id' => 10, 
             'nombre' => 'Cédula',
             'descripcion' => 'Cédula'
             ],
             [
-            'id' => 10, 
+            'id' => 11, 
             'nombre' => 'Pasaporte',
             'descripcion' => 'Pasaporte'
-            ],
-            
-             [
-            'id' => 11, 
-            'nombre' => 'Cotizacion',
-            'descripcion' => 'Cotizacion'
-            ],
+            ],         
             [
             'id' => 12, 
             'nombre' => 'Otros',

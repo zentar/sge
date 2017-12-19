@@ -41,4 +41,10 @@ class File extends Model
          return $this->belongsTo('App\Tipodoc');
     }
 
+    public function cotizacion()
+    {
+       // dd($this->belongsTo('App\Tipodoc'));
+         return $this->belongsTo('App\Cotizacion');
+    }
+
 }

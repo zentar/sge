@@ -8,6 +8,7 @@
                 
                     @include('autores/editar_form')
                      <div class="box-footer col-md-12">
+                      <a type="button" href="{{route('autor.index')}}" class="btn btn-primary fa fa-arrow-left"></a>  
                     <button type="submit" class="btn btn-primary">Grabar</button>
                   </div>                    
                   {!!Form::close()!!}                        

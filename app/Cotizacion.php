@@ -30,4 +30,9 @@ class Cotizacion extends Model
     {
         return $this->belongsTo('App\Book');
     }
+
+    public function file()
+    {
+        return $this->belongsTo('App\File');
+    }
 }

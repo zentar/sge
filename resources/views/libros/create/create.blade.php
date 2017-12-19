@@ -9,7 +9,7 @@
                       @include('general/errors')
                     @endif
               
-                   @include('libros/create_form')
+                   @include('libros/create/create_form2')
                    <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Grabar</button>
                   </div>

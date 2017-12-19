@@ -16,13 +16,13 @@ class CreateCaracteristicasTable extends Migration
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('book_id')->unsigned();
+            $table->integer('book_id')->unsigned()->unique();
             $table->foreign('book_id')->references('id')->on('books');
 
-            $table->integer('tamano'); 
-            $table->integer('tipo_papel'); 
-            $table->integer('n_paginas');
-            $table->integer('color');
+            $table->string('tamano'); 
+            $table->string('tipo_papel'); 
+            $table->string('n_paginas');
+            $table->string('color');
             $table->string('cubierta'); 
             $table->string('solapas'); 
             $table->string('observaciones'); 

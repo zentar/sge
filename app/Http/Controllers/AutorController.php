@@ -8,6 +8,7 @@ use Session;
 use App\Autor;
 use App\autorbook;
 use App\Tipodoc;
+use App\File;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -154,14 +155,11 @@ class AutorController extends Controller
         }
         else{
             $autor = Autor::find($id);
-            
-            Storage::delete($autor->documentos);
-            $path = Storage::putFile(null,$request->file('documentos'));            
              
             $input = array_filter($data,'strlen');
             
             $autor->fill($input);
-            $autor->documentos=$path;           
+                    
 
             $autor->save();
             Session::flash('message','Registro editado correctamente');

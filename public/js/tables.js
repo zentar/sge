@@ -229,14 +229,62 @@ $(document).ready(function() {
             }
           ],
   "columns": [
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" },
-    { "width": "12%" }
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" }
+  ],
+} );
+} );
+
+$(document).ready(function() {
+     $('.filelibro').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" },
+    { "width": "11%" }
+  ],
+} );
+} );
+
+$(document).ready(function() {
+     $('.cotizaciones').DataTable({
+         "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        "columnDefs": [
+            {
+                "targets": null,
+                "visible": false,
+                "searchable": false
+            }
+          ],
+  "columns": [
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" }
   ],
 } );
 } );

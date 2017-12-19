@@ -9,18 +9,18 @@
             <table id="table_estados" class="table table-bordered tabke-striped display compact estados" cellspacing="0" width="80%">
         <thead>
             <tr>
-                <th class="dt-head-center">Id</th>
+                <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Nombre</th>
+                <th class="dt-head-center">Descripción</th>
                 <th class="dt-head-center"></th>   
 
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th class="dt-head-center">Id</th>
+                <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Nombre</th>
+                <th class="dt-head-center">Descripción</th>
                 <th class="dt-head-center"></th>                
             </tr>
         </tfoot>

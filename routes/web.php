@@ -135,15 +135,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'EstadosController@destroy',
         ]);
 
-          Route::get('image/{file}/documento', [
-            'as' => 'image.documentos',
-            'uses' => 'ImageController@show',
-        ]);
-
-          Route::post('image/caut', [
-            'as' => 'image.crear_autor',
-            'uses' => 'ImageController@crear_autor',
-        ]);  
+     
 
    
 
@@ -183,18 +175,75 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
         Route::get('autor/{id}/agregardocumentos', [
             'as' => 'autor.agregardocumentos',
-            'uses' => 'autorController@agregarDocumentos',
+            'uses' => 'AutorController@agregarDocumentos',
         ]);
 
         Route::get('autor/{id}/editardocumentos', [
             'as' => 'autor.editardocumentos',
-            'uses' => 'autorController@editarDocumentos',
+            'uses' => 'AutorController@editarDocumentos',
         ]);
 
-        Route::get('autor/{id}/editardocumentos', [
-            'as' => 'autor.editardocumentos',
-            'uses' => 'autorController@editarDocumentos',
+        Route::get('libro/{id}/agregardocumentos', [
+            'as' => 'libro.agregardocumentos',
+            'uses' => 'LibroController@agregarDocumentos',
         ]);
+
+        Route::get('libro/{id}/editardocumentos', [
+            'as' => 'libro.editardocumentos',
+            'uses' => 'LibroController@editarDocumentos',
+        ]);
+        
+       //MUESTRA IMAGEN DE ARCHIVO REQUERIDO
+        Route::get('image/{file}/documento', [
+            'as' => 'image.documentos',
+            'uses' => 'ImageController@show',
+        ]);
+
+        //CREAR Y ELIMINAR IMAGEN DE DOCUMENTOS DE AUTORES 
+        Route::post('image/caut', [
+            'as' => 'image.crear_autor',
+            'uses' => 'ImageController@crear_autor',
+        ]); 
+
+
+        Route::get('image/{id}/daut', [
+            'as' => 'image.delete_autor',
+            'uses' => 'ImageController@delete_autor',
+        ]);  
+
+
+        //CREAR Y ELIMINAR IMAGEN DE DOCUMENTOS DE LIBRO
+         Route::post('image/clib', [
+            'as' => 'image.crear_libro',
+            'uses' => 'ImageController@crear_libro',
+        ]); 
+
+        Route::get('image/{id}/dlib', [
+            'as' => 'image.delete_libro',
+            'uses' => 'ImageController@delete_libro',
+        ]);  
+
+        //COTIZACIONES
+        Route::get('libro/{id}/agregarcotizacion', [
+            'as' => 'libro.agregarcotizacion',
+            'uses' => 'LibroController@agregarCotizacion',
+        ]);
+
+        Route::get('libro/{id}/editarcotizacion', [
+            'as' => 'libro.editarcotizacion',
+            'uses' => 'LibroController@editarCotizacion',
+        ]);
+
+        //CREAR Y ELIMINAR IMAGEN DE COTIZACIONES DEL LIBRO
+         Route::post('image/ccot', [
+            'as' => 'image.crear_cotizacion',
+            'uses' => 'ImageController@crear_cotizacion',
+        ]); 
+
+        Route::get('image/{id}/dcot', [
+            'as' => 'image.delete_cotizacion',
+            'uses' => 'ImageController@delete_cotizacion',
+        ]);  
  
       
 
