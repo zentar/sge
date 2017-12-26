@@ -64,6 +64,6 @@ class Book extends Model
 
     public function file()
     {
-        return $this->belongsToMany('App\file','filebook');
+        return $this->belongsToMany('App\File','filebook');
     }
 }

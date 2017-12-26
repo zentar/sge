@@ -136,8 +136,10 @@ class LibroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {      
+        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion'])->get()->where('id',$id)->first();
+      // dd($libro);    
+        return view('libros/consultar/consultar', compact('libro'));
     }
 
     /**
@@ -148,19 +150,18 @@ class LibroController extends Controller
      */
     public function edit($id)
     {
-        $libro = Book::find($id);
+       //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
+       $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion'])->get()->where('id',$id)->first();
         $autores = Autor::all();
         $colecciones = Coleccion::all();
-
         $tipos = Tipodoc::all();
-
         $flag_editar_autor=1;
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
-         $facultades = Facultad::all();
+        $facultades = Facultad::all();
         $facultades_nombre=[];
         $facultades_nombre[null] = "Seleccionar Facultad";  
         foreach($facultades as $facultad){
@@ -196,41 +197,13 @@ class LibroController extends Controller
         else{
               //CARACTERISTICAS
               $caracteristicas = Caracteristicas::get()->where('book_id',$id)->first();
-              if(isset($data['tamano']))
-              $caracteristicas->tamano = $data['tamano'];
-              else
-              $caracteristicas->tamano = "-";  
-
-              if(isset($data['tpapel']))
-              $caracteristicas->tipo_papel = $data['tpapel'];
-              else
-              $caracteristicas->tipo_papel = "-";  
-
-              if(isset($data['paginas']))
-              $caracteristicas->n_paginas = $data['paginas'];
-              else
-              $caracteristicas->n_paginas = "-";  
-
-              if(isset($data['color']))
-              $caracteristicas->color = $data['color'];
-              else
-              $caracteristicas->color = "-";  
-
-              if(isset($data['cubierta']))
-              $caracteristicas->cubierta = $data['cubierta'];
-              else
-              $caracteristicas->cubierta = "-";  
-
-              if(isset($data['solapa']))
-              $caracteristicas->solapas = $data['solapa'];
-              else
-              $caracteristicas->solapas = "-";  
-
-              if(isset($data['observaciones']))
-              $caracteristicas->observaciones = $data['observaciones'];
-              else
-              $caracteristicas->observaciones = "-";  
-
+              $caracteristicas->tamano = valorPredeterminado($data['tamano']);
+              $caracteristicas->tipo_papel = valorPredeterminado($data['tpapel']);
+              $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
+              $caracteristicas->color = valorPredeterminado($data['color']);
+              $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
+              $caracteristicas->solapas = valorPredeterminado($data['solapa']);
+              $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
               $caracteristicas->save();
 
               //LIBRO            
@@ -283,14 +256,7 @@ class LibroController extends Controller
        
     }
 
-       public function consultar(Request $request, $id)
-    {
-        $libro = Book::find($id);
-       // dd($libro->estados);
-        return view('libros/consultar', compact('libro'));
-    }
-
-      public function capitulos(Request $request,$id)
+    public function capitulos(Request $request,$id)
     {
         $libro = Book::find($id);     
         $autores = Autor::all();  
@@ -372,16 +338,9 @@ class LibroController extends Controller
       return redirect()->back()->withInput();
     }
 
-    public function agregarDocumentos(Request $request, $id)
-    {
-      $tipos = Tipodoc::get();
-      $libro = Book::find($id);
-      return view('libros/documentos', compact('tipos','libro'));
-    }
-
     public function editarDocumentos(Request $request, $id)
     {
-      $tipos = Tipodoc::get();
+      $tipos = Tipodoc::get()->where('grupo','libro');
       $libro = Book::find($id);
       return view('libros/documentos', compact('tipos','libro'));
     }
@@ -394,8 +353,8 @@ class LibroController extends Controller
 
     public function editarCotizacion(Request $request, $id)
     {
-      $libro = Book::find($id); 
-     // dd($libro->cotizacion[0]->file);
+      $libro = Book::with('cotizacion.file')->get()->where('id',$id)->first(); 
+     // dd($libro);
      return view('libros/cotizacion', compact('tipos','libro'));
-}
+    }
 }

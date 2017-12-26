@@ -29,10 +29,10 @@
                        {!!Form::text('solapa',$libro->caracteristicas->solapas,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100'])!!} 
                     </div>
-                     <div class="form-group col-md-6">                     
+                     <div class="form-group col-md-12">                     
                       <label>Observaciones</label> 
                        {!!Form::textarea('observaciones',$libro->caracteristicas->observaciones,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!} 
+                      'placeholder'=>'-','maxlength'=>'100',"style"=>"overflow:auto;resize:none"])!!} 
                     </div>
                     @else
                     <div class="form-group col-md-6">                     
@@ -65,10 +65,16 @@
                        {!!Form::text('solapa',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100'])!!} 
                     </div>
-                     <div class="form-group col-md-6">                     
-                      <label>Observaciones</label> 
-                       {!!Form::textarea('observaciones',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!} 
+                    <div class="form-group col-md-12">                     
+                    <label>Observaciones</label> 
+                     {!!Form::textarea('observaciones',$libro->caracteristicas->observaciones,['class'=>'form-control',
+                    'placeholder'=>'-','maxlength'=>'100',"style"=>"overflow:auto;resize:none"])!!} 
                     </div>
 
+       
+
                     @endif
+                    <div class="box-footer col-md-12">
+                    <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
+                    <button type="submit" class="btn btn-primary">Grabar</button>
+                  </div> 

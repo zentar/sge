@@ -11,67 +11,91 @@ class TipoDocSeed extends Seeder
      */
     public function run()
     {
-        $items = [
-             [
-            'id' => 1, 
-            'nombre' => 'Cotizacion',
-            'descripcion' => 'Cotizacion'
+        $items = [             
+            [
+                'id' => 1,
+                'grupo' => "cotizacion", 
+                'nombre' => 'Cotizacion',
+                'descripcion' => 'Cotizacion'
             ],
             [
-            'id' => 2, 
+                'id' => 2,
+                'grupo' => "cotizacion", 
+                'nombre' => 'Cotizacion Aprobado',
+                'descripcion' => 'Cotizacion'
+            ], 
+            [
+            'id' => 3,
+            'grupo' => "libro", 
             'nombre' => 'Contrato',
             'descripcion' => 'Contrato'
             ],
                 [
-            'id' => 3, 
+            'id' => 4,
+            'grupo' => "libro", 
             'nombre' => 'ISBN - Papeleta de pago',
             'descripcion' => 'ISBN - Papeleta de pago'
             ],
                 [
-            'id' => 4, 
+            'id' => 5,
+            'grupo' => "libro", 
             'nombre' => 'ISBN - Formulario de Registro',
             'descripcion' => 'ISBN - Formulario de Registro'
             ],
                 [
-            'id' => 5, 
+            'id' => 6,
+            'grupo' => "libro", 
             'nombre' => 'ISBN - Código',
             'descripcion' => 'ISBN - Código'
             ],
                 [
-            'id' => 6, 
+            'id' => 7,
+            'grupo' => "libro", 
             'nombre' => 'PI',
             'descripcion' => 'PI'
             ],
                 [
-            'id' => 7, 
+            'id' => 8,
+            'grupo' => "libro", 
             'nombre' => 'IEPI - Solicitud',
             'descripcion' => 'IEPI - Solicitud'
             ],
             [
-            'id' => 8, 
+            'id' => 9,
+            'grupo' => "libro", 
             'nombre' => 'IEPI - Papeleta pago',
             'descripcion' => 'IEPI - Papeleta pago'
             ],
             [
-            'id' => 9, 
+            'id' => 10,
+            'grupo' => "libro", 
             'nombre' => 'IEPI - código',
             'descripcion' => 'IEPI - código'
             ],
              [
-            'id' => 10, 
+            'id' => 11,
+            'grupo' => "autor", 
             'nombre' => 'Cédula',
             'descripcion' => 'Cédula'
             ],
             [
-            'id' => 11, 
+            'id' => 12,
+            'grupo' => "autor", 
             'nombre' => 'Pasaporte',
             'descripcion' => 'Pasaporte'
             ],         
             [
-            'id' => 12, 
+            'id' => 13,
+            'grupo' => "autor", 
             'nombre' => 'Otros',
             'descripcion' => 'Otros'
-            ]              
+            ],         
+            [
+            'id' => 14,
+            'grupo' => "libro", 
+            'nombre' => 'Otros',
+            'descripcion' => 'Otros'
+            ]           
         ];
 
         foreach ($items as $item) {

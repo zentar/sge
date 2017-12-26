@@ -15,6 +15,7 @@ class CreateTipoDoc extends Migration
     {
         Schema::create('tipodoc', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('grupo');
             $table->string('nombre');
             $table->string('descripcion');
             $table->softDeletes();        

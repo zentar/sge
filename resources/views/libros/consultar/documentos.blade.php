@@ -1,7 +1,5 @@
  @if($libro->file->count() > 0)  
-     <div class="form-group col-md-12">
-      {!!link_to_route('libro.editardocumentos', $title = "Editar documentos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
-     </div>
+
       @foreach ($libro->file as $file)
         <div class="form-group panel panel-default col-md-12">
           <ul>
@@ -13,8 +11,6 @@
       @endforeach
       @else
         <div class="form-group col-md-12">
-          <p> No se ha ingresado ningún Documento.
-              {!!link_to_route('libro.editardocumentos', $title = "Agregar documentos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link"])!!}
-          </p>       
+          <p> No se ha ingresado ningún Documento.</p>       
         </div>
   @endif

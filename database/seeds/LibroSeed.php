@@ -72,6 +72,13 @@ class LibroSeed extends Seeder
              ]
 
         ];
+      /*  for($i=5;$i<100;$i++){
+          array_push($items,['id' => $i, 
+          'titulo' => 'Coleccion '.$i,
+          'facultad_id' => 10,
+          'estados_id' => '4', 
+          'coleccion_id' =>'1']);
+      }*/
 
         foreach ($items as $item) {
             \App\Book::create($item);

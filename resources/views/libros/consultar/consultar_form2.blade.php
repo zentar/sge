@@ -11,23 +11,23 @@
   <div class="tab-content">
     <div id="informacion" class="tab-pane pane fade in active">
       <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:1%"></div>  
-      @include('libros/editar/informacion_libro') 
+      @include('libros/consultar/informacion_libro') 
     </div>  
     <div id="documentos" class="tab-pane fade">
     <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:1%"></div>
-      @include('libros/editar/documentos') 
+      @include('libros/consultar/documentos') 
     </div>
     <div id="caracteristicas" class="tab-pane fade">
     <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:1%"></div>
-      @include('libros/editar/caracteristicas_libro') 
+      @include('libros/consultar/caracteristicas_libro') 
     </div>
     <div id="cotizaciones" class="tab-pane fade">
     <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:1%"></div>
-      @include('libros/editar/cotizaciones_libro') 
+      @include('libros/consultar/cotizaciones_libro') 
     </div>
     <div id="historico" class="tab-pane fade">
     <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:1%"></div>
-      @include('libros/editar/historico_libro') 
+      @include('libros/consultar/historico_libro') 
     </div>
   </div>
 

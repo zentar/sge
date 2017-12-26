@@ -42,7 +42,7 @@
 
                     <div class="form-group">
                       <label>Colección</label>
-                      <select id="coleccion_id" style="width: 100%" class="form-control" name="coleccion_id">
+                      <select id="coleccion_id" style="width: 100%" class="form-control select2" name="coleccion_id">
                         <option value='null'> Seleccionar Colección </option>
                        @foreach($colecciones as $coleccion)
                         <option value="{{ $coleccion->id }}" @if($coleccion->id == $libro->coleccion->id) selected @endif> {{ $coleccion->titulo }} </option>
@@ -50,33 +50,51 @@
                       </select>
                     </div> 
                     
-
-                     @if($libro->capitulos->count() > 0)  
+                    @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
-                       <strong>Capítulos</strong>{!!link_to_route('libro.agregarcapitulos', $title = "Editar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
-                     </div>
-                    @foreach ($libro->capitulos as $capitulos)
-                    <div class="form-group panel panel-default col-md-6">
-                      <ul>
-                    <li> {{$capitulos->titulo}}</li>
-                    <strong>{{$capitulos->descripcion}}</strong>
-                             <ul>
-                                  @foreach ($capitulos->autor as $autor)
-                                 <p>{{$autor->nombre}} {{$autor->apellido}}</p>
-                                 @endforeach 
-                             </ul>
+                    <strong>Capítulos</strong>{!!link_to_route('libro.agregarcapitulos', $title = "Editar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
+                    </div>    
+                     <div class="col-md-12">
+                     <table id="example1" class="table table-striped table-bordered display compact consultarCapitulo" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                 
+                <th class="dt-head-center">ID</th>
+                <th class="dt-head-center">Título</th>
+                <th class="dt-head-center">Descripción</th>
+                <th class="dt-head-center">Autores</th>   
+            </tr>
+        </thead>  
+        <tbody>
+        
+                @foreach ($libro->capitulos as $capitulos)
+              
+            <tr>
+                <td class="dt-body-center">{{$capitulos->id}}</td>
+                <td class="dt-body-center">{{$capitulos->titulo}}</td>
+                <td class="dt-body-center">{{$capitulos->descripcion}}</td>
+                 <td class="dt-body-center">                 
+                  @foreach ($capitulos->autor as $autor)
+                   <p>{{$autor->nombre}} {{$autor->apellido}}</p>
+                  @endforeach 
+                </td>            
+            </tr>
+              @endforeach
+        </tbody>
+      </table>
+      </div>
 
-                  </ul>
-                    </div>                      
-                     @endforeach
+      @else
+      <div class="form-group col-md-12">
+        <label>Capítulos</label>
+        <p> No se ha ingresado ningún capitulo.
+            {!!link_to_route('libro.agregarcapitulos', $title = "Agregar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}
+       </p>       
+      </div>
 
-                     @else
-                     <div class="form-group col-md-12">
-                       <label>Capítulos</label>
-                       <p> No se ha ingresado ningún capitulo.
-                           {!!link_to_route('libro.agregarcapitulos', $title = "Agregar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}
-                      </p>       
-                     </div>
-
-                    @endif
+     @endif
                
+     <div class="box-footer col-md-12">
+                    <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
+                    <button type="submit" class="btn btn-primary">Grabar</button>
+                  </div> 

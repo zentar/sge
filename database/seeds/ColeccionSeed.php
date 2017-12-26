@@ -64,7 +64,7 @@ class ColeccionSeed extends Seeder
             ]
         ];
 
-       /* for($i=11;$i<100;$i++){
+     /*   for($i=11;$i<100;$i++){
             array_push($items,['id' => $i, 
             'titulo' => 'Coleccion '.$i,
             'Descripcion' => 'Descripcion coleccion']);

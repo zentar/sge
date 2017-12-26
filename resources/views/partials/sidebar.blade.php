@@ -66,7 +66,7 @@
                 </a>
                 <ul class="treeview-menu">
                 @can('user_access')
-                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                <li>
                         <a href="{{ route('estados.index') }}">
                             <i class="fa  fa-check"></i>
                             <span class="title">
@@ -77,7 +77,7 @@
                 @endcan
 
                @can('role_access')
-                <li class="{{ $request->segment(2) == 'roles' ? 'active active-sub' : '' }}">
+                <li>
                         <a href="{{ route('facultad.index') }}">
                             <i class="fa fa-building-o"></i>
                             <span class="title">
@@ -87,7 +87,7 @@
                     </li>
                 @endcan
                 @can('user_access')
-                <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
+                <li>
                         <a href="{{ route('coleccion.index') }}">
                             <i class="fa fa-sitemap"></i>
                             <span class="title">

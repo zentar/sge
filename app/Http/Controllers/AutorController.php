@@ -198,16 +198,9 @@ class AutorController extends Controller
         return view('autores/consultar', compact('autores'));
     }
 
-    public function agregarDocumentos(Request $request, $id)
-    {
-      $tipos = Tipodoc::get();
-      $autor = Autor::find($id);
-      return view('autores/documentos', compact('tipos','autor'));
-    }
-
     public function editarDocumentos(Request $request, $id)
     {
-      $tipos = Tipodoc::get();
+      $tipos = Tipodoc::get()->where('grupo','autor');
       $autor = Autor::find($id);
       return view('autores/documentos', compact('tipos','autor'));
     }

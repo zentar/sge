@@ -27,8 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $libros=Book::get();
-        //dd($libros[0]->file);
+        $libros= Book::with('autor')->get();       
         return view('home', compact('libros'));
     }
 }

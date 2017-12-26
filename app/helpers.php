@@ -18,7 +18,6 @@ function quitar_capitulos_eliminados($cuerpos,$eliminados)
     return $cuerpos;
 }
 
-
     function crearDirectorio($tipo, $libro){
 
      if($tipo=='libro'){	   
@@ -28,5 +27,12 @@ function quitar_capitulos_eliminados($cuerpos,$eliminados)
       else{
         $folder = 'autor' . $libro->id;
         Storage::makeDirectory('/autor/'.$folder);
-      }
+    }
+}
+
+function valorPredeterminado($valor){
+  if(isset($valor))
+  return $valor;
+  else
+  return "-";
 }

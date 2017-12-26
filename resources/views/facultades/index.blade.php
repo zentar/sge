@@ -6,7 +6,7 @@
       <div class="box-body table-responsive">
            {!! link_to_route('facultad.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-success"] ) !!}</p>         
         <div class="panel-body">
-            <table id="table_estados" class="table table-bordered tabke-striped display compact facultades" cellspacing="0" width="80%">
+            <table id="table_estados" class="table table-bordered tabke-striped display compact facultades" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th class="dt-head-center">Id</th>

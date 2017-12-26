@@ -289,6 +289,53 @@ $(document).ready(function() {
 } );
 } );
 
+$(document).ready(function() {
+    var table = $('.consultarCapitulo').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        searching: false, paging: false,
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+         "columnDefs": [
+             {
+                 "targets": [ 0 ],
+                 "visible": false,
+                 "searchable": false
+             }
+           ],
+   "columns": [
+     { "width": "2%" },
+     { "width": "25%" },
+     { "width": "25%" },
+     { "width": "40%" }
+   ],
+ } );
+} );
+
+
+$(document).ready(function() {
+    var table = $('.consultarCotizacion').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        searching: false, paging: false,
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+        
+   "columns": [
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" },
+    { "width": "16%" }
+   ],
+ } );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

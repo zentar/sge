@@ -36,8 +36,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 		]);
 
 		Route::get('libro/{id}/consultar', [
-            'as' => 'libro.consultar',
-            'uses' => 'LibroController@consultar',
+            'as' => 'libro.show',
+            'uses' => 'LibroController@show',
         ]);
 
             Route::post('libro/{id}/update', [
@@ -173,21 +173,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
 //DOCUMENTOS
 
-        Route::get('autor/{id}/agregardocumentos', [
-            'as' => 'autor.agregardocumentos',
-            'uses' => 'AutorController@agregarDocumentos',
-        ]);
-
         Route::get('autor/{id}/editardocumentos', [
             'as' => 'autor.editardocumentos',
             'uses' => 'AutorController@editarDocumentos',
         ]);
-
-        Route::get('libro/{id}/agregardocumentos', [
-            'as' => 'libro.agregardocumentos',
-            'uses' => 'LibroController@agregarDocumentos',
-        ]);
-
+        
         Route::get('libro/{id}/editardocumentos', [
             'as' => 'libro.editardocumentos',
             'uses' => 'LibroController@editarDocumentos',
@@ -243,7 +233,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('image/{id}/dcot', [
             'as' => 'image.delete_cotizacion',
             'uses' => 'ImageController@delete_cotizacion',
-        ]);  
+        ]);        
+        
+        //CREA EL DOCUMENTO DE LA COTIZACION APROBADO
+        Route::post('image/ccota', [
+            'as' => 'image.crear_cotizacion_aprobado',
+            'uses' => 'ImageController@crear_cotizacion_aprobado',
+        ]); 
  
       
 

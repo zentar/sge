@@ -6,35 +6,14 @@
 
                   {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_autores",'name'=>"editar_autores"])!!}
                 
-                    @include('libros/editar/editar_form2')
-               
+                    @include('libros/consultar/consultar_form2')
+                 <div class="box-footer col-md-12">
+                    <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
+                  </div>                  
                   {!!Form::close()!!}                        
                 <!--  {!! link_to_route('admin.home', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p> -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
               @include('general/autor_modal')
-@stop
-
-
-@section('especial')
-<script>
-if({{$flag_editar_autor}}==1){
-       @foreach ($libro->autor as $name)
-       autor_global.push("{{$name->id}}");
-       @endforeach      
-    }
-
-  $("#editar_autores").submit( function(eventObj) {
-      var tamano = autor_global.length;
-      for(var i=0;i<tamano;i++){
-      $('<input />').attr('type', 'hidden')
-          .attr('name', "autor[]")
-          .attr('value', autor_global[i])
-          .appendTo('#editar_autores');
-        }
-      return true;
-  });
-     
-</script>
 @stop

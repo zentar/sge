@@ -11,6 +11,7 @@
               
                    @include('libros/create/create_form2')
                    <div class="box-footer">
+                   <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
                     <button type="submit" class="btn btn-primary">Grabar</button>
                   </div>
               {!!Form::close()!!}

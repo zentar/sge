@@ -39,7 +39,7 @@
                 <th class="dt-head-center">Nombre subida</th>
                 <th class="dt-head-center">Ruta</th>
                 <th class="dt-head-center">Peso</th>
-                <th class="dt-head-center">Extension</th>
+                <th class="dt-head-center">Extensión</th>
                 <th class="dt-head-center"></th> 
             </tr>
         </thead>
@@ -52,7 +52,7 @@
                 <th class="dt-head-center">Nombre subida</th>
                 <th class="dt-head-center">Ruta</th>
                 <th class="dt-head-center">Peso</th>
-                <th class="dt-head-center">Extension</th>
+                <th class="dt-head-center">Extensión</th>
                 <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
@@ -69,7 +69,7 @@
                 <td class="dt-body-center">{{$file->extension}}</td>                
                 <td class="dt-body-center"> 
               <p>
-                {!!link_to_route('image.documentos', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
+                {!!link_to_route('image.documentos', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-primary fa fa-eye","target"=>"_blank"])!!}
 
                 {!!link_to_route('image.delete_libro', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>

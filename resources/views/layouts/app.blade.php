@@ -14,7 +14,7 @@
 @include('partials.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background-color: #ffffff;">
         <!-- Main content -->
         <section class="content">
             @if(isset($siteTitle))
@@ -60,8 +60,9 @@
                     @endif
 
                   {{--   @include('layouts.titulo') --}}
-
+                  <div>
                       @yield('content')
+                  </div>
                       
                 </div>
 

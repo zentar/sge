@@ -54,7 +54,7 @@
                      <div class="form-group col-md-12">
                        <label>Documentos</label>
                        <p> No se ha ingresado ningún Documento.
-                           {!!link_to_route('autor.agregardocumentos', $title = "Agregar documentos", $parameters = $autor->id, $attributes = ['class'=>"btn btn-link"])!!}
+                           {!!link_to_route('autor.editardocumentos', $title = "Agregar documentos", $parameters = $autor->id, $attributes = ['class'=>"btn btn-link"])!!}
                       </p>       
                      </div>
 
