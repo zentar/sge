@@ -131,9 +131,17 @@ class UsersController extends Controller
         if (! Gate::allows('user_delete')) {
             return abort(401);
         }
-        $user = User::findOrFail($id);
-        $user->delete();
 
+        //dd(\Auth::user()->id);
+        $user = User::findOrFail($id);
+       // dd($user->id);
+        if(!($user->id == \Auth::user()->id)){
+            $user->delete();
+        }else{
+            \Session::flash('danger','No se puede eliminar usuario de la sesión actual.');
+            return redirect()->route('admin.users.index');
+        }       
+        \Session::flash('message','Usuario eliminado satisfactoriamente');
         return redirect()->route('admin.users.index');
     }
 

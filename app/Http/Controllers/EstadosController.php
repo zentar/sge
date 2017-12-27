@@ -146,7 +146,6 @@ class EstadosController extends Controller
             Session::flash('danger','Registro no encontrado');
             return redirect(route('estados.index'));
         }else{
-
             if(DB::table('books')->where('estados_id',$estado->id)->value('id')){
                Session::flash('danger','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
             }else{

@@ -64,11 +64,11 @@
       
           @foreach($libro->cotizacion as $file)
            <tr>
-                <td class="dt-body-center">{{$file->id}}</td>
+                <td class="dt-body-center">{{$loop->index+1}}</td>
                 <td class="dt-body-center">{{$file->imprenta}}</td>
                 <td class="dt-body-center">{{$file->tiraje}}</td>
                 <td class="dt-body-center">{{$file->valor}}</td>
-                <td class="dt-body-center">{{$file->estado}}</td>               
+                <td class="dt-body-center">@if($file->estado > 0) Aprobado @else - @endif</td>               
                 <td class="dt-body-center"> 
               <p>
                 {!!link_to_route('image.documentos', $title = '', $parameters = $file->file->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}

@@ -336,6 +336,34 @@ $(document).ready(function() {
  } );
 } );
 
+$(document).ready(function() {
+    var table = $('.roles').DataTable({
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+        
+   "columns": [
+    { "width": "50%" },
+    { "width": "50%" }
+    ]
+ } );
+} );
+
+$(document).ready(function() {
+    var table = $('.usuarios').DataTable({
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+        
+   "columns": [
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "25%" }
+    ]
+ } );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

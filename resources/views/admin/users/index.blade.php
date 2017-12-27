@@ -18,17 +18,13 @@
         </div>--}}
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} @can('user_delete') dt-select @endcan">
+            <table class="table table-bordered table-striped usuarios">
                 <thead>
-                    <tr>
-                        @can('user_delete')
-                            <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
-                        @endcan
-
-                        <th>@lang('quickadmin.users.fields.name')</th>
-                        <th>@lang('quickadmin.users.fields.email')</th>
-                        <th>@lang('quickadmin.users.fields.role')</th>
-                                                <th>&nbsp;</th>
+                    <tr> 
+                        <th class="dt-head-center">@lang('quickadmin.users.fields.name')</th>
+                        <th class="dt-head-center">@lang('quickadmin.users.fields.email')</th>
+                        <th class="dt-head-center">@lang('quickadmin.users.fields.role')</th>
+                                                <th class="dt-head-center">&nbsp;</th>
 
                     </tr>
                 </thead>
@@ -37,19 +33,16 @@
                     @if (count($users) > 0)
                         @foreach ($users as $user)
                             <tr data-entry-id="{{ $user->id }}">
-                                @can('user_delete')
-                                    <td></td>
-                                @endcan
 
-                                <td field-key='name'>{{ $user->name }}</td>
-                                <td field-key='email'>{{ $user->email }}</td>
-                                <td field-key='role'>{{ $user->role->title or '' }}</td>
+                                <td class="dt-body-center" field-key='name'>{{ $user->name }}</td>
+                                <td class="dt-body-center" field-key='email'>{{ $user->email }}</td>
+                                <td class="dt-body-center" field-key='role'>{{ $user->role->title or '' }}</td>
                                                                 <td>
                                     @can('user_view')
-                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary">@lang('quickadmin.qa_view')</a>
+                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary fa fa-eye"></a>
                                     @endcan
                                     @can('user_edit')
-                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-info">@lang('quickadmin.qa_edit')</a>
+                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-primary btn-warning btn-md fa fa-pencil-square-o"></a>
                                     @endcan
                                     @can('user_delete')
                                     {!! Form::open(array(
@@ -57,7 +50,7 @@
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
                                         'route' => ['admin.users.destroy', $user->id])) !!}
-                                    {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-danger')) !!}
+                                        <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>

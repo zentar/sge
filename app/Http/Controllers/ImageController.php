@@ -28,7 +28,8 @@ class ImageController extends Controller
 
    //MUESTRA IMAGEN ALMACENADA EN EL STORAGE 
    public function show($file)
-    {      
+    { 
+      try{     
         //RECUPERA EL REGISTRO DEL ARCHIVO DE LA BD  
         $doc = File::find($file);
         //FILTRA POR EXTENSION DE ARCHIVO EL MODO DE PRESENTACION
@@ -43,6 +44,9 @@ class ImageController extends Controller
           $documento = storage_path('app/'.$doc->ruta);         
           return response()->file($documento);
       }
+     }catch(\Exception $e){
+          abort(404);         //return $e->getMessage();
+     }
 
     }
 
@@ -95,9 +99,12 @@ class ImageController extends Controller
     //ELIMINA DOCUMENTO VINCULADO A UN AUTOR.
     public function delete_autor($id)
     {
-     //Storage::delete($autor->documentos);    
+     $file = file::find($id);
+     Storage::delete($file->ruta);
+
      $autor_doc = fileautor::get()->where('file_id',$id)->first();
      $autor_doc->delete();
+     
      Session::flash('message','Registro borrado sin problemas.');
      return redirect()->back(); 
     }   
@@ -105,6 +112,8 @@ class ImageController extends Controller
      //CREA UN FILE Y SU VINCULACION CON EL LIBRO
     public function crear_libro(Request $request){
         $data = $request->all();
+       // dd($data);
+        if($data['tipo_doc'][0]=="null"){$data['tipo_doc']=null;}
         $rules = array(
         'tipo_doc' => 'required',
         'documento' => 'required'
@@ -144,9 +153,42 @@ class ImageController extends Controller
     }
 
    //ELIMINA DOCUMENTO Y SU VINCULACION CON EL LIBRO
-    public function delete_libro($id){    
+    public function delete_libro($id){ 
+
+     $file = file::find($id);
+   
+     //SI EL DOCUMENTO ES DE APROBACION DE COTIZACION, DESHACE LA ACCION DE APROBACION
+     if($file->tipodoc_id == 2){
+      $libro_doc = filebook::get()->where('file_id',$id)->first(); 
+      $libro = Book::find($libro_doc->book_id);
+      foreach($libro->cotizacion as $cotizacion){
+       if($cotizacion->estado > 0){
+           foreach($libro->file as $documentos){
+              if($documentos->tipodoc_id == 2){
+               //COLOCO EN 0 EL ESTADO APROBADO ANTERIOR                                     
+               $cotizacion->estado = 0;
+               //ELIMINA ARCHIVO DEL ESTADO APROBADO ANTERIOR 
+               Storage::delete($documentos->ruta);
+               $cotizacion->save();  
+               // ELIMINA REGISTRO DE RELACION AUTOR CON ARCHIVO APROBADO ANTERIOR
+               $filebook = filebook::get()->where('book_id',$libro->id)->where('file_id',$documentos->id)->first();
+               $filebook->delete();
+               //ELIMINA EL REGISTRO DEL ARCHIVO APROBADO ANTERIOR
+               $documentos->delete();                  
+              }                 
+             
+           }            
+       }
+     }
+     return redirect()->back();
+     }
+
+
+     Storage::delete($file->ruta);
+
      $libro_doc = filebook::get()->where('file_id',$id)->first();
      $libro_doc->delete();
+
      Session::flash('message','Registro borrado sin problemas.');
      return redirect()->back(); 
  

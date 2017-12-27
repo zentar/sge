@@ -1,36 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.users.title')</h3>
+    <h3 class="page-title">Consultar Usuario</h3>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('quickadmin.qa_view')
+    <div class="box box-primary">
+           <div class="box-body"> 
+
+                   <div class="row">
+                    <div class="form-group col-md-6">                     
+                      <label>@lang('quickadmin.users.fields.name')</label>
+                    {!!Form::text('nombre',$user->name,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'100','disabled'=>'true'])!!}                 
+                    </div> </div>
+
+                    <div class="row">
+                    <div class="form-group col-md-6">                     
+                      <label>@lang('quickadmin.users.fields.email')</label>
+                    {!!Form::text('email',$user->email,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'100','disabled'=>'true'])!!}                 
+                    </div> </div>
+
+                    <div class="row">
+                    <div class="form-group col-md-6">                     
+                      <label>@lang('quickadmin.users.fields.role')</label>
+                      <input class="form-control" placeholder="-" maxlength="100" disabled="true" name="nombre" value={{ $user->role->title or '' }} type="text">                
+                    </div> 
+                     </div>
+
+                     <div class="row">
+                     <div class="form-group col-md-12">    
+                     <a href="{{ route('admin.users.index') }}" class="btn btn-primary fa fa-arrow-left"></a>
+                     </div> </div>
         </div>
-
-        <div class="panel-body table-responsive">
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <th>@lang('quickadmin.users.fields.name')</th>
-                            <td field-key='name'>{{ $user->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('quickadmin.users.fields.email')</th>
-                            <td field-key='email'>{{ $user->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>@lang('quickadmin.users.fields.role')</th>
-                            <td field-key='role'>{{ $user->role->title or '' }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <p>&nbsp;</p>
-
-            <a href="{{ route('admin.users.index') }}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
-        </div>
+    </div>
     </div>
 @stop

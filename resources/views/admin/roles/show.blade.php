@@ -3,10 +3,9 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.roles.title')</h3>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('quickadmin.qa_view')
-        </div>
+    <div class="box box-primary">
+<div class="box-body"> 
+
 
         <div class="panel-body table-responsive">
             <div class="row">
@@ -19,16 +18,14 @@
                     </table>
                 </div>
             </div><!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-    
-<li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Usuarios</a></li>
-</ul>
+
+
 
 <!-- Tab panes -->
 <div class="tab-content">
     
 <div role="tabpanel" class="tab-pane active" id="users">
-<table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }}">
+<table class="table table-bordered table-striped usuarios">
     <thead>
         <tr>
             <th>@lang('quickadmin.users.fields.name')</th>
@@ -48,18 +45,18 @@
                                 <td field-key='role'>{{ $user->role->title or '' }}</td>
                                                                 <td>
                                     @can('user_view')
-                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
+                                    <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary fa fa-eye"></a>
                                     @endcan
                                     @can('user_edit')
-                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
+                                    <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-primary btn-warning btn-md fa fa-pencil-square-o"></a>
                                     @endcan
                                     @can('user_delete')
-{!! Form::open(array(
+                                    {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
                                         'route' => ['admin.users.destroy', $user->id])) !!}
-                                    {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                        <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     {!! Form::close() !!}
                                     @endcan
                                 </td>
@@ -77,8 +74,7 @@
 </div>
 
             <p>&nbsp;</p>
-
-            <a href="{{ route('admin.roles.index') }}" class="btn btn-default">@lang('quickadmin.qa_back_to_list')</a>
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-primary fa fa-arrow-left"></a>
         </div>
     </div>
 @stop
