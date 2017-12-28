@@ -240,6 +240,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'image.crear_cotizacion_aprobado',
             'uses' => 'ImageController@crear_cotizacion_aprobado',
         ]); 
+
+        Route::resource('auditoria','AuditoriaController');
  
       
 

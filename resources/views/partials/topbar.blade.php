@@ -11,7 +11,7 @@
 
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" style="background-color:rgb(153,9,42); color:white">
+    <nav class="navbar navbar-static-top" style="background-color:rgb(153,9,42); color:white;">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -19,9 +19,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </a>
+        <h3 style="text-align:right; margin-right:50px; margin-top:10px;">{{\Auth::User()->name}} - {{\Auth::User()->role->title}}</h3>
     </nav>
-
-
 </header>
 
 

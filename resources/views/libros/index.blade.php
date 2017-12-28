@@ -16,6 +16,7 @@
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
                 <th class="dt-head-center">Fecha de ingreso</th>
+                <th class="dt-head-center">Estado</th>
                 <th class="dt-head-center"></th>   
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
                 <th class="dt-head-center">Fecha de ingreso</th>
+                <th class="dt-head-center">Estado</th>
                 <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
@@ -47,6 +49,9 @@
                 </td> 
 
                 <td class="dt-body-center">{{$libro->created_at}}</td> 
+                
+                <td class="dt-body-center">{{$libro->estados->nombre}}</td> 
+
                  <td class="dt-body-center"> 
          
                 {!!link_to_route('libro.show', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}

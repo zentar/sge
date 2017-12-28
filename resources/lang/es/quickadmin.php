@@ -284,6 +284,8 @@ return [
     'qa_col_index' => 'Colecciones',
     'qa_col_create' => 'Crear Colección',
     'qa_col_consultar' => 'Consulta de Colección',
-    'qa_col_actualizar' => 'Edición de Colección'
+	'qa_col_actualizar' => 'Edición de Colección',
+	
+	'qa_aud_index' => 'Auditoría',
 
 ];

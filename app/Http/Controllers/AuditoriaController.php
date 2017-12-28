@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Auditoria;
 
 class AuditoriaController extends Controller
 {
@@ -13,7 +14,8 @@ class AuditoriaController extends Controller
      */
     public function index()
     {
-        //
+     $auditorias = Auditoria::all();
+     return view("auditoria/index",compact('auditorias'));   
     }
 
     /**

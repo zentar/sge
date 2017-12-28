@@ -5,11 +5,12 @@ $(document).ready(function() {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
   "columns": [
-    { "width": "5%" },
-    { "width": "30%" },
+    { "width": "3%" },
+    { "width": "32%" },
     { "width": "25%" },
     { "width": "15%" },
-    { "width": "25%" }
+    { "width": "10%" },
+    { "width": "15%" }
   ],
    buttons: [
             {
@@ -361,6 +362,25 @@ $(document).ready(function() {
     { "width": "25%" },
     { "width": "25%" }
     ]
+ } );
+} );
+
+$(document).ready(function() {
+    var table = $('.auditoria').DataTable({
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+   "columns": [
+     { "width": "5%" },
+     { "width": "11%" },
+     { "width": "14%" },
+     { "width": "11%" },
+     { "width": "11%" },
+     { "width": "11%" },
+     { "width": "11%" },
+     { "width": "11%" },
+     { "width": "14%" }
+   ],
  } );
 } );
 

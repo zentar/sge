@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFileTable extends Migration
+class CreateAuditoriaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateFileTable extends Migration
      */
     public function up()
     {
-        Schema::create('file', function (Blueprint $table) {
+        Schema::create('auditoria', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
-            $table->string('nombre_subida');
-            $table->string('ruta');
-            $table->string('peso');
-            $table->string('extension');
-            $table->integer('tipodoc_id')->unsigned();
-            $table->foreign('tipodoc_id')->references('id')->on('tipodoc');
+
+            $table->string('titulo');
+            $table->string('descripcion');
+            $table->string('tipo');
+            $table->string('ip');
+            $table->string('pc');
+            $table->string('user_id');
+            $table->string('role_id');
+            $table->string('observaciones');
+            
             $table->softDeletes();
             $table->timestamps();
         });
@@ -34,6 +37,6 @@ class CreateFileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file');
+        Schema::dropIfExists('auditoria');
     }
 }
