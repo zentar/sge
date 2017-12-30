@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $libros= Book::with(['autor','estados'])->get();
-        // dd(\Auth::User());
+        // dd(\Auth::User()->role);
         // ip \Request::ip();
         // user_name  gethostbyaddr($_SERVER['REMOTE_ADDR']);
         // datos del usuario y roles \Auth::User();

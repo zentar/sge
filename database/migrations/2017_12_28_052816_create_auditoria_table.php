@@ -17,13 +17,14 @@ class CreateAuditoriaTable extends Migration
             $table->increments('id');
 
             $table->string('titulo');
+            $table->string('entidad');
+            $table->string('accion');
             $table->string('descripcion');
             $table->string('tipo');
             $table->string('ip');
             $table->string('pc');
             $table->string('user_id');
             $table->string('role_id');
-            $table->string('observaciones');
             
             $table->softDeletes();
             $table->timestamps();

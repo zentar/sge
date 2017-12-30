@@ -371,15 +371,16 @@ $(document).ready(function() {
              "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
    "columns": [
+     { "width": "3%" },
+     { "width": "13%" },
      { "width": "5%" },
-     { "width": "11%" },
-     { "width": "14%" },
-     { "width": "11%" },
-     { "width": "11%" },
+     { "width": "5%" },
+     { "width": "15%" },
      { "width": "11%" },
      { "width": "11%" },
-     { "width": "11%" },
-     { "width": "14%" }
+     { "width": "8%" },
+     { "width": "12%" },
+     { "width": "13%" }
    ],
  } );
 } );

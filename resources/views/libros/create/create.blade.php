@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
              <h1 class="page-title">@lang('quickadmin.qa_li_crear')</h1>
-              <div class="box box-primary">
+              <div class="box-primary">
                 <div class="box-body">
               {!!Form::open(['route'=>'libro.store', 'method'=>'POST', 'id'=>"crear_libro",'name'=>"crear_libro"])!!}
 
@@ -10,10 +10,7 @@
                     @endif
               
                    @include('libros/create/create_form2')
-                   <div class="box-footer">
-                   <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                  </div>
+              
               {!!Form::close()!!}
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

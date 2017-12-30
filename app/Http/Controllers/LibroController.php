@@ -103,7 +103,7 @@ class LibroController extends Controller
               $libro->estados_id = 1;
               $libro->save();
 
-                  //CARACTERISTICAS
+              //CARACTERISTICAS
               $caracteristicas = new Caracteristicas;
               $caracteristicas->book_id = $libro->id;
             /*  $caracteristicas->tamano = $data['tamano'];
@@ -123,6 +123,8 @@ class LibroController extends Controller
                }
 
            crearDirectorio('libro',$libro); 
+
+           auditoria("Creación de nuevo libro","LIBRO","CREAR","Se creo un nuevo libro con id=".$libro->id,"info");
            
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 

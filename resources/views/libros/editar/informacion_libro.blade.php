@@ -1,18 +1,18 @@
 
                     <div class="form-group">                     
-                      <label>Título</label> 
+                      <label>Título *</label> 
                        {!!Form::text('titulo',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200',])!!} 
                     </div>
                     
                     <div class="form-group">
-                      <label>Facultad</label>
+                      <label>Facultad *</label>
                       {!!Form::select('facultad_id',$facultades_nombre,$libro->facultad_id,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'facultad_id'])!!}
                     </div>
                     
                      <div class="panel panel-default">
                      <div class="panel-heading">
-                       <h3 class="panel-title">Autores</h3>
+                       <h3 class="panel-title">Autores *</h3>
                      </div>
                      <div class="panel-body">
 
@@ -41,7 +41,7 @@
                    </div>
 
                     <div class="form-group">
-                      <label>Colección</label>
+                      <label>Colección *</label>
                       <select id="coleccion_id" style="width: 100%" class="form-control select2" name="coleccion_id">
                         <option value='null'> Seleccionar Colección </option>
                        @foreach($colecciones as $coleccion)

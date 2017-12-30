@@ -12,26 +12,30 @@
             <tr>
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
+                <th class="dt-head-center">Entidad</th>
+                <th class="dt-head-center">Acción</th>
                 <th class="dt-head-center">Descripción</th>
                 <th class="dt-head-center">Tipo</th>
                 <th class="dt-head-center">Dirección ip</th>
                 <th class="dt-head-center">Pc</th>
                 <th class="dt-head-center">Usuario</th>
                 <th class="dt-head-center">Rol</th>
-                <th class="dt-head-center">Observaciones</th> 
+          
             </tr>
         </thead>
         <tfoot>
             <tr>
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
+                <th class="dt-head-center">Entidad</th>
+                <th class="dt-head-center">Acción</th>
                 <th class="dt-head-center">Descripción</th>
                 <th class="dt-head-center">Tipo</th>
                 <th class="dt-head-center">Dirección ip</th>
                 <th class="dt-head-center">Pc</th>
                 <th class="dt-head-center">Usuario</th>
                 <th class="dt-head-center">Rol</th>
-                <th class="dt-head-center">Observaciones</th>       
+                  
             </tr>
         </tfoot>
         <tbody>
@@ -42,13 +46,15 @@
             <tr>              
                 <td class="dt-body-center">{{$auditoria->id}}</td>
                 <td class="dt-body-center">{{$auditoria->titulo}}</td>
+                <td class="dt-body-center">{{$auditoria->entidad}}</td> 
+                <td class="dt-body-center">{{$auditoria->accion}}</td>
                 <td class="dt-body-center">{{$auditoria->descripcion}}</td>
                 <td class="dt-body-center">{{$auditoria->tipo}}</td>
                 <td class="dt-body-center">{{$auditoria->ip}}</td>
                 <td class="dt-body-center">{{$auditoria->pc}}</td>
                 <td class="dt-body-center">{{$auditoria->user_id}}</td>
                 <td class="dt-body-center">{{$auditoria->role_id}}</td>
-                <td class="dt-body-center">{{$auditoria->observaciones}}</td> 
+               
                
             </tr>
             @endforeach        
