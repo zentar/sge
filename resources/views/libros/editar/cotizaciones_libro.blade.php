@@ -25,13 +25,26 @@
               <td style=" text-align: center;">${{$cotizacion->valor}}  </td>
               <td style=" text-align: center;">{{$cotizacion->tiraje}}  </td>
               <td style=" text-align: center;">@if($cotizacion->estado > 0) Aprobado @else - @endif</td>
-              <td style=" text-align: center;">{!!link_to_route('image.documentos', $title = 'Ver', $parameters = $cotizacion->file->id, $attributes = ['class'=>"btn btn-link"])!!}
+              <td style=" text-align: center;">
               
+              @if($cotizacion->file->extension=='pdf' || $cotizacion->file->extension=='jpeg' ||$cotizacion->file->extension=='bmp' || $cotizacion->file->extension=='jpg' || $cotizacion->file->extension=='png')
+                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $cotizacion->file->id}}','{{ $cotizacion->file->extension}}')">Ver</button>
+              @else
+                 {!!link_to_route('image.documentos', $title = 'Ver', $parameters = $cotizacion->file->id, $attributes = ['class'=>"btn btn-link"])!!}
+              @endif
+
               @if($cotizacion->estado > 0)
               @foreach($libro->file as $file)
                  @if($file->tipodoc_id==2)
-                 {!!link_to_route('image.documentos', $title = 'Aprobado', $parameters = $file->id, $attributes = ['class'=>"btn btn-link"])!!}
-                 @endif
+
+                 @if($file->extension=='pdf' || $file->extension=='jpeg' ||$file->extension=='bmp' || $file->extension=='jpg' || $file->extension=='png')
+                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $file->id}}','{{ $file->extension}}')">Aprobado</button>
+              @else
+              {!!link_to_route('image.documentos', $title = 'Aprobado', $parameters = $file->id, $attributes = ['class'=>"btn btn-link"])!!}
+             
+              @endif
+
+                  @endif
               @endforeach 
                @endif
                </td>

@@ -28,6 +28,9 @@ class HomeController extends Controller
     public function index()
     {
         $libros= Book::with(['autor','estados'])->get();
+        // $activity = \Spatie\Activitylog\Models\Activity::where("causer_id",\Auth::user()->id)->where("causer_type","App\User")->get();
+        // dd($activity);
+        // dd(\Auth::user()->activity);
         // dd(\Auth::User()->role);
         // ip \Request::ip();
         // user_name  gethostbyaddr($_SERVER['REMOTE_ADDR']);

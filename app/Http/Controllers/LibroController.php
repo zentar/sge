@@ -125,7 +125,6 @@ class LibroController extends Controller
            crearDirectorio('libro',$libro); 
 
            auditoria("Creación de nuevo libro","LIBRO","CREAR","Se creo un nuevo libro con id=".$libro->id,"info");
-           
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -169,7 +168,7 @@ class LibroController extends Controller
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
-       // dd($libro->cotizacion[0]->file->id);                 
+       // dd(count($libro->caracteristicas));                 
         return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos'));
     }
 
@@ -227,6 +226,8 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
+
+           auditoria("Edición del libro","LIBRO","EDITAR","Se edito el libro id=".$libro->id,"info");
             Session::flash('message','Registro editado correctamente');
             return redirect()->action('HomeController@index'); 
         }
@@ -251,7 +252,7 @@ class LibroController extends Controller
             foreach($libro_autor as $relacion){
               $relacion->delete();
             }
-
+            auditoria("Eliminación de libro","LIBRO","ELIMINAR","Se eliminó el libro con id=".$libro->id,"info");
             Session::flash('message','Registro borrado sin problemas.');
             return redirect(route('admin.home')); 
         }
@@ -287,7 +288,6 @@ class LibroController extends Controller
               $capitulo->titulo = $data["titulo"];
               $capitulo->descripcion = $data["descripcion"];             
               $capitulo->save();
-
               $borrar_capitulos = autorcapitulos::get()->where('capitulos_id',$data['capitulo_edit']);
              // dd($borrar_capitulos);
               if(count($borrar_capitulos)>0){  
@@ -321,7 +321,7 @@ class LibroController extends Controller
                }
               }
             }
-
+      auditoria("Se agrego un capítulo al libro ". $data["libro_id"],"CAPITULO","CREAR","Se agregó un capítulo con id=".$capitulo->id." de capítulo","info");
       Session::flash('message','Capitulo ingresado sin problemas.');
     //  return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
        return redirect()->back()->withInput();

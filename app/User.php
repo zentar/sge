@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPassword;
 use Hash;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class User
@@ -18,6 +19,10 @@ use Hash;
 */
 class User extends Authenticatable
 {
+    use LogsActivity;
+
+
+
     use Notifiable;
     protected $fillable = ['name', 'email', 'password', 'remember_token', 'role_id'];
     

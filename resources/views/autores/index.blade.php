@@ -12,7 +12,7 @@
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
-                <th class="dt-head-center">Email</th>
+                <th class="dt-head-center">Correo</th>
                 <th class="dt-head-center">Teléfono</th>
                 <th class="dt-head-center"></th>   
 
@@ -23,7 +23,7 @@
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Cédula</th>
                 <th class="dt-head-center">Nombre</th>
-                <th class="dt-head-center">Email</th>
+                <th class="dt-head-center">Correo</th>
                 <th class="dt-head-center">Teléfono</th>
                 <th class="dt-head-center"></th>                
             </tr>

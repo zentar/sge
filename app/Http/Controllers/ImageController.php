@@ -33,10 +33,10 @@ class ImageController extends Controller
         //RECUPERA EL REGISTRO DEL ARCHIVO DE LA BD  
         $doc = File::find($file);
         //FILTRA POR EXTENSION DE ARCHIVO EL MODO DE PRESENTACION
-        if($doc->extension=='jpeg' || $doc->extension=='png' || $doc->extension=='BMP' ||
+        if($doc->extension=='jpeg' || $doc->extension=='png' || $doc->extension=='bmp' ||
            $doc->extension=='jpg'){  
-           $image = storage_path('app/'.$doc->ruta);           
-         return response()->file($image);
+           $image = storage_path('app/'.$doc->ruta); 
+           return response()->file($image);
 
         }
         if($doc->extension=='xlsx' || $doc->extension=='docx' || $doc->extension=='doc' ||
@@ -59,7 +59,7 @@ class ImageController extends Controller
         //VALIDA DATOS INGRESADOS
         $rules = array(
         'tipo_doc' => 'required',
-        'documento' => 'required'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
         );    
 
         $v = Validator::make($data,$rules);
@@ -116,7 +116,7 @@ class ImageController extends Controller
         if($data['tipo_doc'][0]=="null"){$data['tipo_doc']=null;}
         $rules = array(
         'tipo_doc' => 'required',
-        'documento' => 'required'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
         );    
 
         $v = Validator::make($data,$rules);
@@ -200,7 +200,7 @@ class ImageController extends Controller
       //dd($data);
         $rules = array(
         'imprenta' => 'required',
-        'documento' => 'required'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
         );    
 
         $v = Validator::make($data,$rules);

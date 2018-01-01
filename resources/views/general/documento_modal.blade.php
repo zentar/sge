@@ -1,27 +1,30 @@
    {{--MODAL AGREGAR AUTOR--}}
-   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_documento">
-   <div class="modal-dialog" role="document">
+   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_documento" name="modal_documento">
+   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" 
           data-dismiss="modal" 
           aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="favoritesModalLabel">Imagen</h4>
+        <h4 class="modal-title">Documento</h4>
       </div>
 
-      <div class="modal-body">
-           <div class="box box-primary">
-                <div class="box-body" id="documento_body">               
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
+      <div class="modal-body" >
+          <div id="doc_modal" name="doc_modal"></div>
 
-           </div>
+        {{-- IMAGENES <img id="imagen_doc" src="{{ route('image.documentos', ['file' => 2]) }}" alt="imagen" style=" display: block;
+        margin-left: auto; margin-right: auto; max-height:650px;"></div> --}}
+
+        {{-- PDF <div style="text-align: center;">
+        <iframe src="{{ route('image.documentos', ['file' => 1]) }}" 
+        style="width:100%; height:500px;" frameborder="0"></iframe>
+        </div> --}}
+
+
            <div class="modal-footer">
-           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-           <span class="pull-right">
-           <button type="submit" class="btn btn-primary">Grabar</button>        
-              {!!Form::close()!!}
+           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          
         </span>
       </div>
     </div>

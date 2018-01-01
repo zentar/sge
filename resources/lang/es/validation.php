@@ -34,6 +34,7 @@ return [
     'in' => 'El :attribute es invalido',
     'in_array' => 'El campo :attribute no existe en :other.',
     'json' => 'El :attribute debe ser una cadena valida de JSON',
+    'mimes' => 'El :attribute debe ser un tipo de los archivos soportados: :values.',
     'max' => [
         'numeric' => 'El :attribute no debe ser mas grande que :max.',
         'file' => 'El :attribute no debe ser mas grande que :max kilobytes.',

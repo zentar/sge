@@ -26,14 +26,14 @@
                     </div>
 
                     <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo</button>
+                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor">Nuevo</button>
                     </div>
                   </div>
                     
                     <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">                 
                       @foreach ($libro->autor as $name)                    
 
-                      <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$name->id}}' type='text' name='text[]' value='{{$name->nombre}} {{$name->apellido}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger col-xs-2 col-sm-12 col-md-12 col-lg-12' id='autor-{{$name->id}}' onclick='myFunction2({{$name->id}})'>Quitar </button></div>
+                      <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$name->id}}' type='text' name='text[]' value='{{$name->nombre}} {{$name->apellido}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger fa fa-minus col-xs-2 col-sm-12 col-md-12 col-lg-6' id='autor-{{$name->id}}' onclick='myFunction2({{$name->id}})'></button></div>
                       
                       @endforeach
                       </div>                   

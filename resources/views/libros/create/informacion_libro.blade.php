@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg">Nuevo</button>
+                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor">Nuevo</button>
                     </div>
                   </div>
                     

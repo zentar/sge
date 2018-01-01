@@ -47,6 +47,26 @@
 
 
 
+<script>
+//IMAGENES DE DOCUMENTOS EN MODAL 
+function documentos_modal(id,extension){    
+    var getUrl = window.location;
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+    if(extension == 'jpeg' || extension == 'png' || extension == 'bmp' || extension == 'jpg'){
+      var src = baseUrl+"/public/image/"+id+"/documento";
+      document.getElementById('doc_modal').innerHTML ="<img id='imagen_doc' src='"+src+"' alt='imagen' style='display:block;margin-left: auto; margin-right: auto; max-height:650px;'>"; 
+      }
+
+      if(extension == 'pdf'){
+      var src = baseUrl+"/public/image/"+id+"/documento";
+      document.getElementById('doc_modal').innerHTML ="<div style='text-align: center;'><iframe src='"+src+"' style='width:100%; height:500px;' frameborder='0'></iframe></div>"; 
+      }  
+}
+</script>
+
+
+
 @yield('javascript')
 
 @yield('especial')
@@ -111,6 +131,7 @@
        $('<input />').attr('type', 'hidden')
           .attr('name', "cotizacion_edit")
           .attr('value', 0)
-          .appendTo('#crear_libro_cotizacion'); 
+          .appendTo('#crear_libro_cotizacion');       
 </script>
+
 

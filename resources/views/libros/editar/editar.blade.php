@@ -14,6 +14,7 @@
               </div><!-- /.box -->
 
               @include('general/autor_modal')
+              @include('general/documento_modal')
 @stop
 
 

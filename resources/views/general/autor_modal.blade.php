@@ -1,5 +1,5 @@
    {{--MODAL AGREGAR AUTOR--}}
-   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_autor">
+   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_autor"  name="modal_autor">
    <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
