@@ -54,12 +54,12 @@ function documentos_modal(id,extension){
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
     if(extension == 'jpeg' || extension == 'png' || extension == 'bmp' || extension == 'jpg'){
-      var src = baseUrl+"/public/image/"+id+"/documento";
+      var src = baseUrl+"/image/"+id+"/documento";
       document.getElementById('doc_modal').innerHTML ="<img id='imagen_doc' src='"+src+"' alt='imagen' style='display:block;margin-left: auto; margin-right: auto; max-height:650px;'>"; 
       }
 
       if(extension == 'pdf'){
-      var src = baseUrl+"/public/image/"+id+"/documento";
+      var src = baseUrl+"/image/"+id+"/documento";
       document.getElementById('doc_modal').innerHTML ="<div style='text-align: center;'><iframe src='"+src+"' style='width:100%; height:500px;' frameborder='0'></iframe></div>"; 
       }  
 }
