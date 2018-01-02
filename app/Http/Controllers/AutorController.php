@@ -60,11 +60,11 @@ class AutorController extends Controller
         $data = $request->all();
        //dd($data);
         $rules = array(
-        'cedula' => 'required',
-        'nombre' => 'required',
-        'apellido' => 'required',
-        'email' => 'required',
-        'telefono' => 'required'
+        'cedula' => 'required|digits:10|unique:autors,cedula',
+        'nombre' => 'required|max:85',
+        'apellido' => 'required|max:85',
+        'email' => 'required|email|unique:autors,email',
+        'telefono' => 'required|digits:7'
         );
         
         if($data['filiacion']==null)$data['filiacion']='-';
@@ -137,13 +137,13 @@ class AutorController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-       
+      
         $rules = array(
-        'cedula' => 'required',
-        'nombre' => 'required',
-        'apellido' => 'required',
-        'email' => 'required',
-        'telefono' => 'required'
+            'cedula' => 'required|digits:10',
+            'nombre' => 'required|max:85',
+            'apellido' => 'required|max:85',
+            'email' => 'required|email',
+            'telefono' => 'required|digits:7'
         );
 
         $v=Validator::make($data,$rules);

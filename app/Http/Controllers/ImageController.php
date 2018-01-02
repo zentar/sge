@@ -59,7 +59,7 @@ class ImageController extends Controller
         //VALIDA DATOS INGRESADOS
         $rules = array(
         'tipo_doc' => 'required',
-        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
         );    
 
         $v = Validator::make($data,$rules);
@@ -116,7 +116,7 @@ class ImageController extends Controller
         if($data['tipo_doc'][0]=="null"){$data['tipo_doc']=null;}
         $rules = array(
         'tipo_doc' => 'required',
-        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
         );    
 
         $v = Validator::make($data,$rules);
@@ -200,7 +200,7 @@ class ImageController extends Controller
       //dd($data);
         $rules = array(
         'imprenta' => 'required',
-        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx'
+        'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
         );    
 
         $v = Validator::make($data,$rules);

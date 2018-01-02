@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadosSeed::class);
         $this->call(TipoDocSeed::class);
         $this->call(ColeccionSeed::class);
+        $this->call(TamanoPapelSeed::class);
         
         $this->call(LibroSeed::class);
+        $this->call(HistorialSeed::class);
         $this->call(CaracteristicasSeed::class);
         $this->call(AutoresSeed::class);
         $this->call(AutorBookSeed::class);

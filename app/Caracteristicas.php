@@ -26,13 +26,13 @@ class Caracteristicas extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['tamano','tipo_papel','n_paginas','color','cubierta','solapas','observaciones'];
+    protected $fillable = ['tipo_papel','n_paginas','color','cubierta','solapas','observaciones'];
 
     protected $attributes = [
-        'tamano' => '-',
+        'tamano' => 1,
         'tipo_papel' => '-',
-        'n_paginas' => '-',
-        'color' => '-',
+        'n_paginas' => 0,
+        'color' => 0,
         'cubierta' => '-',
         'solapas' => '-',
         'observaciones' => '-'
@@ -42,4 +42,9 @@ class Caracteristicas extends Model
     {
         return $this->belongsTo('App\Book');
     }
+
+    public function tamanopapel()
+    {
+        return $this->hasOne('App\TamanoPapel','id');
+    }  
 }

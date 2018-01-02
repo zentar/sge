@@ -1,14 +1,21 @@
                 @if(count($libro->caracteristicas) > 0)  
                     <div class="form-group col-md-6">                     
-                      <label>Tamaño</label> 
-                       {!!Form::text('tamano',$libro->caracteristicas->tamano,['class'=>'form-control',
+                      <label>Tipo Papel</label> 
+                       {!!Form::text('tpapel',$libro->caracteristicas->tpapel,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100'])!!} 
                     </div>
-                     <div class="form-group col-md-6">                     
-                      <label>Tipo de Papel</label> 
-                       {!!Form::text('tpapel',$libro->caracteristicas->tipo_papel,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!} 
-                    </div>
+
+                    <div class="form-group  col-md-6">
+                    <label>Tamaño</label>              
+
+                    <select id="tamano" style="width: 100%" class="form-control select2" name="tamano">
+                      <option value='null'> Seleccionar tamaño </option>
+                     @foreach($tamano_papel as $formato)
+                      <option value="{{ $formato->id }}" @if($libro->caracteristicas->tamano == $formato->id) selected @endif > {{ $formato->descripcion }} </option>
+                     @endforeach
+                    </select>
+                  </div>  
+
                      <div class="form-group col-md-6">                     
                       <label>Número de páginas</label> 
                        {!!Form::text('paginas',$libro->caracteristicas->n_paginas,['class'=>'form-control',

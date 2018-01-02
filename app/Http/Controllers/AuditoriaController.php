@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Auditoria;
+use \Spatie\Activitylog\Models\Activity;
+use DB;
 
 class AuditoriaController extends Controller
 {
@@ -14,8 +16,9 @@ class AuditoriaController extends Controller
      */
     public function index()
     {
-     $auditorias = Auditoria::all();
-     return view("auditoria/index",compact('auditorias'));   
+     $activity = Activity::all();
+     //dd($activity);
+     return view("auditoria/index",compact('activity'));   
     }
 
     /**

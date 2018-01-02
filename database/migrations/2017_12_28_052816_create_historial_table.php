@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuditoriaTable extends Migration
+class CreateHistorialTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateAuditoriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('auditoria', function (Blueprint $table) {
+        Schema::create('historial', function (Blueprint $table) {
+            
             $table->increments('id');
+            
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')->references('id')->on('books');
 
-            $table->string('titulo');
-            $table->string('entidad');
-            $table->string('accion');
             $table->string('descripcion');
-            $table->string('tipo');
-            $table->string('ip');
-            $table->string('pc');
-            $table->string('user_id');
-            $table->string('role_id');
             
             $table->softDeletes();
             $table->timestamps();
@@ -38,6 +34,6 @@ class CreateAuditoriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auditoria');
+        Schema::dropIfExists('historial');
     }
 }

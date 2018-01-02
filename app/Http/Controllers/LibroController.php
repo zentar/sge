@@ -76,7 +76,7 @@ class LibroController extends Controller
         $data = $request->all();
         //dd($data); 
          $rules = array(
-        'titulo' => 'required',
+        'titulo' => 'required|max:170',
         'facultad_id' => 'required',
         'autor' => 'required',
         'coleccion_id' => 'required'
@@ -92,9 +92,6 @@ class LibroController extends Controller
                 ->withInput()->with('error_code', 4)->with('facultad_old', $request->facultad_id);
         }
         else{
-                   
-          
-
               //LIBRO            
               $libro = new Book;            
               $libro->titulo = $data["titulo"];
@@ -122,9 +119,9 @@ class LibroController extends Controller
                  $libroAutor->save();
                }
 
-           crearDirectorio('libro',$libro); 
+           crearDirectorio('libro',$libro);
+           historial('Creación de libro, estado ingresado',$libro->id);
 
-           auditoria("Creación de nuevo libro","LIBRO","CREAR","Se creo un nuevo libro con id=".$libro->id,"info");
            Session::flash('message','Registro agregado correctamente');
            return redirect()->action('HomeController@index'); 
         }
@@ -152,10 +149,12 @@ class LibroController extends Controller
     public function edit($id)
     {
        //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
-       $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion'])->get()->where('id',$id)->first();
+       $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel'])->get()->where('id',$id)->first();
         $autores = Autor::all();
         $colecciones = Coleccion::all();
         $tipos = Tipodoc::all();
+        $tamano_papel = \App\TamanoPapel::all();
+       // dd($libro->caracteristicas->formatopapel);
         $flag_editar_autor=1;
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
@@ -169,7 +168,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
        // dd(count($libro->caracteristicas));                 
-        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos'));
+        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel'));
     }
 
     /**
@@ -182,12 +181,18 @@ class LibroController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        //dd($data);
+
+        if($data['tamano']=="null") $data['tamano']=null;
         $rules = array(
+           "titulo" => 'max:170',
            "facultad_id" => 'required',
            "autor" => 'required',
-           "coleccion_id" => 'required'
+           "coleccion_id" => 'required',
+           "paginas" =>'numeric|between:1,9999',
+           'tamano' =>'required'
         );
-
+         
         $v=Validator::make($data,$rules);
         if($v->fails())
         {
@@ -205,7 +210,10 @@ class LibroController extends Controller
               $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
               $caracteristicas->solapas = valorPredeterminado($data['solapa']);
               $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
+            //  dd($caracteristicas);
               $caracteristicas->save();
+
+              
 
               //LIBRO            
               $libro = Book::find($id);            
@@ -226,8 +234,7 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
-
-           auditoria("Edición del libro","LIBRO","EDITAR","Se edito el libro id=".$libro->id,"info");
+           
             Session::flash('message','Registro editado correctamente');
             return redirect()->action('HomeController@index'); 
         }
@@ -252,7 +259,7 @@ class LibroController extends Controller
             foreach($libro_autor as $relacion){
               $relacion->delete();
             }
-            auditoria("Eliminación de libro","LIBRO","ELIMINAR","Se eliminó el libro con id=".$libro->id,"info");
+            
             Session::flash('message','Registro borrado sin problemas.');
             return redirect(route('admin.home')); 
         }
@@ -321,7 +328,7 @@ class LibroController extends Controller
                }
               }
             }
-      auditoria("Se agrego un capítulo al libro ". $data["libro_id"],"CAPITULO","CREAR","Se agregó un capítulo con id=".$capitulo->id." de capítulo","info");
+     
       Session::flash('message','Capitulo ingresado sin problemas.');
     //  return redirect()->action('LibroController@edit', ['id' => $data['libro_id']]);
        return redirect()->back()->withInput();

@@ -20,7 +20,7 @@ return [
     'date' => 'El :attribute no es una fecha valida.',
     'date_format' => 'El :attribute no coincide el formato :format',
     'different' => 'El :attribute y:otro debe ser diferente.',
-    'digits' => 'El :attribute deben ser digitos.',
+    'digits' => 'El :attribute deben ser digitos y contener :digits digitos.',
     'digits_between' => 'El :attribute debe estar entre  min y : max digitos.',
     'dimensions' => 'El :attribute la imagen tiene dimensiones invalidas',
     'distinct' => 'El :attribute el campo tiene un valor duplicado',
@@ -38,7 +38,11 @@ return [
     'max' => [
         'numeric' => 'El :attribute no debe ser mas grande que :max.',
         'file' => 'El :attribute no debe ser mas grande que :max kilobytes.',
+        'string' => 'El :attribute debe tener un numero maximo de :max caracteres.',
+        'array' => 'El :attribute no debe tener mas de :max elementos.',
     ],
     'required' => 'El campo :attribute es obligatorio.',
+    'numeric' => 'El campo :attribute debe ser un número.',
+    'unique' => 'El dato ingresado en el campo :attribute ya ha sido utilizada.',
 
 ];

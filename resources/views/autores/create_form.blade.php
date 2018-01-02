@@ -7,12 +7,12 @@
                     <div class="form-group col-md-6">
                       <label>Nombre</label>
                       {!!Form::text('nombre',null,['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100'])!!}
+                      'placeholder'=>'-','maxlength'=>'85'])!!}
                     </div>
                     <div class="form-group col-md-6">
                       <label>Apellido</label>
                        {!!Form::text('apellido',null,['class'=>'form-control', 
-                      'placeholder'=>'-','maxlength'=>'100'])!!}
+                      'placeholder'=>'-','maxlength'=>'85'])!!}
                     </div>
                     <div class="form-group col-md-6">
                       <label>Email</label>
@@ -22,7 +22,7 @@
                     <div class="form-group col-md-6">
                       <label>Teléfono</label>
                         {!!Form::text('telefono',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'10'])!!}
+                      'placeholder'=>'-','maxlength'=>'7'])!!}
                     </div>
                     <div class="form-group col-md-6">
                       <label>Filiaciones</label>

@@ -69,4 +69,9 @@ class Book extends Model
     {
         return $this->belongsToMany('App\File','filebook');
     }
+
+    public function historial()
+    {
+         return $this->hasMany('App\Historial');
+    }
 }

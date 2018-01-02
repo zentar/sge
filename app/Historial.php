@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Auditoria extends Model
+class Historial extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'auditoria';
+    protected $table = 'historial';
 
     const CREATED_AT = 'created_at';
 	
@@ -23,5 +23,11 @@ class Auditoria extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titulo','descripcion','tipo','ip','pc','user_id','rol_id','observaciones'];
+    protected $fillable = ['descripcion'];
+
+    
+    public function book()
+    {
+        return $this->belongsTo('App\Book');
+    }
 }

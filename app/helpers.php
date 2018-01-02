@@ -37,17 +37,11 @@ function valorPredeterminado($valor){
   return "-";
 }
 
-//GUARDA ACCION EN TABLA AUDITORIA
-function auditoria($titulo,$entidad,$accion,$descripcion,$tipo){
-     $auditoria = new App\Auditoria; 
-     $auditoria->titulo = $titulo;
-     $auditoria->entidad = $entidad;
-     $auditoria->accion = $accion;
-     $auditoria->descripcion = $descripcion;
-     $auditoria->tipo = $tipo;
-     $auditoria->ip = \Request::ip();
-     $auditoria->pc = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-     $auditoria->user_id = \Auth::User()->name;
-     $auditoria->role_id = \Auth::User()->role->title;
-     $auditoria->save();
+//GUARDA ACCION EN TABLA HISTORIAL
+function historial($descripcion,$book_id){
+        $historial = new \App\Historial;
+        $historial->descripcion = $descripcion;
+        $historial->book_id = $book_id;
+        $historial->save();   
+
 }

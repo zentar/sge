@@ -19,10 +19,13 @@ class CreateCaracteristicasTable extends Migration
             $table->integer('book_id')->unsigned()->unique();
             $table->foreign('book_id')->references('id')->on('books');
 
-            $table->string('tamano'); 
             $table->string('tipo_papel'); 
-            $table->string('n_paginas');
-            $table->string('color');
+            
+            $table->integer('tamano')->unsigned();
+            $table->foreign('tamano')->references('id')->on('tamanopapel');
+
+            $table->integer('n_paginas');
+            $table->integer('color');
             $table->string('cubierta'); 
             $table->string('solapas'); 
             $table->string('observaciones'); 

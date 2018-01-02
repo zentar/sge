@@ -5,7 +5,7 @@
     {!!link_to_route('libro.editarcotizacion', $title = "Editar cotización", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
    </div> 
       <div class="col-md-12">
-        <table id="example1" class="table table-striped table-bordered display compact consultarCotizacion" cellspacing="0" width="100%">
+        <table id="editar_cotizaciones" class="table table-striped table-bordered display compact consultarCotizacion" cellspacing="0" width="100%">
       <thead>
           <tr>
           <th style=" text-align: center;">#</th>
