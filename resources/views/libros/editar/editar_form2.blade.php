@@ -1,5 +1,5 @@
 <div class="container col-md-12">
-  <h3>{{$libro->titulo}}</h3>
+  <h3>{{$libro->titulo}}</h3> 
   <ul class="nav nav-tabs">
     <li class="active"><a class="fa fa-info-circle" data-toggle="tab" href="#informacion"> Información</a></li>
     <li><a class="fa fa-file" data-toggle="tab" href="#documentos"> Documentos</a></li>

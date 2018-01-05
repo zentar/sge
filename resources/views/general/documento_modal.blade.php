@@ -7,7 +7,7 @@
           data-dismiss="modal" 
           aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Documento</h4>
+        <h4 class="modal-title" id="doc_modal_title"></h4>
       </div>
 
       <div class="modal-body" >

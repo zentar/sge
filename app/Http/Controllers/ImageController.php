@@ -81,6 +81,9 @@ class ImageController extends Controller
 
            //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
            $path = Storage::putFile('/autor/autor'.$data['autor_id'],$request->file('documento'));
+          
+          // CON NOMBRE ASIGNADO  
+          // $path = Storage::putFileAs('/autor/autor'.$data['autor_id'],$request->file('documento'),'HOLAMUNDO.'.$file->extension);
            
            $file->ruta = $path;
            $file->save();

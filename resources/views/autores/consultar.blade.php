@@ -59,8 +59,8 @@
                        {!!Form::close()!!}
                   
              
-                 <div class="col-md-12">
-                      {!! link_to_route('autor.index', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p>
+                 <div class="col-md-12">                    
+                      <a type="button" href="{{route('autor.index')}}" class="btn btn-primary fa fa-arrow-left"></a> 
                 </div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

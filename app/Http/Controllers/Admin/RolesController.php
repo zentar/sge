@@ -51,9 +51,7 @@ class RolesController extends Controller
             return abort(401);
         }
         $role = Role::create($request->all());
-
-
-
+        
         return redirect()->route('admin.roles.index');
     }
 

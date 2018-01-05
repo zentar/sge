@@ -8,7 +8,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">   
         <ul class="sidebar-menu" >
-            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+            <li class="{{ $request->segment(2) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-book"></i>
                     <span class="title">@lang('quickadmin.user-management.libros')</span>
@@ -16,7 +16,7 @@
             </li>
 
 
-             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+             <li class="{{ $request->segment(1) == 'autor' ? 'active' : '' }}">
                 <a href="{{ url('/autor') }}">
                     <i class="fa fa-user"></i>
                     <span class="title">@lang('quickadmin.user-management.autores')</span>
@@ -69,7 +69,7 @@
                 </a>
                 <ul class="treeview-menu">
                 @can('user_access')
-                <li>
+                <li class="{{ $request->segment(1) == 'estados' ? 'active active-sub' : '' }}">
                         <a href="{{ route('estados.index') }}">
                             <i class="fa  fa-check"></i>
                             <span class="title">
@@ -80,7 +80,7 @@
                 @endcan
 
                @can('role_access')
-                <li>
+                <li class="{{ $request->segment(1) == 'facultad' ? 'active active-sub' : '' }}">
                         <a href="{{ route('facultad.index') }}">
                             <i class="fa fa-building-o"></i>
                             <span class="title">
@@ -90,7 +90,7 @@
                     </li>
                 @endcan
                 @can('user_access')
-                <li>
+                <li class="{{ $request->segment(1) == 'coleccion' ? 'active active-sub' : '' }}">
                         <a href="{{ route('coleccion.index') }}">
                             <i class="fa fa-sitemap"></i>
                             <span class="title">
@@ -101,7 +101,7 @@
                 @endcan  
 
                @can('user_access')
-                <li>
+                <li class="{{ $request->segment(1) == 'auditoria' ? 'active active-sub' : '' }}">
                         <a href="{{ route('auditoria.index') }}">
                             <i class="fa fa-archive"></i>
                             <span class="title">

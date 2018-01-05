@@ -14,7 +14,7 @@
                    @include('autores/create_form')
                    <div class="box-footer col-md-12">
                    <a type="button" href="{{route('autor.index')}}" class="btn btn-primary fa fa-arrow-left"></a>  
-                    <button type="submit" class="btn btn-primary">Grabar</button>
+                    <button type="submit" class="btn btn-primary" tabindex="7" >Grabar</button>
                   </div>
                   {!!Form::close()!!}
                 </div><!-- /.box-body -->

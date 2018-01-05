@@ -5,7 +5,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPassword;
 use Hash;
-use Spatie\Activitylog\Traits\LogsActivity;
+//use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class User
@@ -19,7 +19,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 */
 class User extends Authenticatable
 {
-    use LogsActivity;
+  //  use LogsActivity;
 
 
 

@@ -41,7 +41,7 @@
                     <li>{{$file->tipodoc->nombre}}
 
                       @if($file->extension=='pdf' || $file->extension=='jpeg' || $file->extension=='bmp' || $file->extension=='jpg' || $file->extension=='png')
-                        <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{$file->id}}','{{$file->extension}}')">Ver</button>
+                        <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{$file->id}}','{{$file->extension}}','{{$file->nombre}}')">Ver</button>
                       @else
                         {!!link_to_route('image.documentos', $title = 'Ver', $parameters = $file->id, $attributes = ['class'=>"btn btn-link"])!!}
                       @endif

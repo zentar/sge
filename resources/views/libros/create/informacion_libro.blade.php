@@ -2,7 +2,7 @@
                     <div class="form-group col-md-12">                     
                       <label>Título *</label> 
                        {!!Form::text('titulo',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'200',])!!} 
+                      'placeholder'=>'-','maxlength'=>'200','tabindex'=>'1'])!!} 
                     </div>
                     
                     <div class="form-group col-md-12">
@@ -39,13 +39,11 @@
                      </div>
 
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                     <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="Agregar_autores" onclick="myFunction()">Agregar</button>
-                    </div>
-
-                    <div class="form-group  col-xs-12 col-sm-6 col-md-6 col-lg-2">
-                     <button type="button" class="btn btn-primary col-sm-12 col-md-12 col-lg-12" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor">Nuevo</button>
-                    </div>
+                
+                     <button type="button" class="btn btn-primary fa fa-arrow-down" id="Agregar_autores" onclick="myFunction()"></button>
+               
+                     <button type="button" class="btn btn-success fa fa-plus" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor"></button>
+                    
                   </div>
                     
 
