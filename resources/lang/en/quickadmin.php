@@ -6,8 +6,8 @@ return [
 		'title' => 'Administración de usuarios',
 		'fields' => [
 		],
-		'libros' => 'Publicaciones - Libros',
-		'autores' => 'Publicaciones - Autores'
+		'libros' => 'Libros',
+		'autores' => 'Autores'
 	],
 	
 	'roles' => [

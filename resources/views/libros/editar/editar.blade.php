@@ -4,7 +4,7 @@
               <div class="box container">
                <div class="box-body">
 
-                  {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_autores",'name'=>"editar_autores"])!!}
+                  {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_libro",'name'=>"editar_libro"])!!}
                 
                     @include('libros/editar/editar_form2')
                
@@ -13,8 +13,12 @@
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
+              @include('general/modal_doc_libro')
               @include('general/autor_modal')
+              @include('general/modal_cot_libro')
+              
               @include('general/documento_modal')
+              
 @stop
 
 
@@ -26,16 +30,53 @@ if({{$flag_editar_autor}}==1){
        @endforeach      
     }
 
-  $("#editar_autores").submit( function(eventObj) {
+  $("#editar_libro").submit( function(eventObj) {
       var tamano = autor_global.length;
       for(var i=0;i<tamano;i++){
       $('<input />').attr('type', 'hidden')
           .attr('name', "autor[]")
           .attr('value', autor_global[i])
-          .appendTo('#editar_autores');
+          .appendTo('#editar_libro');
         }
       return true;
   });
      
+</script>
+
+
+
+<script>
+       @if ($errors->count() > 0 and Session::get('error_code') == 5)
+       $(function() {
+           $('#modal_autor').modal('show');
+       });
+       @endif
+
+       @if ($errors->count() > 0 and Session::get('error_code') == 6)
+       $(function() {
+           $('#modal_doc_libro').modal('show');
+       });
+       @endif
+
+       @if ($errors->count() > 0 and Session::get('error_code') == 7)
+       $(function() {
+           $('#modal_cot_libro').modal('show');
+       });
+       @endif
+
+</script>
+
+
+<script type="text/javascript">
+  //CENSA EN QUE TAB SE ENCUENTRA AL REFRESCAR LA PANTALLA
+$(document).ready(function(){
+  $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+  });
+  var activeTab = localStorage.getItem('activeTab');
+  if(activeTab){
+    $('#tab_libro a[href="' + activeTab + '"]').tab('show');
+  }
+});
 </script>
 @stop

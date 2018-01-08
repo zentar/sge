@@ -126,7 +126,7 @@ class ImageController extends Controller
         if($v->fails())
         {
           return redirect()->back()
-                ->withErrors($v->errors())
+                ->withErrors($v->errors())->with('error_code', 6)
                 ->withInput();
         }
         else{
@@ -159,7 +159,7 @@ class ImageController extends Controller
     public function delete_libro($id){ 
 
      $file = file::find($id);
-   
+   //dd($file);
      //SI EL DOCUMENTO ES DE APROBACION DE COTIZACION, DESHACE LA ACCION DE APROBACION
      if($file->tipodoc_id == 2){
       $libro_doc = filebook::get()->where('file_id',$id)->first(); 
@@ -200,7 +200,6 @@ class ImageController extends Controller
     //CREA UNA COTIZACION, SU FILE Y SU VINCULACION CON EL LIBRO
     public function crear_cotizacion(Request $request){
       $data = $request->all();  
-      //dd($data);
         $rules = array(
         'imprenta' => 'required',
         'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
@@ -210,7 +209,7 @@ class ImageController extends Controller
         if($v->fails())
         {
           return redirect()->back()
-                ->withErrors($v->errors())
+                ->withErrors($v->errors())->with('error_code', 7)
                 ->withInput();
         }
         else{
@@ -243,9 +242,9 @@ class ImageController extends Controller
            }
            else{
            $file = file::find($data['file_id']);
-          // dd(storage_path('app/'.$file->ruta));
-           Storage::delete(storage_path('app/'.$file->ruta));
-
+           //dd(storage_path('app/'.$file->ruta));
+  
+           Storage::delete($file->ruta);
            $archivo = $data['documento'];
            $file->tipodoc_id = 1; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -265,7 +264,6 @@ class ImageController extends Controller
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
            $cotizacion->valor = $data['valor'];
-           $cotizacion->estado = 0;
            $cotizacion->save();
            Session::flash('message','Registro editado sin problemas.');    
           }
@@ -276,10 +274,24 @@ class ImageController extends Controller
 
     //ELIMINA COTIZACION, SU DOCUMENTO Y SU VINCULACION CON EL LIBRO (LOGICO)
     public function delete_cotizacion($id){  
+      //ENCUENTRA COTIZACION CONSULTADA
       $cotizacion = cotizacion::find($id);
-      $cotizacion->delete();
+      
+      //VERIFICA QUE LA COTIZACION NO ESTE APROBADA
+      if($cotizacion->estado > 0 ){
+        //SI ESTA APROBADA, NO PERMITE SU ELIMINACION, SE DEBE ELIMINAR SU APROBACION ANTES
+        Session::flash('danger','Esta cotización ya esta aprobada y no puede ser eliminada.');   
+        return redirect()->back()->with('error_code', 7);
+      }      
+      else{
+      //SI NO ESTA APROBADA SE PROCEDE A LA ELIMINACION DEL REGISTRO DE COTIZACION
+      $cotizacion->delete();      
       $file = $cotizacion->file;
+      //A LA ELIMINACION DE LA IMAGEN FISICA DE LA COTIZACION
+      Storage::delete($file->ruta);
+      //A LA ELIMINACION DEL REGISTRO DE LA IMAGEN
       $file->delete();
+      }
       return redirect()->back();
     }
 

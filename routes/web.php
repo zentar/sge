@@ -223,6 +223,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'libro.editarcotizacion',
             'uses' => 'LibroController@editarCotizacion',
         ]);
+        
+
+        //IMPORTA COTIZACIONES A UN ARCHIVO DOCX (PIPO)
+        Route::get('libro/{id}/reporteCotizacion', [
+            'as' => 'libro.reporteCotizacion',
+            'uses' => 'LibroController@reporteCotizacion',
+        ]);
 
         //CREAR Y ELIMINAR IMAGEN DE COTIZACIONES DEL LIBRO
          Route::post('image/ccot', [

@@ -1,3 +1,4 @@
+
                 @if(count($libro->caracteristicas) > 0)  
                     <div class="form-group col-md-6">                     
                       <label>Tipo Papel</label> 
@@ -78,7 +79,8 @@
                     'placeholder'=>'-','maxlength'=>'150',"style"=>"overflow:auto;resize:none"])!!} 
                     </div>   
                     @endif
-                    <div class="box-footer col-md-12">
+                    <div class="fondo_formulario box-footer col-md-12">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
                     <button type="submit" class="btn btn-primary">Grabar</button>
-                  </div> 
+                  </div>   
+                    {!!Form::close()!!}

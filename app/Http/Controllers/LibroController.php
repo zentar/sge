@@ -120,9 +120,9 @@ class LibroController extends Controller
                }
 
            crearDirectorio('libro',$libro);
-           historial('Creación de libro, estado ingresado',$libro->id);
+           historial('Creación de libro, estado ingresado',$libro->id);      
 
-           Session::flash('message','Registro agregado correctamente');
+           Session::flash('message','Registro agregado correctamente');           
            return redirect()->action('HomeController@index'); 
         }
     }
@@ -153,6 +153,7 @@ class LibroController extends Controller
         $autores = Autor::all();
         $colecciones = Coleccion::all();
         $tipos = Tipodoc::all();
+        $tipos_doc_libro = Tipodoc::get()->where('grupo','libro');
         $tamano_papel = \App\TamanoPapel::all();
        // dd($libro->caracteristicas->formatopapel);
         $flag_editar_autor=1;
@@ -168,7 +169,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
        // dd(count($libro->caracteristicas));                 
-        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel'));
+        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro'));
     }
 
     /**
@@ -365,5 +366,56 @@ class LibroController extends Controller
       $libro = Book::with('cotizacion.file')->get()->where('id',$id)->first(); 
      // dd($libro);
      return view('libros/cotizacion', compact('tipos','libro'));
+    }
+
+    public function reporteCotizacion(Request $request, $id)
+    {
+          $cotizaciones = \App\Cotizacion::get()->where('book_id',$id);
+
+          if(count($cotizaciones)>0){ 
+          //PRUEBA CREACION WORD DOC          
+          $phpWord = new \PhpOffice\PhpWord\PhpWord();
+          // $fileName = "prueba1.docx";
+           /*$phpWord = \PhpOffice\PhpWord\IOFactory::load($fileName);
+           $sections = $phpWord->getSections();
+           $section = $sections[0]; // le document ne contient qu'une section
+           $arrays = $section->getElements();*/
+           //COLOCA EL DOCUMENTO EN ESPAÑOL
+           $phpWord->getSettings()->setThemeFontLang(new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::ES_ES));
+           $section = $phpWord->addSection();
+           $header = array('size' => 16, 'bold' => true,'alignment'=>'both');
+           $section->addText('Cotizaciones', $header, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $NombreEstiloTabla = 'Estilo Cotizacion';
+           $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '#000000', 'cellMargin' => 80, 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER);
+           $fancyTableFirstRowStyle = array('borderBottomSize' => 18, 'borderBottomColor' => '#000000', 'bgColor' => '#fffcfc');
+           $fancyTableCellStyle = array('alignment' => 'center');
+           $fancyTableFontStyle = array('bold' => true);
+           $phpWord->addTableStyle($NombreEstiloTabla, $fancyTableStyle, $fancyTableFirstRowStyle);
+
+           $table = $section->addTable($NombreEstiloTabla);
+           $table->addRow(400);
+           $table->addCell(2000, $fancyTableCellStyle)->addText('Cotización', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000, $fancyTableCellStyle)->addText('Imprenta', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000, $fancyTableCellStyle)->addText('Tiraje', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000, $fancyTableCellStyle)->addText('Valor', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $i=1;
+           foreach($cotizaciones as $cotizacion){          
+           $table->addRow();
+           $table->addCell(2000)->addText($i, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000)->addText($cotizacion->imprenta, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000)->addText($cotizacion->tiraje, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(2000)->addText($cotizacion->valor, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $i++;
+           }
+           $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+           $objWriter->save('ReporteCotizacion.docx');       
+    
+         Session::flash('message','Registro agregado correctamente');            
+        
+         return response()->download('ReporteCotizacion.docx', 'doc.docx');
+        }else{
+            Session::flash('message','Registro agregado correctamente');
+            abort(404);
+        }
     }
 }

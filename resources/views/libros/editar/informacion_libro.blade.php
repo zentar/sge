@@ -1,43 +1,45 @@
 
-                    <div class="form-group">                     
+                    <div class="form-group col-md-6">                     
                       <label>Título *</label> 
                        {!!Form::text('titulo',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200',])!!} 
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                       <label>Facultad *</label>
                       {!!Form::select('facultad_id',$facultades_nombre,$libro->facultad_id,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'facultad_id'])!!}
                     </div>
-                    
-                     <div class="panel panel-default">
-                     <div class="panel-heading">
-                       <h3 class="panel-title">Autores *</h3>
-                     </div>
-                     <div class="panel-body">
 
+
+                    <div class="form-group col-md-12">
+                    <label>Autores *</label>
+                     <div class="panel-body">
                      <div class="form-group col-md-6">        
                       {!!Form::select('autores',$autores_nombre,null,['class'=>'form-control select2','style'=>'width: 100%;','id'=>'autores'])!!}
                      </div>
 
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-           
-                     <button type="button" class="btn btn-primary fa fa-arrow-down " id="Agregar_autores" onclick="myFunction()"></button>
-                     <button type="button" class="btn btn-success fa fa-plus" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor"></button>
+                
+                     <button type="button" class="btn btn-primary fa fa-arrow-down" id="Agregar_autores" onclick="myFunction()"></button>
                
+                     <button type="button" class="btn btn-success fa fa-plus" id="nuevo_autores" data-toggle="modal" data-target="#modal_autor"></button>
+                    
                   </div>
                     
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="demo">                 
-                      @foreach ($libro->autor as $name)                    
+
+                    <div class="form-group" id="demo">  
+                        @foreach ($libro->autor as $name)                    
 
                       <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'><input class='form-control col-xs-12 col-sm-12 col-md-12 col-lg-12' maxlength='200' disabled id='autors{{$name->id}}' type='text' name='text[]' value='{{$name->nombre}} {{$name->apellido}}'></div><div class='col-xs-12 col-sm-3 col-md-2 col-lg-1'><button type='button' class='btn btn-danger fa fa-minus col-xs-2 col-sm-12 col-md-12 col-lg-6' id='autor-{{$name->id}}' onclick='myFunction2({{$name->id}})'></button></div>
                       
                       @endforeach
                       </div>                   
                      </div>
-                   </div>
-
-                    <div class="form-group">
+                 
+                   </div>                    
+                   
+                  <div class="row col-md-12">
+                    <div class="form-group col-md-6">
                       <label>Colección *</label>
                       <select id="coleccion_id" style="width: 100%" class="form-control select2" name="coleccion_id">
                         <option value='null'> Seleccionar Colección </option>
@@ -46,7 +48,8 @@
                        @endforeach
                       </select>
                     </div> 
-                    
+                    </div>
+
                     @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
                     <strong>Capítulos</strong>{!!link_to_route('libro.agregarcapitulos', $title = "Editar capitulos", $parameters = $libro->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
@@ -72,7 +75,7 @@
                 <td class="dt-body-center">{{$capitulos->descripcion}}</td>
                  <td class="dt-body-center">                 
                   @foreach ($capitulos->autor as $autor)
-                   <p>{{$autor->nombre}} {{$autor->apellido}}</p>
+                    <p>  {{$autor->nombre}} {{$autor->apellido}} </p>
                   @endforeach 
                 </td>            
             </tr>
@@ -91,7 +94,7 @@
 
      @endif
                
-     <div class="box-footer col-md-12">
+     <div class="fondo_formulario box-footer col-md-12">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
                     <button type="submit" class="btn btn-primary">Grabar</button>
                   </div> 

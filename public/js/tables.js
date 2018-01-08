@@ -247,22 +247,15 @@ $(document).ready(function() {
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
-        "columnDefs": [
-            {
-                "targets": null,
-                "visible": false,
-                "searchable": false
-            }
-          ],
   "columns": [
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" },
-    { "width": "11%" }
+    { "width": "4%" },
+    { "width": "1%" },
+    { "width": "1%" },
+    { "width": "1%" },
+    { "width": "1%" },
+    { "width": "1%" },
+    { "width": "1%" },
+    { "width": "90%" }
   ],
 } );
 } );

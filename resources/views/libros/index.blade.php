@@ -72,6 +72,12 @@
 </div> 
 @endsection
 
+@section('especial')
+<script>
+    //RESETEA TABA CTIVA PARA NUEVA CONSULTAS
+    localStorage.setItem('activeTab', null);
+</script>
+@endsection
 
 
 

@@ -31,7 +31,7 @@ class Caracteristicas extends Model
     protected $attributes = [
         'tamano' => 1,
         'tipo_papel' => '-',
-        'n_paginas' => 0,
+        'n_paginas' => 1,
         'color' => 0,
         'cubierta' => '-',
         'solapas' => '-',

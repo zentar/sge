@@ -48,7 +48,7 @@
                     @endif
 
 
-                    @if ($errors->count() > 0 and Session::get('error_code') != 4 and Session::get('error_code') != 5)
+                    @if ($errors->count() > 0 and Session::get('error_code') != 4 and Session::get('error_code') != 5 and Session::get('error_code') != 6 and Session::get('error_code') != 7)
                         <div class="alert alert-danger">
                             <ul class="list-unstyled">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

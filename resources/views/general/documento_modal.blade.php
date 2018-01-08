@@ -1,4 +1,4 @@
-   {{--MODAL AGREGAR AUTOR--}}
+   {{--MODAL MOSTRAR DOCUMENTO--}}
    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_documento" name="modal_documento">
    <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
