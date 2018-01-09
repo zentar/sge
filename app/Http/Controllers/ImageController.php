@@ -199,7 +199,8 @@ class ImageController extends Controller
 
     //CREA UNA COTIZACION, SU FILE Y SU VINCULACION CON EL LIBRO
     public function crear_cotizacion(Request $request){
-      $data = $request->all();  
+      $data = $request->all(); 
+      
         $rules = array(
         'imprenta' => 'required',
         'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
@@ -208,9 +209,7 @@ class ImageController extends Controller
         $v = Validator::make($data,$rules);
         if($v->fails())
         {
-          return redirect()->back()
-                ->withErrors($v->errors())->with('error_code', 7)
-                ->withInput();
+          return redirect()->back()->withInput()->withErrors($v->errors())->with('error_code', 7);
         }
         else{
           if($data['cotizacion_edit'] == "0"){ 

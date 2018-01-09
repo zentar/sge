@@ -226,7 +226,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         
 
         //IMPORTA COTIZACIONES A UN ARCHIVO DOCX (PIPO)
-        Route::get('libro/{id}/reporteCotizacion', [
+        Route::get('libro/{id}/reporteCotizacion/{tipo}', [
             'as' => 'libro.reporteCotizacion',
             'uses' => 'LibroController@reporteCotizacion',
         ]);

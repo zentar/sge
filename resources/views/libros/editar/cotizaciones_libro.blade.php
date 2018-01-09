@@ -90,7 +90,8 @@
               <div class="form-group">
           <button type="button" class="btn btn-success" onclick="nuevoCotizacion()" id="modal_libro" data-toggle="modal" data-target="#modal_cot_libro">Nuevo</button>       
          
-          {!!link_to_route('libro.reporteCotizacion', $title = "Reporte", $parameters = $libro->id, $attributes = ['class'=>"btn btn-warning","target"=>"_blank"])!!}    
+          {!!link_to_route('libro.reporteCotizacion', $title = " Word", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!} 
+          {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}    
     
        </div></div>
 
@@ -134,7 +135,12 @@
                  @else - @endif</td>               
                 <td class="dt-body-center"> 
               <p>
-                {!!link_to_route('image.documentos', $title = '', $parameters = $file->file->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
+                @if($file->file->extension=='pdf' || $file->file->extension=='jpeg' ||$file->file->extension=='bmp' || $file->file->extension=='jpg' || $file->file->extension=='png')
+                <button type="button" class="btn btn-primary fa fa-eye" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $file->file->id}}','{{ $file->file->extension}}','{{$file->file->nombre}}')"></button>
+                @else
+                {!!link_to_route('image.documentos', $title = '', $parameters = $file->file->id, $attributes = ['class'=>"btn btn-primary fa fa-download"])!!}
+                @endif
+
 
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_cotizacion({{$file->id}},{{$file->file_id}},'{{$file->imprenta}}','{{$file->tiraje}}','{{$file->valor}}')"></button>
 

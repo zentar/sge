@@ -97,7 +97,7 @@ class AutorController extends Controller
            Session::flash('message','Registro agregado correctamente');
  
           if(isset($data['editar'])){           
-            return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion","documentos"))->with('facultad_old', $request->facultad_old); 
+            return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion"))->with('facultad_old', $request->facultad_old); 
           }else{
             return redirect()->action('AutorController@index');
            }         

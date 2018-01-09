@@ -28,17 +28,17 @@
         
              <div class='form-group col-md-12'>
                   <label>Imprenta:</label>
-              <input class='form-control' id='imprenta' placeholder='Imprenta' maxlength='200' name='imprenta' type='text' value=''>
+              <input class='form-control' id='imprenta' placeholder='Imprenta' maxlength='200' name='imprenta' type='text' value='{{ old('imprenta') }}'>
             </div>
 
             <div class='form-group col-md-12'>
                  <label>Tiraje:</label>
-              <input class='form-control' id='tiraje' placeholder='Tiraje' maxlength='200' name='tiraje' type='text' value=''>
+              <input class='form-control' id='tiraje' placeholder='Tiraje' maxlength='200' name='tiraje' type='text' value='{{ old('tiraje') }}'>
             </div>
 
              <div class='form-group col-md-12'>
                   <label>Valor:</label>
-              <input class='form-control' id='valor' placeholder='Valor' maxlength='200' name='valor' type='text' value=''>
+              <input class='form-control' id='valor' placeholder='Valor' maxlength='200' name='valor' type='text' value='{{ old('valor') }}'>
              </div>
 
              <div class="form-group col-md-12"> 

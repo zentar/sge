@@ -368,11 +368,11 @@ class LibroController extends Controller
      return view('libros/cotizacion', compact('tipos','libro'));
     }
 
-    public function reporteCotizacion(Request $request, $id)
-    {
+    public function reporteCotizacion(Request $request, $id,$tipo)
+    {       
           $cotizaciones = \App\Cotizacion::get()->where('book_id',$id);
-
-          if(count($cotizaciones)>0){ 
+          if(count($cotizaciones)>0){
+            if($tipo=="docx"){               
           //PRUEBA CREACION WORD DOC          
           $phpWord = new \PhpOffice\PhpWord\PhpWord();
           // $fileName = "prueba1.docx";
@@ -412,7 +412,11 @@ class LibroController extends Controller
     
          Session::flash('message','Registro agregado correctamente');            
         
-         return response()->download('ReporteCotizacion.docx', 'doc.docx');
+         return response()->download('ReporteCotizacion.docx', 'ReporteCotizacion.docx');
+        }else{
+            $pdf = \PDF::loadView('prueba',['cotizaciones'=>$cotizaciones]);
+            return $pdf->download('ReporteCotizacion.pdf');    
+        }    
         }else{
             Session::flash('message','Registro agregado correctamente');
             abort(404);
