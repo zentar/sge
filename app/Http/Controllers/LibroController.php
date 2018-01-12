@@ -403,8 +403,8 @@ class LibroController extends Controller
            $header = $section->createHeader();
            $table = $header->addTable();
            $table->addRow();
-           $table->addCell(5000)->addImage('logoNormal.png', array('width'=>160, 'height'=>45, 'align'=>'left'));
-           $table->addCell(5000)->addImage('logoUCSG.png', array('width'=>113, 'height'=>56, 'align'=>'right'));
+           $table->addCell(5000)->addImage(public_path('logoNormal.png'), array('width'=>160, 'height'=>45, 'align'=>'left'));
+           $table->addCell(5000)->addImage(public_path('logoUCSG.png'), array('width'=>113, 'height'=>56, 'align'=>'right'));
    
            
            // Add footer
