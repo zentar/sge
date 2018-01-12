@@ -200,7 +200,7 @@ class ImageController extends Controller
     //CREA UNA COTIZACION, SU FILE Y SU VINCULACION CON EL LIBRO
     public function crear_cotizacion(Request $request){
       $data = $request->all(); 
-      
+     // dd($data);
         $rules = array(
         'imprenta' => 'required',
         'documento' => 'required|mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:5000'
@@ -233,7 +233,12 @@ class ImageController extends Controller
            $cotizacion->file_id = $file->id;
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
+
+           if(isset($data['iva']) ){
+            $cotizacion->valor = $data['valor'] * 1.12;
+           }else
            $cotizacion->valor = $data['valor'];
+
            $cotizacion->estado = 0;
            $cotizacion->save();
            Session::flash('message','Registro ingresado sin problemas.');

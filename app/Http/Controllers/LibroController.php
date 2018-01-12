@@ -150,13 +150,23 @@ class LibroController extends Controller
     {
        //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel'])->get()->where('id',$id)->first();
-        $autores = Autor::all();
+       //CARGA LOS AUTORES
+       $autores = Autor::all();
+       //CARGA LAS COLECCIONES
         $colecciones = Coleccion::all();
-        $tipos = Tipodoc::all();
-        $tipos_doc_libro = Tipodoc::get()->where('grupo','libro');
+       // CARGA TODOS LOS TIPOS DE DOCUMENTOS
+        $tipos = Tipodoc::all();        
+        //BUSCA LOS DOCUMENTOS QUE FALTAN POR INGRESAR
+        $doc_no_ingresados = filtrar_documentos_ingresados($libro);        
+        $tipos_doc_libro = DB::table('tipodoc')->where([['grupo', '=', 'libro']])->whereNotIn('id', $doc_no_ingresados)->get();        
+        
+        //CARGA LOS TIPOS DE TAMAÑOS DE PAPEL
         $tamano_papel = \App\TamanoPapel::all();
-       // dd($libro->caracteristicas->formatopapel);
+
+        //SETEA EL PARAMETRO EDITAR 
         $flag_editar_autor=1;
+
+        
         $autores_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor");  
            foreach($autores as $autors){
@@ -205,7 +215,7 @@ class LibroController extends Controller
               //CARACTERISTICAS
               $caracteristicas = Caracteristicas::get()->where('book_id',$id)->first();
               $caracteristicas->tamano = valorPredeterminado($data['tamano']);
-              $caracteristicas->tipo_papel = valorPredeterminado($data['tpapel']);
+              $caracteristicas->tipo_papel = valorPredeterminado($data['tipo_papel']);
               $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
               $caracteristicas->color = valorPredeterminado($data['color']);
               $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
@@ -221,6 +231,10 @@ class LibroController extends Controller
               $libro->titulo = $data["titulo"];
               $libro->coleccion_id = $data["coleccion_id"];
               $libro->facultad_id = $data["facultad_id"];
+
+              $libro->isbn = $data['isbn'];
+              $libro->iepi = $data['iepi'];
+              
               $libro->save();
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
@@ -371,54 +385,166 @@ class LibroController extends Controller
     public function reporteCotizacion(Request $request, $id,$tipo)
     {       
           $cotizaciones = \App\Cotizacion::get()->where('book_id',$id);
+          $libro = Book::find($id);
           if(count($cotizaciones)>0){
-            if($tipo=="docx"){               
+            if($tipo=="docx"){         
+             $tipoLetra = "Cambria (Títulos)";         
           //PRUEBA CREACION WORD DOC          
           $phpWord = new \PhpOffice\PhpWord\PhpWord();
-          // $fileName = "prueba1.docx";
-           /*$phpWord = \PhpOffice\PhpWord\IOFactory::load($fileName);
-           $sections = $phpWord->getSections();
-           $section = $sections[0]; // le document ne contient qu'une section
-           $arrays = $section->getElements();*/
+
            //COLOCA EL DOCUMENTO EN ESPAÑOL
            $phpWord->getSettings()->setThemeFontLang(new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::ES_ES));
-           $section = $phpWord->addSection();
-           $header = array('size' => 16, 'bold' => true,'alignment'=>'both');
-           $section->addText('Cotizaciones', $header, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $NombreEstiloTabla = 'Estilo Cotizacion';
-           $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '#000000', 'cellMargin' => 80, 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER);
-           $fancyTableFirstRowStyle = array('borderBottomSize' => 18, 'borderBottomColor' => '#000000', 'bgColor' => '#fffcfc');
-           $fancyTableCellStyle = array('alignment' => 'center');
-           $fancyTableFontStyle = array('bold' => true);
-           $phpWord->addTableStyle($NombreEstiloTabla, $fancyTableStyle, $fancyTableFirstRowStyle);
+           
+           //MARGENES DE LA PAGINA EN twip
+           $section = $phpWord->addSection(array('marginLeft' => 2267.716535433, 'marginRight' => 1700.787401575,
+           'marginTop' => 1984.251968504, 'marginBottom' => 1315.275590551));
 
-           $table = $section->addTable($NombreEstiloTabla);
-           $table->addRow(400);
-           $table->addCell(2000, $fancyTableCellStyle)->addText('Cotización', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000, $fancyTableCellStyle)->addText('Imprenta', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000, $fancyTableCellStyle)->addText('Tiraje', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000, $fancyTableCellStyle)->addText('Valor', $fancyTableFontStyle, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           // Add header
+           $header = $section->createHeader();
+           $table = $header->addTable();
+           $table->addRow();
+           $table->addCell(5000)->addImage('logoNormal.png', array('width'=>160, 'height'=>45, 'align'=>'left'));
+           $table->addCell(5000)->addImage('logoUCSG.png', array('width'=>113, 'height'=>56, 'align'=>'right'));
+   
+           
+           // Add footer
+           $footer = $section->createFooter();
+           $footer->addLine(['weight' => 1, 'width' => 415, 'height' => 0]);
+           $footer->addPreserveText('Av .C.J. Arosemena Km. 1,5 Edificio principal, segundo piso. Apartado postal 09-01-4671 Guayaquil – Ecuador
+           Telefax: 593-04-2209210 Ext. 2634 Correo electrónico: roberto.garcia02@cu.ucsg.edu.ec
+           ', array('name' => 'Arial Narrow', 'size' => 9), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+
+
+           // CONSIGUE LA FECHA DE HOY EN ESPAÑOL PARA EL ENCABEZADO
+           setlocale(LC_TIME, "es_ES", 'Spanish_Spain', 'Spanish');
+           $fecha_hoy = \Carbon\Carbon::now();
+           $mes = iconv('ISO-8859-2', 'UTF-8', strftime("%B de %Y", strtotime($fecha_hoy)));
+           $fecha = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B de %Y", strtotime($fecha_hoy)));
+
+           $section->addText('No. 001 ',array('bold'=>true,'name' => $tipoLetra, 'size' => 10), ['align'=>'right','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('Guayaquil, '.$fecha,array('name' => $tipoLetra, 'size' => 10), ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('PRODUCCIÓN DE LA OBRA: ', array('name' => $tipoLetra, 'size' => 10,'bold'=>true), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText($libro->titulo, array('name' => $tipoLetra, 'size' => 10,'bold'=>true), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('Cotización solicitada, en mes de '.$mes.', de acuerdo con las siguientes características:', array('name' => $tipoLetra, 'size' => 10), [ 'align' => 'both' ]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           
+           $titulo = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $titulo->addText('Título: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $titulo->addText($libro->titulo,array('name' => $tipoLetra, 'size' => 10));
+
+           $autores = "";
+
+           foreach($libro->autor as $autor){
+            $autores .= $autor->nombre." ".$autor->apellido;
+            if($autor == $libro->autor->last())
+                $autores .="."; 
+            else
+            $autores .=", "; 
+           }
+           $autor = $autores;
+           $tipo_papel = \App\TamanoPapel::find($libro->caracteristicas->tamano)->descripcion;
+        
+           //dd($libro->caracteristicas);
+           $autores = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $autores->addText('Autores: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $autores->addText($autor,array('name' => $tipoLetra, 'size' => 10));
+
+           $tamano = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $tamano->addText('Tamaño: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $tamano->addText($tipo_papel,array('name' => $tipoLetra, 'size' => 10));
+
+           $papel = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $papel->addText('Papel: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $papel->addText($libro->caracteristicas->tipo_papel,array('name' => $tipoLetra, 'size' => 10));
+
+           $paginas = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $paginas->addText('Número de páginas: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $paginas->addText($libro->caracteristicas->n_paginas,array('name' => $tipoLetra, 'size' => 10));
+
+           $cubierta = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $cubierta->addText('Cubierta: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $cubierta->addText($libro->caracteristicas->cubierta,array('name' => $tipoLetra, 'size' => 10));
+
+           $solapas = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $solapas->addText('Solapas: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $solapas->addText($libro->caracteristicas->solapas,array('name' => $tipoLetra, 'size' => 10));
+
+           $tiraje = $section->addTextRun( [ 'align' => 'both','spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $tiraje->addText('Tiraje: ', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $tiraje->addText('-',array('name' => $tipoLetra, 'size' => 10));
+
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+         //  $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+
+           $header = array('size' => 16, 'bold' => true,'alignment'=>'both');
+         //  $section->addText('Cotizaciones', $header, [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+
+           $phpWord->addTableStyle('Estilo Cotizacion', array('borderSize' => 6, 'borderColor' => '#000000', 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER));
+
+           $table = $section->addTable('Estilo Cotizacion');
            $i=1;
            foreach($cotizaciones as $cotizacion){          
            $table->addRow();
-           $table->addCell(2000)->addText($i, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000)->addText($cotizacion->imprenta, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000)->addText($cotizacion->tiraje, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
-           $table->addCell(2000)->addText($cotizacion->valor, [], [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER ]);
+           $table->addCell(5000)->addText("Empresa calificada: ".$cotizacion->imprenta,array('bold'=>true,'name' => $tipoLetra, 'size' => 10), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,'spaceAfter' => 0 ]);
+           $table->addCell(5000)->addText(null,array('name' => $tipoLetra, 'size' => 10),  [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,'spaceAfter' => 0  ]);
+           
+           $table->addRow();
+           $table->addCell(5000)->addText($cotizacion->tiraje." ejemplares",array('name' => $tipoLetra, 'size' => 10), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,'spaceAfter' => 0  ]);
+           $table->addCell(5000)->addText($cotizacion->valor, array('name' => $tipoLetra, 'size' => 10), [ 'align' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,'spaceAfter' => 0  ]);
            $i++;
            }
+           
+
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);           
+           $section->addText('Observaciones:', array('bold'=>true,'name' => $tipoLetra, 'size' => 10));
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+
+           $section->addText('Considerando la calidad del material, tiempo de entrega, acabados, se selecciona a la Empresa _________________________________________',array('name' => $tipoLetra, 'size' => 10));
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('Tramitado por:    			Vto. Bno.			Autorizado',array('name' => $tipoLetra, 'size' => 10),['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('_____________			      _________________		          ________________',array('name' => $tipoLetra, 'size' => 10));
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $textrun = $section->addTextBreak(1, null, ['spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(0)]);
+           $section->addText('Se adjunta (5) copia(s) de cotizaciones.',array('name' => $tipoLetra, 'size' => 10));
+           $section->addText('SO. Trabajo #..........',array('name' => $tipoLetra, 'size' => 10));
+           
+
+
            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
            $objWriter->save('ReporteCotizacion.docx');       
-    
-         Session::flash('message','Registro agregado correctamente');            
+               
         
          return response()->download('ReporteCotizacion.docx', 'ReporteCotizacion.docx');
         }else{
-            $pdf = \PDF::loadView('prueba',['cotizaciones'=>$cotizaciones]);
-            return $pdf->download('ReporteCotizacion.pdf');    
-        }    
+            if($tipo=="pdf"){
+           $pdf = \PDF::loadView('prueba',['cotizaciones'=>$cotizaciones]);
+            return $pdf->download('ReporteCotizacion.pdf'); 
+           // dd($cotizaciones);
+            }else{
+                \Excel::create('New file', function($excel)  use ($cotizaciones) {
+
+                    $excel->sheet('New sheet', function($sheet) use ($cotizaciones) {
+                
+                        $sheet->loadView('prueba',array('cotizaciones'=>$cotizaciones));
+                
+                    });
+                
+                })->download('xlsx');
+            }       
+         }   
+        
         }else{
-            Session::flash('message','Registro agregado correctamente');
+           
             abort(404);
         }
     }

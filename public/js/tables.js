@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.libros').DataTable({
-      //  dom: 'lBfrtip<"actions">',
+        dom: 'lBfrtip<"actions">',
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
@@ -13,37 +13,40 @@ $(document).ready(function() {
     { "width": "15%" }
   ],
    buttons: [
-            {
+         /*   {
                 extend: 'copy',
                 text: window.copyButtonTrans,
                 exportOptions: {
                     columns: ':visible'
                 }
-            },
-            {
+            },*/
+         /*   {
                 extend: 'csv',
                 text: window.csvButtonTrans,
                 exportOptions: {
                     columns: ':visible'
                 }
-            },
+            },*/
             {
                 extend: 'excel',
-                text: window.excelButtonTrans,
+                className :  "exportar btn-lg fa fa-file-excel-o",
+                text: " "+window.excelButtonTrans,       
                 exportOptions: {
-                    columns: ':visible'
+                    columns: ':visible',
                 }
             },
             {
                 extend: 'pdf',
-                text: window.pdfButtonTrans,
+                className: "btn-lg fa fa-file-pdf-o",
+                text: " "+window.pdfButtonTrans,
                 exportOptions: {
                     columns: ':visible'
                 }
             },
             {
                 extend: 'print',
-                text: window.printButtonTrans,
+                className: "btn-lg fa fa-print",
+                text: " "+window.printButtonTrans,
                 exportOptions: {
                     columns: ':visible'
                 }
@@ -248,14 +251,10 @@ $(document).ready(function() {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
   "columns": [
-    { "width": "4%" },
-    { "width": "1%" },
-    { "width": "1%" },
-    { "width": "1%" },
-    { "width": "1%" },
-    { "width": "1%" },
-    { "width": "1%" },
-    { "width": "90%" }
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "25%" }
   ],
 } );
 } );

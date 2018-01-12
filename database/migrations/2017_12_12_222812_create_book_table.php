@@ -25,6 +25,9 @@ class CreateBookTable extends Migration
             $table->integer('facultad_id')->unsigned();
             $table->foreign('facultad_id')->references('id')->on('facultad');
 
+            $table->string('ISBN');
+            $table->string('IEPI');
+
 
             $table->softDeletes();        
             $table->timestamps();

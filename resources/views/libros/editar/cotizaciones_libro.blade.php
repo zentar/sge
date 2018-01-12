@@ -92,11 +92,12 @@
          
           {!!link_to_route('libro.reporteCotizacion', $title = " Word", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!} 
           {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}    
+          {!!link_to_route('libro.reporteCotizacion', $title = " Excel", $parameters = [$libro->id,"xlsx"], $attributes = ['class'=>"btn btn-success fa fa-file-excel-o  ","target"=>"_blank"])!!}    
     
        </div></div>
 
 
-         <table id="documentos_libro" class="table table-striped table-bordered display compact cotizaciones" cellspacing="0" width="100%">
+         <table id="documentos_libro" class="table responsive table-striped table-bordered display compact cotizaciones" cellspacing="0" width="100%">
         <thead>
             <tr>                 
                 <th class="dt-head-center">ID</th>
@@ -111,8 +112,8 @@
         <tbody>
       
           @foreach($libro->cotizacion as $file)
-           <tr>
-                <td class="dt-body-center">{{$loop->index+1}}</td>
+           <tr @if($file->estado > 0) style="background-color:#59ea7d;" @endif >
+                <td @if($file->estado > 0) style="background-color:#59ea7d;" @endif class="dt-body-center">{{$loop->index+1}}</td>
                 <td class="dt-body-center">{{$file->imprenta}}</td>
                 <td class="dt-body-center">{{$file->tiraje}}</td>
                 <td class="dt-body-center">{{$file->valor}}</td>
@@ -167,7 +168,7 @@
       <select id="aprobado_id" style="width: 100%" class="form-control" name="aprobado_id">
          <option value=null> Seleccionar Cotizacion </option>
         @foreach($libro->cotizacion as $file)
-         <option value="{{ $file->id }}">Cotización {{$loop->index+1}}</option>
+         <option value="{{ $file->id }}">{{$loop->index+1}} - {{$file->imprenta}} - {{$file->tiraje}} - {{$file->valor}} </option>
         @endforeach
         </select>
         </div>         

@@ -2,7 +2,7 @@
                 @if(count($libro->caracteristicas) > 0)  
                     <div class="form-group col-md-6">                     
                       <label>Tipo Papel</label> 
-                       {!!Form::text('tpapel',$libro->caracteristicas->tpapel,['class'=>'form-control',
+                       {!!Form::text('tipo_papel',$libro->caracteristicas->tipo_papel,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100'])!!} 
                     </div>
 

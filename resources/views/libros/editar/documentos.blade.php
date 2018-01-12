@@ -5,16 +5,16 @@
      
              </div></div>
        
-         <table id="documentos_libro" class="table table-striped table-bordered filelibro" cellspacing="0" width="100%">
+         <table id="documentos_libro" class="table responsive table-striped table-bordered filelibro" cellspacing="0" width="100%">
         <thead>
             <tr>
                  
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Tipo Documento</th>
-                <th class="dt-head-center">Nombre actual</th>
+            {{--<th class="dt-head-center">Nombre actual</th>
                 <th class="dt-head-center">Nombre subida</th>
                 <th class="dt-head-center">Ruta</th>
-                <th class="dt-head-center">Peso</th>
+                <th class="dt-head-center">Peso</th> --}}
                 <th class="dt-head-center">Extensión</th>
                 <th class="dt-head-center"></th> 
             </tr>
@@ -24,10 +24,10 @@
                     
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Tipo Documento</th>
-                <th class="dt-head-center">Nombre actual</th>
-                <th class="dt-head-center">Nombre subida</th>
-                <th class="dt-head-center">Ruta</th>
-                <th class="dt-head-center">Peso</th>
+                {{--<th class="dt-head-center">Nombre actual</th>
+                    <th class="dt-head-center">Nombre subida</th>
+                    <th class="dt-head-center">Ruta</th>
+                    <th class="dt-head-center">Peso</th> --}}
                 <th class="dt-head-center">Extensión</th>
                 <th class="dt-head-center"></th>             
             </tr>
@@ -38,10 +38,10 @@
           <tr>
                 <td class="dt-body-center">{{$file->id}}</td>
                 <td class="dt-body-center">{{$file->tipodoc->nombre}}</td>
-                <td class="dt-body-center">{{$file->nombre}}</td>
+              {{--  <td class="dt-body-center">{{$file->nombre}}</td>
                 <td class="dt-body-center">{{$file->nombre_subida}}</td>
                 <td class="dt-body-center">{{$file->ruta}}</td>
-                <td class="dt-body-center">{{$file->peso}}</td> 
+                <td class="dt-body-center">{{$file->peso}}</td> --}} 
                 <td class="dt-body-center">{{$file->extension}}</td>                
                 <td class="dt-body-center"> 
               <p>
@@ -52,7 +52,7 @@
               {!!link_to_route('image.documentos', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-primary fa fa-download"])!!}
               @endif
 
-                {!!link_to_route('image.delete_libro', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
+                {!!link_to_route('image.delete_libro', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar el documento '.$file->tipodoc->nombre.'?")'])!!}
                </p>
                 </td> 
               </tr>

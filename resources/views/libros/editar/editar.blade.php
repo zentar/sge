@@ -40,12 +40,14 @@ if({{$flag_editar_autor}}==1){
         }
       return true;
   });
+
      
 </script>
 
 
 
 <script>
+//EVALUA QUE MODAL PRESENTAR CON LOS ERRORES
        @if ($errors->count() > 0 and Session::get('error_code') == 5)
        $(function() {
            $('#modal_autor').modal('show');

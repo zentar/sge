@@ -24,6 +24,6 @@ class TamanoPapel extends Model
 
     public function caracteristicas()
     {
-         return $this->belongsTo('App\Caracteristicas');
+         return $this->belongsTo('App\Caracteristicas','tamano');
     }
 }

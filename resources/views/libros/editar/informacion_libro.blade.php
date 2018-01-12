@@ -36,10 +36,25 @@
                       </div>                   
                      </div>
                  
-                   </div>                    
+                   </div>
+
+          
+                    <div class="form-group col-md-6">                     
+                      <label>ISBN </label> 
+                       {!!Form::text('ISBN',null,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'200',])!!} 
+                    </div>
+
+                    
+                    <div class="form-group col-md-6">                     
+                      <label>IEPI </label> 
+                       {!!Form::text('IEPI',null,['class'=>'form-control',
+                      'placeholder'=>'-','maxlength'=>'200',])!!} 
+                    </div>  
+                             
                    
-                  <div class="row col-md-12">
-                    <div class="form-group col-md-6">
+                  <div class="row col-md-6">
+                    <div class="form-group col-md-12">
                       <label>Colección *</label>
                       <select id="coleccion_id" style="width: 100%" class="form-control select2" name="coleccion_id">
                         <option value='null'> Seleccionar Colección </option>
@@ -49,6 +64,9 @@
                       </select>
                     </div> 
                     </div>
+
+                    
+            
 
                     @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
