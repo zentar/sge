@@ -39,7 +39,7 @@
              <div class='form-group col-md-12'>
                   <label>Valor:</label>
               <input class='form-control' id='valor' placeholder='Valor' maxlength='200' name='valor' type='text' value='{{ old('valor') }}'>
-              {{ Form::checkbox('iva', 1, null, ['class' => 'field']) }} IVA
+              {{ Form::checkbox('iva', 1, null, ['id'=>'iva','class' => 'field']) }} IVA       
              </div>
             
          

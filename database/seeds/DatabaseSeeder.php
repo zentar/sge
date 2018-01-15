@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoDocSeed::class);
         $this->call(ColeccionSeed::class);
         $this->call(TamanoPapelSeed::class);
+        $this->call(TipoPapelSeed::class);
+        $this->call(ColorPapelSeed::class);
         
         $this->call(LibroSeed::class);
         $this->call(HistorialSeed::class);

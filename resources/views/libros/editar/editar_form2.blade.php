@@ -1,5 +1,24 @@
 <div class="container col-md-12">
-  <h3>{{$libro->titulo}}</h3> 
+
+<div class="row">
+   <div class="col-md-8">
+      <h3>{{$libro->titulo}}</h3>
+   </div>
+   <div class="col-md-4">
+      <div class="row">
+         <div class="col-md-7">
+           <h3>Estado: {{$libro->estados->nombre}} </h3> 
+         </div>
+         <div class="col-md-5">
+            <a href="{{ url('/') }}">     
+                    <span class="title"><h3>Avanzar</h3></span>
+                </a>
+         </div>
+      </div>
+   </div>
+</div>
+
+
   <ul class="nav nav-tabs" id="tab_libro">
     <li class="active"><a class=" tableta fa fa-info-circle" data-toggle="tab" href="#informacion"> Información</a></li>
     <li><a class=" tableta fa fa-file" data-toggle="tab" href="#documentos"> Documentos</a></li>

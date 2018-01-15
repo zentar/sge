@@ -22,6 +22,7 @@ class CreateFileTable extends Migration
             $table->string('extension');
             $table->integer('tipodoc_id')->unsigned();
             $table->foreign('tipodoc_id')->references('id')->on('tipodoc');
+            $table->string('observaciones');
             $table->softDeletes();
             $table->timestamps();
         });

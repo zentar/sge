@@ -2,8 +2,13 @@
                 @if(count($libro->caracteristicas) > 0)  
                     <div class="form-group col-md-6">                     
                       <label>Tipo Papel</label> 
-                       {!!Form::text('tipo_papel',$libro->caracteristicas->tipo_papel,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!} 
+                     <select id="tipopapel" style="width: 100%" class="form-control select2" name="tipopapel">
+                      <option value='null'> Seleccionar Tipo de Papel </option>
+                     @foreach($tipos_papel as $formato)
+                      <option value="{{ $formato->id }}" @if($libro->caracteristicas->tipopapel_id == $formato->id) selected @endif > {{ $formato->descripcion }} </option>
+                     @endforeach
+                    </select>
+
                     </div>
 
                     <div class="form-group  col-md-6">
@@ -24,8 +29,13 @@
                     </div>
                      <div class="form-group col-md-6">                     
                       <label>Color</label> 
-                       {!!Form::text('color',$libro->caracteristicas->color,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!} 
+                     <select id="colorpapel" style="width: 100%" class="form-control select2" name="colorpapel">
+                      <option value='null'> Seleccionar Color </option>
+                     @foreach($tipos_color as $formato)
+                      <option value="{{ $formato->id }}" @if($libro->caracteristicas->colorpapel_id == $formato->id) selected @endif > {{ $formato->descripcion }} </option>
+                     @endforeach
+                    </select>
+
                     </div>
                      <div class="form-group col-md-6">                     
                       <label>Cubierta</label> 

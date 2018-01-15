@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.libros').DataTable({
-        dom: 'lBfrtip<"actions">',
+       // dom: 'lBfrtip<"actions">',
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
@@ -251,10 +251,11 @@ $(document).ready(function() {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
   "columns": [
-    { "width": "25%" },
-    { "width": "25%" },
-    { "width": "25%" },
-    { "width": "25%" }
+    { "width": "20%" },
+    { "width": "20%" },
+    { "width": "20%" },
+    { "width": "20%" },
+    { "width": "20%" }
   ],
 } );
 } );
@@ -272,12 +273,13 @@ $(document).ready(function() {
             }
           ],
   "columns": [
-    { "width": "16%" },
-    { "width": "16%" },
-    { "width": "16%" },
-    { "width": "16%" },
-    { "width": "16%" },
-    { "width": "16%" }
+    { "width": "14%" },
+    { "width": "14%" },
+    { "width": "14%" },
+    { "width": "14%" },
+    { "width": "14%" },
+    { "width": "14%" },
+    { "width": "14%" }
   ],
 } );
 } );

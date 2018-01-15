@@ -10,12 +10,9 @@
             <tr>
                  
                 <th class="dt-head-center">ID</th>
-                <th class="dt-head-center">Tipo Documento</th>
-            {{--<th class="dt-head-center">Nombre actual</th>
-                <th class="dt-head-center">Nombre subida</th>
-                <th class="dt-head-center">Ruta</th>
-                <th class="dt-head-center">Peso</th> --}}
+                <th class="dt-head-center">Tipo Documento</th>  
                 <th class="dt-head-center">Extensión</th>
+                <th class="dt-head-center">Observación</th>
                 <th class="dt-head-center"></th> 
             </tr>
         </thead>
@@ -24,11 +21,8 @@
                     
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Tipo Documento</th>
-                {{--<th class="dt-head-center">Nombre actual</th>
-                    <th class="dt-head-center">Nombre subida</th>
-                    <th class="dt-head-center">Ruta</th>
-                    <th class="dt-head-center">Peso</th> --}}
                 <th class="dt-head-center">Extensión</th>
+                <th class="dt-head-center">Observación</th>
                 <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
@@ -36,13 +30,10 @@
       
           @foreach($libro->file as $file)
           <tr>
-                <td class="dt-body-center">{{$file->id}}</td>
+                <td class="dt-body-center">{{$loop->index+1}}</td>
                 <td class="dt-body-center">{{$file->tipodoc->nombre}}</td>
-              {{--  <td class="dt-body-center">{{$file->nombre}}</td>
-                <td class="dt-body-center">{{$file->nombre_subida}}</td>
-                <td class="dt-body-center">{{$file->ruta}}</td>
-                <td class="dt-body-center">{{$file->peso}}</td> --}} 
-                <td class="dt-body-center">{{$file->extension}}</td>                
+                <td class="dt-body-center">{{$file->extension}}</td>  
+                <td class="dt-body-center">{{$file->observaciones}}</td>                
                 <td class="dt-body-center"> 
               <p>
 

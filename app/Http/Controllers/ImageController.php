@@ -115,7 +115,7 @@ class ImageController extends Controller
      //CREA UN FILE Y SU VINCULACION CON EL LIBRO
     public function crear_libro(Request $request){
         $data = $request->all();
-       // dd($data);
+      //  dd($data);
         if($data['tipo_doc'][0]=="null"){$data['tipo_doc']=null;}
         $rules = array(
         'tipo_doc' => 'required',
@@ -138,6 +138,7 @@ class ImageController extends Controller
            $file->nombre_subida = $archivo->getClientOriginalName();
            $file->extension = $archivo->extension();
            $file->peso = $archivo->getClientSize();
+          if(isset($data['observaciones'])) $file->observaciones = $data['observaciones'];
 
            //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
            $path = Storage::putFile('/libros/libro'.$data['libro_id'],$request->file('documento'));
@@ -221,6 +222,7 @@ class ImageController extends Controller
            $file->nombre_subida = $archivo->getClientOriginalName();
            $file->extension = $archivo->extension();
            $file->peso = $archivo->getClientSize();
+           $file->observaciones = "Cotizacion generada automáticamente."; 
 
            //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
            $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/cotizacion',$request->file('documento'));
@@ -233,11 +235,16 @@ class ImageController extends Controller
            $cotizacion->file_id = $file->id;
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
+           $cotizacion->valor = $data['valor'];
 
            if(isset($data['iva']) ){
-            $cotizacion->valor = $data['valor'] * 1.12;
-           }else
-           $cotizacion->valor = $data['valor'];
+            $cotizacion->iva = 1; 
+            $cotizacion->total = $data['valor'] * 1.12;
+           }else{
+            $cotizacion->iva = 0;  
+            $cotizacion->total = $data['valor'];
+           }
+          
 
            $cotizacion->estado = 0;
            $cotizacion->save();
@@ -268,6 +275,16 @@ class ImageController extends Controller
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
            $cotizacion->valor = $data['valor'];
+
+           if(isset($data['iva']) ){
+            $cotizacion->iva = 1; 
+            $cotizacion->total = $data['valor'] * 1.12;
+           }else{
+            $cotizacion->iva = 0;  
+            $cotizacion->total = $data['valor'];
+           }
+          
+           
            $cotizacion->save();
            Session::flash('message','Registro editado sin problemas.');    
           }
@@ -315,7 +332,7 @@ class ImageController extends Controller
           //RETORNA EN CASO DE DATOS MAL INGRESADOS O FALTANTES
           return redirect()->back()
                 ->withErrors($v->errors())
-                ->withInput();
+                ->withInput()->with('error_code', 8);
         }
         else{
           $libro = Book::find($data['libro_id']);
@@ -351,6 +368,7 @@ class ImageController extends Controller
           $file->nombre_subida = $archivo->getClientOriginalName();
           $file->extension = $archivo->extension();
           $file->peso = $archivo->getClientSize();
+          $file->observaciones = "Documento de Cotización aprobado de imprenta ".$cotizacion->imprenta." con tiraje de ".$cotizacion->tiraje." ejemplares y valor de $".$cotizacion->total;
 
            //GUARDA IMAGEN SUBIDA A RUTA /libros/librox/cotizacion Y DEVUELVE EL PATH EN DONDE SE ALMACENO
           $path = Storage::putFile('/libros/libro'.$cotizacion->book_id.'/cotizacion',$request->file('documento'));

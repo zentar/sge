@@ -14,52 +14,22 @@ class ColeccionSeed extends Seeder
         $items = [
             [
             'id' => 1, 
-            'titulo' => 'Coleccion 1',
+            'titulo' => 'Ciencias Económicas y Administrativas',
             'Descripcion' => 'Descripcion coleccion'
             ],
              [
             'id' => 2, 
-            'titulo' => 'Coleccion 2',
+            'titulo' => 'Ciencias Sociales y humanidades',
             'Descripcion' => 'Descripcion coleccion'
             ],
              [
             'id' => 3, 
-            'titulo' => 'Coleccion 3',
+            'titulo' => 'Ciencias de la Salud',
             'Descripcion' => 'Descripcion coleccion'
             ],
             [
             'id' => 4, 
-            'titulo' => 'Coleccion 4',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-             [
-            'id' => 5, 
-            'titulo' => 'Coleccion 5',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-             [
-            'id' => 6, 
-            'titulo' => 'Coleccion 6',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-            [
-            'id' => 7, 
-            'titulo' => 'Coleccion 7',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-            [
-            'id' => 8, 
-            'titulo' => 'Coleccion 8',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-            [
-            'id' => 9, 
-            'titulo' => 'Coleccion 9',
-            'Descripcion' => 'Descripcion coleccion'
-            ],
-            [
-            'id' => 10, 
-            'titulo' => 'Coleccion 10',
+            'titulo' => 'Ciencias Técnicas',
             'Descripcion' => 'Descripcion coleccion'
             ]
         ];

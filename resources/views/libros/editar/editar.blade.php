@@ -16,6 +16,8 @@
               @include('general/modal_doc_libro')
               @include('general/autor_modal')
               @include('general/modal_cot_libro')
+              @include('general/modal_aprob_cot_libro')
+              @include('general/modal_autor_libro')
               
               @include('general/documento_modal')
               
@@ -63,6 +65,12 @@ if({{$flag_editar_autor}}==1){
        @if ($errors->count() > 0 and Session::get('error_code') == 7)
        $(function() {
            $('#modal_cot_libro').modal('show');
+       });
+       @endif
+
+       @if ($errors->count() > 0 and Session::get('error_code') == 8)
+       $(function() {
+           $('#modal_aprob_cot_libro').modal('show');
        });
        @endif
 

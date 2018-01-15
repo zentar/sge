@@ -58,14 +58,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        {{--     <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <a href="{{ route('auth.password.reset') }}">@lang('quickadmin.qa_forgot_password')</a>
                             </div>
                         </div>
 
 
-                    {{--  <div class="form-group">
+                       <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <label>
                                     <input type="checkbox"

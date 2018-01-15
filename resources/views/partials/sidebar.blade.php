@@ -22,6 +22,14 @@
                     <span class="title">@lang('quickadmin.user-management.autores')</span>
                 </a>
             </li>
+
+            
+            <li class="{{ $request->segment(1) == 'reportes' ? 'active' : '' }}">
+                <a href="{{ url('/reportes') }}">
+                    <i class="fa fa-bar-chart "></i>
+                    <span class="title">@lang('quickadmin.user-management.reportes')</span>
+                </a>
+            </li>
                        
             @can('user_management_access')
             <li class="treeview">

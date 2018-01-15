@@ -24,7 +24,11 @@ class CreateCotizacionesTable extends Migration
 
             $table->string('imprenta');
             $table->string('tiraje');
+
             $table->double('valor');
+            $table->integer('iva');
+            $table->double('total');
+            
             $table->string('estado');
 
             $table->softDeletes();

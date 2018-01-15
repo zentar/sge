@@ -15,6 +15,7 @@
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
               @include('general/autor_modal') 
+              @include('general/modal_autor_libro') 
 @stop
 
 

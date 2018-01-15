@@ -6,6 +6,9 @@ return [
 		'title' => 'Administración de usuarios',
 		'fields' => [
 		],
+		'libros' => 'Libros',
+		'autores' => 'Autores',
+		'reportes'=>'Reportes'
 	],
 
 
@@ -15,7 +18,8 @@ return [
 			'facultad'=>'Facultades',
 			'estado'=>'Estados',
 			'auditoria'=>'Auditoria',
-			'coleccion'=>'Colecciónes'
+			'coleccion'=>'Colecciónes',
+	
 		],
 	],
 	

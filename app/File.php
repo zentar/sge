@@ -28,6 +28,10 @@ class File extends Model
 
     protected $fillable = ['nombre', 'nombre_subida','ruta','tipo','peso','filiacion','extension'];
 
+    protected $attributes = [
+        'observaciones' => '-'
+    ];
+
     public function Book()
     {
         return $this->belongsToMany('App\Book','filebook');

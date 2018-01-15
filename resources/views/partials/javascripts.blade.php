@@ -50,19 +50,19 @@
 //IMAGENES DE DOCUMENTOS EN MODAL 
 function documentos_modal(id,extension,nombre){    
     var getUrl = window.location;
-    //var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-    var baseUrl = getUrl .protocol + "//" + getUrl.host;
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+    //var baseUrl = getUrl .protocol + "//" + getUrl.host;
 
     if(extension == 'jpeg' || extension == 'png' || extension == 'bmp' || extension == 'jpg'){
-     // var src = baseUrl+"/public/image/"+id+"/documento";
-      var src = baseUrl+"/image/"+id+"/documento";
+      var src = baseUrl+"/public/image/"+id+"/documento";
+     // var src = baseUrl+"/image/"+id+"/documento";
       $('#doc_modal_title').text(nombre);
       document.getElementById('doc_modal').innerHTML ="<img id='imagen_doc' src='"+src+"' alt='imagen' style='display:block;margin-left: auto; margin-right: auto; max-width:870px; max-height:650px;'>"; 
       }
 
       if(extension == 'pdf'){
-      // var src = baseUrl+"/public/image/"+id+"/documento";
-      var src = baseUrl+"/image/"+id+"/documento";
+       var src = baseUrl+"/public/image/"+id+"/documento";
+      //var src = baseUrl+"/image/"+id+"/documento";
       $('#doc_modal_title').text(nombre);
       document.getElementById('doc_modal').innerHTML ="<div style='text-align: center;'><iframe src='"+src+"' style='width:100%; height:500px;' frameborder='0'></iframe></div>"; 
       }  
@@ -101,10 +101,16 @@ function documentos_modal(id,extension,nombre){
 
 
 <script>
-    function editar_cotizacion(id,file_id,imprenta,tiraje,valor){
+    function editar_cotizacion(id,file_id,imprenta,tiraje,valor,iva){
        document.getElementById('imprenta').value = imprenta;
        document.getElementById('tiraje').value = tiraje;
        document.getElementById('valor').value = valor;
+
+       if(iva==1)
+       document.getElementById('iva').checked = true;
+       else
+       document.getElementById('iva').checked = false;
+       
        $("#documento").val('');
 
          $('<input />').attr('type', 'hidden')
@@ -124,6 +130,8 @@ function documentos_modal(id,extension,nombre){
        document.getElementById('imprenta').value = "";
        document.getElementById('tiraje').value = "";
        document.getElementById('valor').value = "";
+       document.getElementById('iva').checked = false;
+
        $("#documento").val('');
 
        $('<input />').attr('type', 'hidden')
@@ -136,9 +144,6 @@ function documentos_modal(id,extension,nombre){
           .attr('name', "cotizacion_edit")
           .attr('value', 0)
           .appendTo('#crear_libro_cotizacion'); 
-          
-    
-     
 </script>
 
 

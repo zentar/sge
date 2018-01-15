@@ -39,7 +39,7 @@
                         <button type="button" class="btn btn-success fa fa-plus" id="nuevo_autores" data-toggle="modal" data-target=".bd-example-modal-lg"></button>               
                 </div>
 
-                <div class="col-md-12" id="demo"></div>
+                <div class="col-md-6" id="demo"></div>
 
                 <div class='col-md-12' style="padding-top: 3%;">
                 
