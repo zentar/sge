@@ -165,7 +165,7 @@ class LibroController extends Controller
         //SETEA EL PARAMETRO EDITAR 
         $flag_editar_autor=1;
 
-        //dd($libro->caracteristicas);
+       // dd(count($libro->cotizacion));
 
         //COMPRUEBA QUE LOS REGISTROS DE LOS DOCUMENTOS PERTENECIENTES AL ISBN O IEPI RESPECTIVAMENTE EXISTAN
         $flag_ISBN = permisos_isbn_iepi($libro,"isbn");
@@ -232,7 +232,6 @@ class LibroController extends Controller
               $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
               $caracteristicas->solapas = valorPredeterminado($data['solapa']);
               $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
-              //dd($caracteristicas);
               $caracteristicas->save();              
 
               //LIBRO            
@@ -315,14 +314,12 @@ class LibroController extends Controller
                 ->withErrors($v->errors())
                 ->withInput();
         }
-         //PIPO
          if(isset($data['capitulo_edit'])){
              $capitulo = capitulos::where('id',$data['capitulo_edit'])->first();             
               $capitulo->titulo = $data["titulo"];
               $capitulo->descripcion = $data["descripcion"];             
               $capitulo->save();
               $borrar_capitulos = autorcapitulos::get()->where('capitulos_id',$data['capitulo_edit']);
-             // dd($borrar_capitulos);
               if(count($borrar_capitulos)>0){  
                  foreach($borrar_capitulos as $borrar)  
                  $borrar->delete();        
@@ -332,8 +329,7 @@ class LibroController extends Controller
                  if($autor != null){   
                  $autorcapitulos = new autorcapitulos();
                  $autorcapitulos->capitulos_id = $capitulo->id;
-                 $autorcapitulos->autor_id = $autor; 
-                 // dd($autorcapitulos);
+                 $autorcapitulos->autor_id = $autor;       
                  $autorcapitulos->save();
                }
               }   
@@ -404,16 +400,11 @@ class LibroController extends Controller
             if($tipo=="pdf"){
            $pdf = \PDF::loadView('prueba',['cotizaciones'=>$cotizaciones]);
             return $pdf->download('ReporteCotizacion.pdf'); 
-           // dd($cotizaciones);
             }else{
                 \Excel::create('New file', function($excel)  use ($cotizaciones) {
-
-                    $excel->sheet('New sheet', function($sheet) use ($cotizaciones) {
-                
-                        $sheet->loadView('prueba',array('cotizaciones'=>$cotizaciones));
-                
-                    });
-                
+                    $excel->sheet('New sheet', function($sheet) use ($cotizaciones) {                
+                        $sheet->loadView('prueba',array('cotizaciones'=>$cotizaciones));                
+                    });                
                 })->download('xlsx');
             }       
          }   

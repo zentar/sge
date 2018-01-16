@@ -45,16 +45,16 @@ class Caracteristicas extends Model
 
     public function tamanopapel()
     {
-        return $this->hasOne('App\TamanoPapel','id');
+        return $this->hasOne('App\TamanoPapel','id','tamano');
     }  
 
     public function tipopapel()
     {
-        return $this->hasOne('App\TipoPapel','id');
+        return $this->hasOne('App\TipoPapel','id','tipopapel_id');
     }  
 
     public function colorpapel()
     {
-        return $this->hasOne('App\ColorPapel','id');
+        return $this->hasOne('App\ColorPapel','id','colorpapel_id');
     }  
 }

@@ -64,13 +64,13 @@ class TipoDocSeed extends Seeder
             'id' => 9,
             'grupo' => "libro", 
             'nombre' => 'IEPI - Papeleta pago',
-            'descripcion' => 'IEPI - Papeleta pago'
+            'descripcion' => 'IEPI - Papeleta de pago'
             ],
             [
             'id' => 10,
             'grupo' => "libro", 
-            'nombre' => 'IEPI - código',
-            'descripcion' => 'IEPI - código'
+            'nombre' => 'IEPI - Código',
+            'descripcion' => 'IEPI - Código'
             ],
              [
             'id' => 11,

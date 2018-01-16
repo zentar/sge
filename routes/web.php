@@ -28,8 +28,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
 //CRUD LIBROS
    Route::resource('libro','LibroController');
-
-
+   
 		Route::get('libro/{id}/delete', [
 		    'as' => 'libro.delete',
 		    'uses' => 'LibroController@destroy',
@@ -152,8 +151,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'FacultadController@destroy',
         ]);
 
-        
- //Auditoria
+
 
 
  //Colecciones
@@ -247,8 +245,25 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'image.crear_cotizacion_aprobado',
             'uses' => 'ImageController@crear_cotizacion_aprobado',
         ]); 
+        
+         //Auditoria
 
         Route::resource('auditoria','AuditoriaController');
+
+         //Reportes
+
+         Route::resource('reportes','ReportesController');
+
+        Route::post('reportes/create', [
+            'as' => 'reportes.create',
+            'uses' => 'ReportesController@create',
+        ]); 
+
+
+          Route::post('reportes/create_general', [
+            'as' => 'reportes.create_general',
+            'uses' => 'ReportesController@create_general',
+        ]); 
  
       
 

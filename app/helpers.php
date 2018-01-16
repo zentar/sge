@@ -62,8 +62,9 @@ function filtrar_documentos_ingresados($libro){
 
 //COMPRUEBA QUE LOS REGISTROS DE LOS DOCUMENTOS PERTENECIENTES AL ISBN O IEPI EXISTAN RESPECTIVAMENTE 
 function permisos_isbn_iepi($libro,$tipo){
- // $isbn =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'ISBN - Papeleta de pago']])->get()->first()->id;   
- //  dd($isbn);   
+ // $isbn =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'ISBN - Papeleta de pago']])->orwhere([ ['nombre', '=', 'ISBN - Código']])->orwhere([['nombre', '=', 'ISBN - Formulario de Registro']])->get();   
+ // $iepi =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'IEPI - Solicitud']])->orwhere([ ['nombre', '=', 'IEPI - Papeleta pago']])->orwhere([['nombre', '=', 'IEPI - Código']])->get();   
+
   if($tipo == "isbn"){
     
     return 1;
