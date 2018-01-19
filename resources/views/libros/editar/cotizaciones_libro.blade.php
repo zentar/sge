@@ -10,14 +10,14 @@
             <div class=" form-group col-md-6" style="text-align:right;">    
           {!!link_to_route('libro.reporteCotizacion', $title = " Word", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!} 
           {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}    
-          {!!link_to_route('libro.reporteCotizacion', $title = " Excel", $parameters = [$libro->id,"xlsx"], $attributes = ['class'=>"btn btn-success fa fa-file-excel-o  ","target"=>"_blank"])!!}    
+     {{--{!!link_to_route('libro.reporteCotizacion', $title = " Excel", $parameters = [$libro->id,"xlsx"], $attributes = ['class'=>"btn btn-success fa fa-file-excel-o  ","target"=>"_blank"])!!}--}}    
           </div>
           @endif
          
        </div>
 
        <div class = "espacio col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>  
-
+       <div class ="col-md-12">
          <table id="documentos_libro" class="table responsive table-striped table-bordered display compact cotizaciones" cellspacing="0" width="100%">
         <thead>
             <tr>                 
@@ -35,12 +35,12 @@
       
           @foreach($libro->cotizacion as $file)
            <tr @if($file->estado > 0) style="background-color:#59ea7d;" @endif >
-                <td @if($file->estado > 0) style="background-color:#59ea7d;" @endif class="dt-body-center">{{$loop->index+1}}</td>
-                <td class="dt-body-left">{{$file->imprenta}}</td>
-                <td class="dt-body-right">{{$file->tiraje}}</td>
-                <td class="dt-body-right">${{$file->valor}}</td>
-                <td class="dt-body-right">${{$file->total}}</td>
-                <td class="dt-body-center">@if($file->estado > 0)
+                <td width="2%" @if($file->estado > 0) style="background-color:#59ea7d;" @endif class="dt-body-center">{{$loop->index+1}}</td>
+                <td width="20%" class="dt-body-left">{{$file->imprenta}}</td>
+                <td width="10%" class="dt-body-right">{{$file->tiraje}}</td>
+                <td width="10%" class="dt-body-right">${{$file->valor}}</td>
+                <td width="10%" class="dt-body-right">${{$file->total}}</td>
+                <td width="15%" class="dt-body-center">@if($file->estado > 0)
                   @if($file->estado > 0)
               @foreach($libro->file as $fil)
                  @if($fil->tipodoc_id==2)
@@ -57,7 +57,7 @@
                @endif
 
                  @else - @endif</td>               
-                <td class="dt-body-center"> 
+                <td width="23%" class="dt-body-center"> 
               <p>
                 @if($file->file->extension=='pdf' || $file->file->extension=='jpeg' ||$file->file->extension=='bmp' || $file->file->extension=='jpg' || $file->file->extension=='png')
                 <button type="button" class="btn btn-primary fa fa-eye" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $file->file->id}}','{{ $file->file->extension}}','{{$file->file->nombre}}')"></button>
@@ -77,6 +77,7 @@
 
         </tbody>
       </table> 
+      </div>
   </div>        
 
 

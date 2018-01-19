@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 use Session;
 use App\Book;
 use App\Autor;
@@ -47,6 +48,10 @@ class LibroController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('libro_create')) {
+            return abort(403);
+        }
+
         //VARIABLE QUE CONTROLA EL FORMULARIO EN QUE SE ENCUENTRA PARA LA GENERACION DE LOS AUTORES
         $nuevo = 1 ;
         $autores = Autor::all();
@@ -75,6 +80,10 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Gate::allows('libro_create')) {
+            return abort(403);
+        }
+
         $data = $request->all();
         //dd($data); 
          $rules = array(
@@ -129,7 +138,11 @@ class LibroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {      
+    {  
+        if (! Gate::allows('libro_view')) {
+            return abort(403);
+        }
+
         $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion'])->get()->where('id',$id)->first();
       // dd($libro);    
         return view('libros/consultar/consultar', compact('libro'));
@@ -143,6 +156,10 @@ class LibroController extends Controller
      */
     public function edit($id)
     {
+        if (! Gate::allows('libro_edit')) {
+            return abort(403);
+        }
+
         //VARIABLE QUE CONTROLA EL FORMULARIO EN QUE SE ENCUENTRA PARA LA GENERACION DE LOS AUTORES
         $nuevo = 0 ; 
         //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
@@ -197,6 +214,11 @@ class LibroController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (! Gate::allows('libro_edit')) {
+            return abort(403);
+        }
+
         $data = $request->all();
        // dd($data);
 
@@ -273,6 +295,10 @@ class LibroController extends Controller
      */
     public function destroy($id)
     {
+        if (! Gate::allows('libro_delete')) {
+            return abort(403);
+        }
+
         $libro = Book::find($id);
         $libro_autor =  autorbook::all()->where('book_id',$id);
         if(empty($libro))
@@ -398,19 +424,21 @@ class LibroController extends Controller
               return reporte_cotizacion($libro,$cotizaciones);
         }else{
             if($tipo=="pdf"){
-           $pdf = \PDF::loadView('prueba',['cotizaciones'=>$cotizaciones]);
+            setlocale(LC_ALL, "es_ES", 'Spanish_Spain', 'Spanish');
+            $fecha =iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B del %Y", strtotime(\Carbon\Carbon::now())));
+     
+           $pdf = \PDF::loadView('reportes/ReporteCotizacion',['libro'=>$libro,'cotizaciones'=>$cotizaciones,'fecha'=>$fecha]);
             return $pdf->download('ReporteCotizacion.pdf'); 
             }else{
                 \Excel::create('New file', function($excel)  use ($cotizaciones) {
                     $excel->sheet('New sheet', function($sheet) use ($cotizaciones) {                
-                        $sheet->loadView('prueba',array('cotizaciones'=>$cotizaciones));                
+                        $sheet->loadView('reportes/ReporteCotizacion',array('cotizaciones'=>$cotizaciones));                
                     });                
                 })->download('xlsx');
             }       
-         }   
-        
-        }else{
-           
+         } 
+
+        }else{           
             abort(404);
         }
     }

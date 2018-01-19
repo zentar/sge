@@ -4,14 +4,7 @@ $(document).ready(function() {
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
-  "columns": [
-    { "width": "3%" },
-    { "width": "32%" },
-    { "width": "25%" },
-    { "width": "15%" },
-    { "width": "10%" },
-    { "width": "15%" }
-  ],
+
    buttons: [
          /*   {
                 extend: 'copy',
@@ -265,6 +258,7 @@ $(document).ready(function() {
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
+        responsive:true,
         "columnDefs": [
             {
                 "targets": null,
@@ -272,15 +266,6 @@ $(document).ready(function() {
                 "searchable": false
             }
           ],
-  "columns": [
-    { "width": "14%" },
-    { "width": "14%" },
-    { "width": "14%" },
-    { "width": "14%" },
-    { "width": "14%" },
-    { "width": "14%" },
-    { "width": "14%" }
-  ],
 } );
 } );
 

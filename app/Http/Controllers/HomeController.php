@@ -28,9 +28,23 @@ class HomeController extends Controller
     public function index()
     {
         $libros= Book::with(['autor','estados'])->get();
+        //dd($libros[0]->coleccion->titulo);
+        return view('home', compact('libros'));
+      /*  if(\Auth::User()->role_id == 1){
+           return view('home', compact('libros'));
+        }
+
+         if(\Auth::User()->role_id == 4){
+           return "hola mundo";
+        }
+
+           if(\Auth::User()->role_id == 2){
+           return view('home', compact('libros'));
+        }*/
+
         // ip \Request::ip();
         // user_name  gethostbyaddr($_SERVER['REMOTE_ADDR']);
         // datos del usuario y roles \Auth::User();
-        return view('home', compact('libros'));
+        
     }
 }

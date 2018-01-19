@@ -29,6 +29,13 @@ class AuthServiceProvider extends ServiceProvider
 
         $user = \Auth::user();
 
+        /*
+        ORDEN DE LOS ROLES 
+        1 - ADMINISTRADOR
+        2 - GESTOR ADMINISTRATIVO
+        3 - GESTOR PRODUCCION
+        4 - EDITOR
+        */ 
         
         // Auth gates for: User management
         Gate::define('user_management_access', function ($user) {
@@ -53,7 +60,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Auth gates for: Users
-        Gate::define('user_access', function ($user) {
+        Gate::define('user_access', function ($user) {          
             return in_array($user->role_id, [1]);
         });
         Gate::define('user_create', function ($user) {
@@ -68,6 +75,79 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user_delete', function ($user) {
             return in_array($user->role_id, [1]);
         });
+
+
+        // Auth gates for: Libros INDEX
+         Gate::define('libro_access', function ($user) {          
+                return in_array($user->role_id, [1,2,3,4]);
+           });
+           Gate::define('libro_create', function ($user) {
+               return in_array($user->role_id, [1,2]);
+           });
+           Gate::define('libro_edit', function ($user) {
+               return in_array($user->role_id, [1,2,3,4]);
+           });
+           Gate::define('libro_view', function ($user) {
+               return in_array($user->role_id, [1,2,3,4]);
+           });
+           Gate::define('libro_delete', function ($user) {
+               return in_array($user->role_id, [1,2]);
+           });
+
+
+       // Auth gates for: Libros EDIT
+       Gate::define('libro_edit_informacion', function ($user) {          
+            return in_array($user->role_id, [1,2,3,4]);
+       });
+
+       Gate::define('libro_edit_informacion_accion', function ($user) {          
+        return in_array($user->role_id, [1,2,3,4]);
+       });
+
+       Gate::define('libro_edit_documentos', function ($user) {
+           return in_array($user->role_id, [1,2]);
+       });
+       Gate::define('libro_edit_edicion', function ($user) {
+        return in_array($user->role_id, [1,4]);
+       });
+       Gate::define('libro_edit_caracteristicas', function ($user) {
+           return in_array($user->role_id, [1,4]);
+       });
+       Gate::define('libro_edit_cotizaciones', function ($user) {
+           return in_array($user->role_id, [1,3]);
+       });
+       Gate::define('libro_edit_historico', function ($user) {
+           return in_array($user->role_id, [1]);
+       });   
+
+        
+        // Auth gates for: Autores
+        Gate::define('autor_access', function ($user) {          
+             return in_array($user->role_id, [1,2]);
+        });
+        Gate::define('autor_create', function ($user) {
+            return in_array($user->role_id, [1,2]);
+        });
+        Gate::define('autor_edit', function ($user) {
+            return in_array($user->role_id, [1,2]);
+        });
+        Gate::define('autor_view', function ($user) {
+            return in_array($user->role_id, [1,2]);
+        });
+        Gate::define('autor_delete', function ($user) {
+            return in_array($user->role_id, [1,2]);
+        });
+
+        // Auth gates for: Reportes
+        Gate::define('reportes_access', function ($user) {          
+            return in_array($user->role_id, [1]);
+       });
+       Gate::define('reportes_create_general', function ($user) {          
+            return in_array($user->role_id, [1]);
+       });
+       Gate::define('reportes_create_especifico', function ($user) {          
+            return in_array($user->role_id, [1]);
+       });
 
     }
 }

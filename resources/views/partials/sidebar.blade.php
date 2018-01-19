@@ -6,30 +6,35 @@
 
     
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">   
+    <section class="sidebar">  
+      
         <ul class="sidebar-menu" >
+        @can('libro_access')
             <li class="{{ $request->segment(2) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
                     <i class="fa fa-book"></i>
                     <span class="title">@lang('quickadmin.user-management.libros')</span>
                 </a>
             </li>
+        @endcan
 
-
-             <li class="{{ $request->segment(1) == 'autor' ? 'active' : '' }}">
+            @can('autor_access')
+            <li class="{{ $request->segment(1) == 'autor' ? 'active' : '' }}">
                 <a href="{{ url('/autor') }}">
                     <i class="fa fa-user"></i>
                     <span class="title">@lang('quickadmin.user-management.autores')</span>
                 </a>
             </li>
+            @endcan
 
-            
+            @can('reportes_access')
             <li class="{{ $request->segment(1) == 'reportes' ? 'active' : '' }}">
                 <a href="{{ url('/reportes') }}">
                     <i class="fa fa-bar-chart "></i>
                     <span class="title">@lang('quickadmin.user-management.reportes')</span>
                 </a>
             </li>
+            @endcan
                        
             @can('user_management_access')
             <li class="treeview">
