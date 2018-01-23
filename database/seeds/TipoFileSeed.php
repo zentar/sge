@@ -83,15 +83,39 @@ class TipoDocSeed extends Seeder
             'grupo' => "autor", 
             'nombre' => 'Pasaporte',
             'descripcion' => 'Pasaporte'
-            ],         
+            ],                     
             [
             'id' => 13,
+            'grupo' => "libro", 
+            'nombre' => 'Solicitud de Aprobación',
+            'descripcion' => 'Solicitud de Aprobación'
+            ],                                 
+            [
+            'id' => 14,
+            'grupo' => "libro_especial", 
+            'nombre' => 'Original',
+            'descripcion' => 'Original'
+            ],                                  
+            [
+            'id' => 15,
+            'grupo' => "libro_especial", 
+            'nombre' => 'Cubierta',
+            'descripcion' => 'Cubierta'
+            ],                                 
+            [
+            'id' => 16,
+            'grupo' => "libro_especial", 
+            'nombre' => 'Contenido',
+            'descripcion' => 'Contenido'
+            ],          
+            [
+            'id' => 17,
             'grupo' => "autor", 
             'nombre' => 'Otros',
             'descripcion' => 'Otros'
             ],         
             [
-            'id' => 14,
+            'id' => 18,
             'grupo' => "libro", 
             'nombre' => 'Otros',
             'descripcion' => 'Otros'

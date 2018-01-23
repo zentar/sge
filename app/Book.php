@@ -32,12 +32,18 @@ class Book extends Model
     
     protected $attributes = [
         'isbn' => '-',
-        'iepi' => '-'
+        'iepi' => '-',
+        'asignado'=>0
     ];
 
     public function autor()
     {
         return $this->belongsToMany('App\Autor','autorbook');
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany('App\User','userbook')->withPivot('tipo','estado');
     }
 
     public function facultad()

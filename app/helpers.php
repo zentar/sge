@@ -62,14 +62,33 @@ function filtrar_documentos_ingresados($libro){
 
 //COMPRUEBA QUE LOS REGISTROS DE LOS DOCUMENTOS PERTENECIENTES AL ISBN O IEPI EXISTAN RESPECTIVAMENTE 
 function permisos_isbn_iepi($libro,$tipo){
- // $isbn =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'ISBN - Papeleta de pago']])->orwhere([ ['nombre', '=', 'ISBN - Código']])->orwhere([['nombre', '=', 'ISBN - Formulario de Registro']])->get();   
- // $iepi =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'IEPI - Solicitud']])->orwhere([ ['nombre', '=', 'IEPI - Papeleta pago']])->orwhere([['nombre', '=', 'IEPI - Código']])->get();   
+
+ //dd($libro->file[0]->tipodoc_id);
+
+ //dd($tipos);
 
   if($tipo == "isbn"){
+    $tipos = [];
+    foreach($libro->file as $file){
+         if($file->tipodoc_id == 4 || $file->tipodoc_id == 5 || $file->tipodoc_id ==  6)
+         array_push($tipos,$file->tipodoc_id);
+    }
     
+    if(count($tipos) == 3)
     return 1;
-  }else{
+      else
+    return 0;
+  }elseif($tipo == "iepi"){
+    $tipos = [];
+    foreach($libro->file as $file){
+         if($file->tipodoc_id == 8 || $file->tipodoc_id == 9 || $file->tipodoc_id ==  10)
+         array_push($tipos,$file->tipodoc_id);
+    }
+    
+    if(count($tipos) == 3)
     return 1;
+      else
+    return 0;
 
   }
 }

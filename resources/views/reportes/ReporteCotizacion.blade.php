@@ -6,12 +6,16 @@
 </tr>
 </table>
 <br>
-<div class="row col-md-12">
-       <p align="right">No 001</p>
-</div>
-<div class="row col-md-12">      
-       <p align="left">Guayaquil, {{$fecha}}</p>
-</div>
+<table width="100%">
+<tr>
+    <td style="text-align:center;width:50%;" >
+    <div><p align="left">Guayaquil, {{$fecha}}</p></div><div class="col-md-6"></div>
+    </td>
+    <td style="text-align:center;width:50%;" >
+    <div><p align="right">No 001</p></div>
+    </td>   
+    </tr>
+  </table>
 <div class="row col-md-12">      
        <p style="font-weight: bold;" align="center">PRODUCCIÓN DE LA OBRA:</p>
 </div>
@@ -87,7 +91,7 @@
 <div class="row col-md-12">      
        <div align="left">Considerando la calidad del material, tiempo de entrega, acabados, se selecciona a la Empresa _________________________________________</div>
 </div>
-<br>
+
 <table width="100%">
 <tr>
     <td style="text-align:center;width:33%;" >
@@ -101,7 +105,6 @@
     </td>
     </tr>
   </table>
-
   <table width="100%">
 <tr>
     <td style="text-align:center;width:33%;" >

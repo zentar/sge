@@ -51,8 +51,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-    
-    
+
+    public function book()
+    {
+        return $this->belongsToMany('App\Book','userbook')->withPivot('tipo','estado');
+    }    
     
 
     public function sendPasswordResetNotification($token)

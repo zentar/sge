@@ -115,7 +115,7 @@ class ImageController extends Controller
      //CREA UN FILE Y SU VINCULACION CON EL LIBRO
     public function crear_libro(Request $request){
         $data = $request->all();
-      //  dd($data);
+       // dd($data);
         if($data['tipo_doc'][0]=="null"){$data['tipo_doc']=null;}
         $rules = array(
         'tipo_doc' => 'required',
@@ -150,6 +150,13 @@ class ImageController extends Controller
            $libro_doc->book_id = $data['libro_id'];
            $libro_doc->file_id = $file->id;
            $libro_doc->save();
+
+           if($data['tipo_doc'][0] == 13){
+               $libro = Book::find($data['libro_id']);
+               $libro->estados_id = 2;
+               $libro->save();                
+           }
+
 
            return redirect()->back(); 
         }
@@ -381,8 +388,12 @@ class ImageController extends Controller
           $filebook = new filebook;
           $filebook->book_id = $cotizacion->book_id;
           $filebook->file_id =  $file->id;
-          $filebook->save();       
-
+          $filebook->save();   
+          
+          //UNA VEZ SUBIO EL DOCUMENTO APROBADO, EL LIBRO PASA AL ESTADO PRODUCCION
+          $libro->estados_id = 6;
+          $libro->save();
+ 
           return redirect()->back();
         }
     }

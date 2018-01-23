@@ -17,6 +17,7 @@ use App\Coleccion;
 use App\Tipodoc;
 use App\Caracteristicas;
 use DB;
+use Mail;
 
 class LibroController extends Controller
 {
@@ -181,8 +182,25 @@ class LibroController extends Controller
         $tamano_papel = \App\TamanoPapel::all();
         //SETEA EL PARAMETRO EDITAR 
         $flag_editar_autor=1;
+        
+        //BUSCA LOS EDITORES PARA SU ASIGNACION
+        if($libro->asignado == 0 && $libro->estados_id == 2)
+        //SI EL EDITOR NO HA SIDO ASIGNADO, BUSCA TODOS LOS USUARIOS QUE SON EDITORES
+        $editores = \App\User::where('role_id',4)->get();
+        else
+        //SI EL EDITOR YA FUE ASIGNADO, LO BUSCA Y DEVUELVE SU NOMBRE
+        if(isset($libro->user[0]->name))
+        $editores = $libro->user[0]->name;
 
-       // dd(count($libro->cotizacion));
+
+        //BUSCA LOS GESTORES DE PRODUCCION PARA SU ASIGNACION
+        if($libro->asignado == 0 && $libro->estados_id == 4)
+        //SI EL GP NO HA SIDO ASIGNADO, BUSCA TODOS LOS USUARIOS QUE SON GP
+        $gestor_p = \App\User::where('role_id',3)->get();
+        else    
+        $gestor_p = "";
+
+     //   dd($gestor_p);
 
         //COMPRUEBA QUE LOS REGISTROS DE LOS DOCUMENTOS PERTENECIENTES AL ISBN O IEPI RESPECTIVAMENTE EXISTAN
         $flag_ISBN = permisos_isbn_iepi($libro,"isbn");
@@ -195,14 +213,14 @@ class LibroController extends Controller
                   }
         $facultades = Facultad::all();
         $facultades_nombre=[];
-        $facultades_nombre[null] = "Seleccionar Facultad";  
+    
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
 
               
-       // dd(count($isbn_iepi));                 
-        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color'));
+        //dd($libro->coleccion->titulo);                 
+        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color','editores','gestor_p'));
     }
 
     /**
@@ -217,24 +235,14 @@ class LibroController extends Controller
 
         if (! Gate::allows('libro_edit')) {
             return abort(403);
-        }
-
+        }        
+     
         $data = $request->all();
        // dd($data);
-
-        if($data['tamano']=="null") $data['tamano']=null;
-        if($data['tipopapel']=="null") $data['tipopapel']=null;
-        if($data['colorpapel']=="null") $data['colorpapel']=null;
-
         $rules = array(
            "titulo" => 'max:170',
-           "facultad_id" => 'required',
            "autor" => 'required',
-           "coleccion_id" => 'required',
-           "paginas" =>'numeric|between:1,9999',
-           'tamano' =>'required',
-           'tipopapel' =>'required',
-           'colorpapel' =>'required'
+           "paginas" =>'numeric|between:1,9999'
         );
          
         $v=Validator::make($data,$rules);
@@ -247,24 +255,26 @@ class LibroController extends Controller
         else{
               //CARACTERISTICAS
               $caracteristicas = Caracteristicas::get()->where('book_id',$id)->first();
-              $caracteristicas->tamano = valorPredeterminado($data['tamano']);
-              $caracteristicas->tipopapel_id = valorPredeterminado($data['tipopapel']);
-              $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
-              $caracteristicas->colorpapel_id = valorPredeterminado($data['colorpapel']);
-              $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
-              $caracteristicas->solapas = valorPredeterminado($data['solapa']);
-              $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
+          if(isset($data['tamano']))         $caracteristicas->tamano = valorPredeterminado($data['tamano']);
+          if(isset($data['tipopapel']))      $caracteristicas->tipopapel_id = valorPredeterminado($data['tipopapel']);
+          if(isset($data['paginas']))        $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
+          if(isset($data['colorpapel']))     $caracteristicas->colorpapel_id = valorPredeterminado($data['colorpapel']);
+          if(isset($data['cubierta']))     $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
+          if(isset($data['solapa']))     $caracteristicas->solapas = valorPredeterminado($data['solapa']);
+          if(isset($data['observaciones']))     $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
               $caracteristicas->save();              
 
               //LIBRO            
               $libro = Book::find($id);            
-              $libro->titulo = $data["titulo"];
-              $libro->coleccion_id = $data["coleccion_id"];
-              $libro->facultad_id = $data["facultad_id"];
+          if(isset($data["titulo"]))          $libro->titulo = $data["titulo"];
+          if(isset($data["coleccion_id"]))    $libro->coleccion_id = $data["coleccion_id"];
+          if(isset($data["facultad_id"]))     $libro->facultad_id = $data["facultad_id"];
               
-              if(isset($data['isbn'])) $libro->isbn = $data['isbn'];
-              if(isset($data['iepi'])) $libro->iepi = $data['iepi'];
-             
+              if(isset($data['ISBN'])) $libro->isbn = $data['ISBN'];
+              if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];
+
+              if($libro->estados_id == 6)
+              $libro->estados_id =7;
            
               
               $libro->save();
@@ -442,4 +452,92 @@ class LibroController extends Controller
             abort(404);
         }
     }
+
+    public function asignar(Request $request){
+        try{
+            $data = $request->all();
+            //dd($data);   
+       if($data['tipo']=="edicion"){
+        $asignacion = new \App\userbook();
+        $asignacion->book_id = $data['libro_id'];
+        $asignacion->user_id = $data['editor_id'];
+        $asignacion->tipo = $data['tipo'];
+        $asignacion->estado = 1; 
+        $asignacion->save();
+
+      $user = \App\User::findOrFail($data['editor_id']);
+      $libro = \App\Book::find($data['libro_id']);
+
+
+      Mail::send('mails.avisoEditor', ['user' => $user,'libro'=>$libro], function ($m) use ($user) {
+          $m->from('ceid1994@gmail.com', 'Sistema de Gestion Editorial UCSG');
+
+          $m->to($user->email, $user->name)->subject('Asignacion de Libro - Edición');
+      });
+      
+      $libro->estados_id = 3;
+      $libro->asignado = 1;
+      $libro->save();
+
+      Session::flash('message','Editor Asignado sin problemas.');
+      return redirect()->back()->withInput();
+
+
+      }elseif($data['tipo']=="cotizacion"){ 
+
+        $asignacion = new \App\userbook();
+        $asignacion->book_id = $data['libro_id'];
+        $asignacion->user_id = $data['gp_id'];
+        $asignacion->tipo = $data['tipo'];
+        $asignacion->estado = 1; 
+        $asignacion->save();
+
+      $user = \App\User::findOrFail($data['gp_id']);
+      $libro = \App\Book::find($data['libro_id']);
+
+
+      Mail::send('mails.avisoCotizador', ['user' => $user,'libro'=>$libro], function ($m) use ($user) {
+          $m->from('ceid1994@gmail.com', 'Sistema de Gestion Editorial UCSG');
+
+          $m->to($user->email, $user->name)->subject('Asignacion para Cotización de Libro');
+      });
+      
+      $libro->estados_id = 5;
+      $libro->asignado = 1;
+      $libro->save();
+
+      Session::flash('message','Gestor de Producción Asignado sin problemas.');
+      return redirect()->back()->withInput();      
+      
+        }
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+      
+    }
+
+    public function cierreEdicion(Request $request){
+    try{
+        $data = $request->all();
+        $libro = \App\Book::find($data['libro_id']);
+        
+        $asignacion = \App\userbook::where('book_id',$data['libro_id'])->where('tipo','edicion')->first();
+        $asignacion->estado=0; 
+        $asignacion->save();
+
+        $libro->estados_id = 4;
+
+        $libro->asignado = 0;
+       
+        $libro->save();
+
+        Session::flash('message','Edición cerrado sin problemas.');
+        return redirect()->action('HomeController@index');
+  
+    }catch(\Exception $e){
+        return $e->getMessage();
+    }
+
+    }
+
 }

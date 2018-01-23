@@ -19,7 +19,7 @@ class EstadosSeed extends Seeder
             ],
                 [
             'id' => 2, 
-            'nombre' => 'Aprobado - Edición',
+            'nombre' => 'Aprobado',
             'descripcion' => 'Estado2'
             ],
                 [
@@ -34,21 +34,16 @@ class EstadosSeed extends Seeder
             ],
                 [
             'id' => 5, 
-            'nombre' => 'Aprobado - Cotización',
+            'nombre' => 'Aprobado Cotización',
             'descripcion' => 'Estado5'
             ],
-                [
+            [
             'id' => 6, 
-            'nombre' => 'Tramites de documentación',
-            'descripcion' => 'Estado6'
-            ],
-                [
-            'id' => 7, 
             'nombre' => 'Producción',
             'descripcion' => 'Estado7'
             ],
                 [
-            'id' => 8, 
+            'id' => 7, 
             'nombre' => 'Publicado',
             'descripcion' => 'Estado8'
             ]         

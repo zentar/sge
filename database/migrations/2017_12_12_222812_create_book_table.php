@@ -28,6 +28,7 @@ class CreateBookTable extends Migration
             $table->string('ISBN');
             $table->string('IEPI');
 
+            $table->integer('asignado');
 
             $table->softDeletes();        
             $table->timestamps();

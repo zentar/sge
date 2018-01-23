@@ -257,15 +257,7 @@ $(document).ready(function() {
      $('.cotizaciones').DataTable({
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-        },
-        responsive:true,
-        "columnDefs": [
-            {
-                "targets": null,
-                "visible": false,
-                "searchable": false
-            }
-          ],
+        },   
 } );
 } );
 

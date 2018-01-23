@@ -81,6 +81,21 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@eliminarCapitulos',
         ]);
 
+
+    //ASIGNA EDITOR A LIBRO    
+        Route::post('libro/asignar', [
+            'as' => 'libro.asignar',
+            'uses' => 'LibroController@asignar',
+        ]);
+
+    //CIERRE ESTADO EDICION DE LIBRO    
+        Route::post('libro/cierre', [
+                'as' => 'libro.cierreEdicion',
+                'uses' => 'LibroController@cierreEdicion',
+        ]);
+    
+      
+
 //CRUD AUTORES
          Route::resource('autor','AutorController');
 

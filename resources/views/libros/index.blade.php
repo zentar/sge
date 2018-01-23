@@ -16,8 +16,9 @@
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
                 <th class="dt-head-center">Fecha de ingreso</th>
-                <th class="dt-head-center">Estado</th>
                 <th class="dt-head-center">Colección</th>
+                <th class="dt-head-center">Estado</th>
+            
                 @if(Gate::allows('libro_view') || Gate::allows('libro_edit') || Gate::allows('libro_delete'))<th class="dt-head-center"></th>   @endif
             </tr>
         </thead>
@@ -28,8 +29,9 @@
                 <th class="dt-head-center">Título</th>
                 <th class="dt-head-center">Autores</th>
                 <th class="dt-head-center">Fecha de ingreso</th>
-                <th class="dt-head-center">Estado</th>
                 <th class="dt-head-center">Colección</th>
+                <th class="dt-head-center">Estado</th>
+         
                 @if(Gate::allows('libro_view') || Gate::allows('libro_edit') || Gate::allows('libro_delete'))    <th class="dt-head-center"></th>   @endif           
             </tr>
         </tfoot>
@@ -51,11 +53,9 @@
                 </td> 
 
                 <td width="15%" class="dt-body-center"> {{ Carbon\Carbon::parse($libro->created_at)->format('d/m/Y') }}</td> 
-               
-                
-                <td width="10%" class="dt-body-center">{{$libro->estados->nombre}}</td> 
-
                 <td width="10%" class="dt-body-center">{{$libro->coleccion->titulo}}</td> 
+                <td width="10%" class="dt-body-center">{{$libro->estados->nombre}}</td>
+
                 @if(Gate::allows('libro_view') || Gate::allows('libro_edit') || Gate::allows('libro_delete'))       
                  <td width="15%" class="dt-body-center"> 
                 @can('libro_view')
