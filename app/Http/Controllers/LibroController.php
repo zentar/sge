@@ -273,11 +273,16 @@ class LibroController extends Controller
               if(isset($data['ISBN'])) $libro->isbn = $data['ISBN'];
               if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];
 
-              if($libro->estados_id == 6)
-              $libro->estados_id =7;
-           
+         
               
               $libro->save();
+
+
+             if($libro->estados_id == 6 && isset($libro->isbn) && isset($libro->iepi)){
+                $libro->estados_id =7;            
+                $libro->save();
+              }
+           
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
               $eliminar = autorbook::where('book_id', $libro->id);

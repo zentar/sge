@@ -19,8 +19,8 @@ class LibroSeed extends Seeder
             'facultad_id' => 3,
           /*  'revision_pares' => '', 
             'contrato' => '',*/
-            'isbn' => '978-9942-904-62-1',
-            'iepi' => '978-9942-904-62-1',
+            'isbn' => '-',
+            'iepi' => '-', //978-9942-904-62-1,
          /*   'pi' => 'GYE-008607', 
             'paginas' => '128',*/
             'estados_id' => '1',
@@ -35,10 +35,10 @@ class LibroSeed extends Seeder
             'facultad_id' => 6, 
            /* 'revision_pares' => '',
             'contrato' => '', */
-            'isbn' => '978-9942-904-62-1',
-            'iepi' => '978-9942-904-62-1',
+            'isbn' => '-',
+            'iepi' => '-',
            /* 'paginas' => '320',*/
-            'estados_id' => '2',
+            'estados_id' => '1',
             'coleccion_id' =>'1'
            // 'caracteristicas_id' =>'1'    
     ],
@@ -49,10 +49,10 @@ class LibroSeed extends Seeder
             'facultad_id' => 2,
           /* 'revision_pares' => '',
             'contrato' => '', */
-            'isbn' => '978-9942-904-62-1',
-            'iepi' => '978-9942-904-62-1',
+            'isbn' => '-',
+            'iepi' => '-',
            /* 'paginas' => '320',*/
-            'estados_id' => '3',
+            'estados_id' => '1',
             'coleccion_id' =>'1'
            // 'caracteristicas_id' =>'1'    
             ],
@@ -64,10 +64,10 @@ class LibroSeed extends Seeder
             'facultad_id' => 10, 
           /* 'revision_pares' => '',
             'contrato' => '', */
-            'isbn' => '978-9942-904-62-1',
-            'iepi' => '978-9942-904-62-1',
+            'isbn' => '-',
+            'iepi' => '-',
            /* 'paginas' => '320',*/
-            'estados_id' => '4', 
+            'estados_id' => '1', 
             'coleccion_id' =>'1'
            // 'caracteristicas_id' =>'1'       
              ]
