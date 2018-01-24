@@ -344,15 +344,12 @@ $(document).ready(function() {
    "order": [[ 0, "desc" ]],
     "pageLength": 25,
    "columns": [
-     { "width": "3%" },
-     { "width": "13%" },
+     { "width": "2%" },
      { "width": "5%" },
      { "width": "5%" },
-     { "width": "15%" },
-     { "width": "11%" },
-     { "width": "11%" },
-     { "width": "12%" },
-     { "width": "12%" }
+     { "width": "30%" },
+     { "width": "45%" },
+     { "width": "8%" }
    ],
  } );
 } );

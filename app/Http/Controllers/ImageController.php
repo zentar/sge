@@ -154,7 +154,8 @@ class ImageController extends Controller
            if($data['tipo_doc'][0] == 13){
                $libro = Book::find($data['libro_id']);
                $libro->estados_id = 2;
-               $libro->save();                
+               $libro->save();   
+               historial('Registro documento de solicitud de aprobación, estado aprobado',$libro->id);              
            }
 
 
@@ -392,6 +393,7 @@ class ImageController extends Controller
           
           //UNA VEZ SUBIO EL DOCUMENTO APROBADO, EL LIBRO PASA AL ESTADO PRODUCCION
           $libro->estados_id = 6;
+          historial('Se subio documento de aprobación - Estado Producción ',$libro->id);             
           $libro->save();
  
           return redirect()->back();

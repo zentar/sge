@@ -69,7 +69,7 @@ class LibroController extends Controller
         foreach($facultades as $facultad){
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }        
-                 // dd($estados);  
+             
         return view('libros/create/create', compact('libro','autores_nombre','facultades','colecciones','nuevo'));
     }
 
@@ -125,6 +125,7 @@ class LibroController extends Controller
                }
 
            crearDirectorio('libro',$libro);
+
            historial('Creación de libro, estado ingresado',$libro->id);      
 
            Session::flash('message','Registro agregado correctamente');           
@@ -192,7 +193,6 @@ class LibroController extends Controller
         if(isset($libro->user[0]->name))
         $editores = $libro->user[0]->name;
 
-
         //BUSCA LOS GESTORES DE PRODUCCION PARA SU ASIGNACION
         if($libro->asignado == 0 && $libro->estados_id == 4)
         //SI EL GP NO HA SIDO ASIGNADO, BUSCA TODOS LOS USUARIOS QUE SON GP
@@ -259,9 +259,9 @@ class LibroController extends Controller
           if(isset($data['tipopapel']))      $caracteristicas->tipopapel_id = valorPredeterminado($data['tipopapel']);
           if(isset($data['paginas']))        $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
           if(isset($data['colorpapel']))     $caracteristicas->colorpapel_id = valorPredeterminado($data['colorpapel']);
-          if(isset($data['cubierta']))     $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
-          if(isset($data['solapa']))     $caracteristicas->solapas = valorPredeterminado($data['solapa']);
-          if(isset($data['observaciones']))     $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
+          if(isset($data['cubierta']))       $caracteristicas->cubierta = valorPredeterminado($data['cubierta']);
+          if(isset($data['solapa']))         $caracteristicas->solapas = valorPredeterminado($data['solapa']);
+          if(isset($data['observaciones']))  $caracteristicas->observaciones = valorPredeterminado($data['observaciones']);
               $caracteristicas->save();              
 
               //LIBRO            
@@ -281,6 +281,7 @@ class LibroController extends Controller
              if($libro->estados_id == 6 && isset($libro->isbn) && isset($libro->iepi)){
                 $libro->estados_id =7;            
                 $libro->save();
+                historial('Se subieron documentos ISBN - IEPI - Estado Publicado',$libro->id); 
               }
            
             
@@ -483,7 +484,8 @@ class LibroController extends Controller
       $libro->estados_id = 3;
       $libro->asignado = 1;
       $libro->save();
-
+      
+      historial('El administrador '.\Auth::User()->name.' asigno al editor '.$user->name.', estado edición',$libro->id); 
       Session::flash('message','Editor Asignado sin problemas.');
       return redirect()->back()->withInput();
 
@@ -510,6 +512,7 @@ class LibroController extends Controller
       $libro->estados_id = 5;
       $libro->asignado = 1;
       $libro->save();
+      historial('El administrador '.\Auth::User()->name.' asigno al cotizador '.$user->name.', estado Aprobado Cotización',$libro->id); 
 
       Session::flash('message','Gestor de Producción Asignado sin problemas.');
       return redirect()->back()->withInput();      
@@ -535,6 +538,8 @@ class LibroController extends Controller
         $libro->asignado = 0;
        
         $libro->save();
+
+        historial('El editor realizo el cierre de la edición, estado Cotización',$libro->id);
 
         Session::flash('message','Edición cerrado sin problemas.');
         return redirect()->action('HomeController@index');

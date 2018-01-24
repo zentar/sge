@@ -26,7 +26,15 @@ class Autor extends Model
 
 	protected $dates = ['deleted_at'];
 
-    protected $fillable = ['cedula', 'nombre','apellido','email','telefono','filiacion','documentos'];
+    protected $fillable = ['cedula', 'nombre','apellido','email','telefono','filiacion'];
+
+    //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
+    protected static $logAttributes = ['cedula', 'nombre','apellido','email','telefono','filiacion'];
+    //IGNORA UPDATED_AT EN CAMBIOS 
+    protected static $ignoreChangedAttributes = ['updated_at'];
+    //SOLO REGISTRA LOS CAMBIOS E UPDTES
+    protected static $logOnlyDirty = true;
+
 
      public function Book()
     {

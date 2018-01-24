@@ -32,6 +32,13 @@ class File extends Model
         'observaciones' => '-'
     ];
 
+    //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
+    protected static $logAttributes = ['nombre', 'nombre_subida','ruta','tipo','peso','filiacion','extension'];
+    //IGNORA UPDATED_AT EN CAMBIOS 
+    protected static $ignoreChangedAttributes = ['updated_at'];
+    //SOLO REGISTRA LOS CAMBIOS E UPDTES
+    protected static $logOnlyDirty = true;
+
     public function Book()
     {
         return $this->belongsToMany('App\Book','filebook');

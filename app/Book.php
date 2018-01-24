@@ -27,15 +27,23 @@ class Book extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titulo','facultad_id','revision_pares','contrato','isbn','iepi','paginas','estados_id','coleccion_id'];
+    protected $fillable = ['titulo','facultad_id','isbn','iepi','estados_id','coleccion_id','asignado'];
 
-    
+    //ASIGNA VALOR POR DEFAULT DE LOS ATRIBUTOS  
     protected $attributes = [
         'isbn' => '-',
         'iepi' => '-',
         'asignado'=>0
     ];
 
+    //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
+    protected static $logAttributes = ['titulo','facultad_id','isbn','iepi','estados_id','coleccion_id','asignado'];
+    //IGNORA UPDATED_AT EN CAMBIOS 
+    protected static $ignoreChangedAttributes = ['updated_at'];
+    //SOLO REGISTRA LOS CAMBIOS E UPDTES
+    protected static $logOnlyDirty = true;
+    
+    // RELACIONES DE LIBRO
     public function autor()
     {
         return $this->belongsToMany('App\Autor','autorbook');

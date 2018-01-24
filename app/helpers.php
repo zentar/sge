@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 
-
 function separar_autores($autores)
 {
      $data = explode(";", $autores);
@@ -244,3 +243,8 @@ function reporte_cotizacion($libro,$cotizaciones){
  return response()->download('ReporteCotizacion.docx','RC'.$libro->titulo.$fecha_guardado.'.docx');
 
 }
+
+
+ 
+ 
+

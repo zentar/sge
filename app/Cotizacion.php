@@ -29,6 +29,12 @@ class Cotizacion extends Model
 
     protected $fillable = ['imprenta','tiraje','valor'];
 
+    //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
+    protected static $logAttributes = ['imprenta','tiraje','valor'];
+    //IGNORA UPDATED_AT EN CAMBIOS 
+    protected static $ignoreChangedAttributes = ['updated_at'];
+    //SOLO REGISTRA LOS CAMBIOS E UPDTES
+    protected static $logOnlyDirty = true;
 
     public function book()
     {

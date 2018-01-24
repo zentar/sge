@@ -11,12 +11,11 @@
         <thead>
             <tr>
                 <th class="dt-head-center">ID</th>
-                <th class="dt-head-center">Título</th>
+                <th class="dt-head-center">Tipo</th>
+                <th class="dt-head-center">Acción</th>
+                
                 <th class="dt-head-center">Descripción</th>
-                <th class="dt-head-center">Subject_id</th>
-                <th class="dt-head-center">Subject_type</th>
-                <th class="dt-head-center">Causer_id</th>
-                <th class="dt-head-center">Causer_type</th>
+                
                 <th class="dt-head-center">Propiedades</th>
                 <th class="dt-head-center">Fecha de Creación</th>   
           
@@ -25,12 +24,9 @@
         <tfoot>
             <tr>
                 <th class="dt-head-center">ID</th>
-                <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Descripción</th>
-                <th class="dt-head-center">Subject_id</th>
-                <th class="dt-head-center">Subject_type</th>
-                <th class="dt-head-center">Causer_id</th>
-                <th class="dt-head-center">Causer_type</th>
+                <th class="dt-head-center">Tipo</th>
+                <th class="dt-head-center">Acción</th>                
+                <th class="dt-head-center">Descripción</th>   
                 <th class="dt-head-center">Propiedades</th>
                 <th class="dt-head-center">Fecha de Creación</th>                               
             </tr>
@@ -44,11 +40,9 @@
                 <td class="dt-body-center">{{$actividad->id}}</td>
                 <td class="dt-body-center">{{$actividad->log_name}}</td>
                 <td class="dt-body-center">{{$actividad->description}}</td> 
-                <td class="dt-body-center">{{$actividad->subject_id}}</td>
-                <td class="dt-body-center">{{$actividad->subject_type}}</td>
-                <td class="dt-body-center">{{$actividad->causer_id}}</td>
-                <td class="dt-body-center">{{$actividad->causer_type}}</td>
-                <td class="dt-body-center">{{$actividad->properties}}</td>
+                <td class="dt-body-center">Se afecto el {{$actividad->subject_type}} {{$actividad->subject_id}}  @if($actividad->causer_type == "App\User") por el usuario con id = {{$actividad->causer_id}} @else   {{$actividad->causer_type}} {{$actividad->causer_id}} @endif
+                 </td> 
+                <td class="dt-body-justify" > @if(isset($actividad->properties['old'])) Original: {{json_encode($actividad->properties['attributes'])}}<br> Actual: {{json_encode($actividad->properties['old'])}} @else {{$actividad->properties}} @endif </td>
                 <td class="dt-body-center">{{$actividad->created_at}}</td>               
             </tr>
             @endforeach        

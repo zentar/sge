@@ -38,6 +38,13 @@ class Caracteristicas extends Model
         'observaciones' => '-'
     ];
 
+    //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
+    protected static $logAttributes = ['n_paginas','color','cubierta','solapas','observaciones'];
+    //IGNORA UPDATED_AT EN CAMBIOS 
+    protected static $ignoreChangedAttributes = ['updated_at'];
+     //SOLO REGISTRA LOS CAMBIOS E UPDTES
+    protected static $logOnlyDirty = true;
+
     public function book()
     {
         return $this->belongsTo('App\Book');
