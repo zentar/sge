@@ -22,6 +22,7 @@ class CreateFileBook extends Migration
             $table->integer('file_id')->unsigned();
             $table->foreign('file_id')->references('id')->on('file');
 
+            $table->softDeletes();   
              $table->timestamps();
         });
     }

@@ -21,6 +21,8 @@ class TamanoPapel extends Model
 
     protected $fillable = ['descripcion'];
 
+    
+
 
     public function caracteristicas()
     {

@@ -126,7 +126,7 @@ class LibroController extends Controller
 
            crearDirectorio('libro',$libro);
 
-           historial('Creación de libro, estado ingresado',$libro->id);      
+           historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ha creado este libro, Estado:Ingresado',$libro->id);      
 
            Session::flash('message','Registro agregado correctamente');           
            return redirect()->action('HomeController@index'); 
@@ -281,14 +281,14 @@ class LibroController extends Controller
              if($libro->estados_id == 6 && isset($libro->isbn) && isset($libro->iepi)){
                 $libro->estados_id =7;            
                 $libro->save();
-                historial('Se subieron documentos ISBN - IEPI - Estado Publicado',$libro->id); 
+                historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' Ingresó los codigos ISBN - IEPI - Estado:Publicado',$libro->id); 
               }
            
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
               $eliminar = autorbook::where('book_id', $libro->id);
               if(!$eliminar==null)
-              $eliminar->delete();  
+              $eliminar->forceDelete();  
 
         //CREA RELACIONES NUEVAS DE LIBROS CON AUTORES
         foreach($data['autor'] as $autor){  
@@ -342,7 +342,7 @@ class LibroController extends Controller
 
     public function agregarCapitulos(Request $request){
          $data = $request->all();
-        // dd($data);
+         //dd($data);
           $rules = array(
            "titulo" => 'required' 
         );
@@ -364,7 +364,7 @@ class LibroController extends Controller
               $borrar_capitulos = autorcapitulos::get()->where('capitulos_id',$data['capitulo_edit']);
               if(count($borrar_capitulos)>0){  
                  foreach($borrar_capitulos as $borrar)  
-                 $borrar->delete();        
+                 $borrar->forceDelete();        
               }
 
               foreach($data["autor"] as $autor){ 
@@ -445,13 +445,7 @@ class LibroController extends Controller
      
            $pdf = \PDF::loadView('reportes/ReporteCotizacion',['libro'=>$libro,'cotizaciones'=>$cotizaciones,'fecha'=>$fecha]);
             return $pdf->download('ReporteCotizacion.pdf'); 
-            }else{
-                \Excel::create('New file', function($excel)  use ($cotizaciones) {
-                    $excel->sheet('New sheet', function($sheet) use ($cotizaciones) {                
-                        $sheet->loadView('reportes/ReporteCotizacion',array('cotizaciones'=>$cotizaciones));                
-                    });                
-                })->download('xlsx');
-            }       
+            }  
          } 
 
         }else{           
@@ -485,7 +479,7 @@ class LibroController extends Controller
       $libro->asignado = 1;
       $libro->save();
       
-      historial('El administrador '.\Auth::User()->name.' asigno al editor '.$user->name.', estado edición',$libro->id); 
+      historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' asignó al editor '.$user->name.', Estado:Edición',$libro->id); 
       Session::flash('message','Editor Asignado sin problemas.');
       return redirect()->back()->withInput();
 
@@ -504,15 +498,15 @@ class LibroController extends Controller
 
 
       Mail::send('mails.avisoCotizador', ['user' => $user,'libro'=>$libro], function ($m) use ($user) {
-          $m->from('ceid1994@gmail.com', 'Sistema de Gestion Editorial UCSG');
+          $m->from('ceid1994@gmail.com', 'Sistema de Gestión Editorial UCSG');
 
-          $m->to($user->email, $user->name)->subject('Asignacion para Cotización de Libro');
+          $m->to($user->email, $user->name)->subject('Asignación para Cotización de Libro');
       });
       
       $libro->estados_id = 5;
       $libro->asignado = 1;
       $libro->save();
-      historial('El administrador '.\Auth::User()->name.' asigno al cotizador '.$user->name.', estado Aprobado Cotización',$libro->id); 
+      historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ha asignado a un cotizador '.$user->name.', Estado:Aprobado-Cotización',$libro->id); 
 
       Session::flash('message','Gestor de Producción Asignado sin problemas.');
       return redirect()->back()->withInput();      
@@ -529,6 +523,7 @@ class LibroController extends Controller
         $data = $request->all();
         $libro = \App\Book::find($data['libro_id']);
         
+        if($libro->caracteristicas->n_paginas !=1 && $libro->caracteristicas->cubierta != "-" && $libro->caracteristicas->solapas !="-"){
         $asignacion = \App\userbook::where('book_id',$data['libro_id'])->where('tipo','edicion')->first();
         $asignacion->estado=0; 
         $asignacion->save();
@@ -539,14 +534,46 @@ class LibroController extends Controller
        
         $libro->save();
 
-        historial('El editor realizo el cierre de la edición, estado Cotización',$libro->id);
+        historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' realizó el cierre de la edición, Estado:Cotización',$libro->id);
 
         Session::flash('message','Edición cerrado sin problemas.');
+       }
+       else{
+           Session::flash('message','No se han ingresado las caracteristicas.'); 
+       }
+
         return redirect()->action('HomeController@index');
   
     }catch(\Exception $e){
         return $e->getMessage();
     }
+
+    }
+
+    public function solicitudAprobacion($id){
+        $libro = Book::find($id);
+        $solicitud = new  \PhpOffice\PhpWord\TemplateProcessor('SolicitudAprobacion.docx');
+        setlocale(LC_TIME, "es_ES", 'Spanish_Spain', 'Spanish');
+        $fecha_guardado = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B de %Y", strtotime(\Carbon\Carbon::now())));
+        $autores = "";
+
+   foreach($libro->autor as $autor){
+    $autores .= $autor->nombre." ".$autor->apellido;
+    if($autor == $libro->autor->last())
+        $autores .="."; 
+    else
+    $autores .=", "; 
+   }
+
+        $solicitud->setValue('fecha', $fecha_guardado);
+        $solicitud->setValue('libro_nombre', $libro->titulo);
+        $solicitud->setValue('libro_autores', $autores);
+
+        $solicitud->saveAs('SolicitudLibro.docx');     
+       
+
+        return response()->download('SolicitudLibro.docx','solicitud.docx');
+ 
 
     }
 

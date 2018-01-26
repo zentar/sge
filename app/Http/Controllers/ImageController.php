@@ -155,7 +155,7 @@ class ImageController extends Controller
                $libro = Book::find($data['libro_id']);
                $libro->estados_id = 2;
                $libro->save();   
-               historial('Registro documento de solicitud de aprobación, estado aprobado',$libro->id);              
+               historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ingreso el documento de solicitud de aprobación, Estado:Aprobado',$libro->id);              
            }
 
 
@@ -393,7 +393,7 @@ class ImageController extends Controller
           
           //UNA VEZ SUBIO EL DOCUMENTO APROBADO, EL LIBRO PASA AL ESTADO PRODUCCION
           $libro->estados_id = 6;
-          historial('Se subio documento de aprobación - Estado Producción ',$libro->id);             
+          historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ingresó el documento de aprobación de cotización - Estado:Producción ',$libro->id);             
           $libro->save();
  
           return redirect()->back();

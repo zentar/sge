@@ -18,4 +18,8 @@ class autorcapitulos extends Model
 
 	protected $primaryKey = 'id';
 
+	protected $softDelete = true;
+
+	protected $dates = ['deleted_at'];
+
 }

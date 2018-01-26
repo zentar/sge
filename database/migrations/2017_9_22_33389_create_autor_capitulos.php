@@ -18,6 +18,8 @@ class CreateAutorCapitulos extends Migration
             $table->foreign('capitulos_id')->references('id')->on('capitulos');
             $table->integer('autor_id')->unsigned();
             $table->foreign('autor_id')->references('id')->on('autors');
+            
+            $table->softDeletes();   
             $table->timestamps();
         });
     }

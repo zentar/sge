@@ -48,21 +48,19 @@ class HomeController extends Controller
          }
 
          if(\Auth::User()->role_id == 4){
-            $asignados = \Auth::User()->book;
-            $libros = [];
-            foreach($asignados as $libro){          
+             $libros = \Auth::User()->book;
+           // $asignados = \Auth::User()->book;
+          //  dd($asignados);
+          //  $libros = [];
+           /* foreach($asignados as $libro){          
               if($libro->pivot->estado == 1){            
                 array_push($libros,$libro);
               }
-            }  
+            }  */
             return view('home', compact('libros'));
         }
-
-  
-
         // ip \Request::ip();
         // user_name  gethostbyaddr($_SERVER['REMOTE_ADDR']);
-        // datos del usuario y roles \Auth::User();
-        
+        // datos del usuario y roles \Auth::User();        
     }
 }

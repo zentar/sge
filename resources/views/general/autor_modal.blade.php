@@ -18,7 +18,15 @@
       
                @if ($errors->count() > 0 and Session::get('error_code') == 5)
                           @include('general/errors')
-                    @endif                         
+                    @endif   
+             
+                    @if (Session::has('message'))
+      <div class="alert alert-success">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>{{ Session::get('message') }}</p>
+      </div>
+     @endif                        
+                   
                 @include('autores/create_form')          
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

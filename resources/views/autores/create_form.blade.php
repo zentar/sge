@@ -2,7 +2,7 @@
                     <div class="form-group col-md-6">                     
                       <label>Cedula</label> 
                        {!!Form::text('cedula',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100','tabindex'=>'1'])!!} 
+                      'placeholder'=>'-','maxlength'=>'10','tabindex'=>'1'])!!} 
                     </div>
                     <div class="form-group col-md-6">
                       <label>Nombre</label>
@@ -29,14 +29,4 @@
                         {!!Form::text('filiacion',null,['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'100','tabindex'=>'6'])!!}
                     </div>
-                 {{-- <div class="form-group col-md-6">
-                      <label>Documentos</label>
-                      {!!Form::text('documentos',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'100'])!!}
-                    </div>  
-
-                    <div class="form-group col-md-6">
-                      <label>Documentos</label>
-                      {!!Form::file('documentos',null,['class'=>'form-control',
-                      'placeholder'=>'-'])!!}
-                    </div>    --}}         
+                

@@ -58,7 +58,7 @@ class AutorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-       //dd($data);
+        //dd($data);
         $rules = array(
         'cedula' => 'required|digits:10|unique:autors,cedula',
         'nombre' => 'required|max:85',
@@ -76,8 +76,7 @@ class AutorController extends Controller
                 ->withErrors($v->errors())
                 ->withInput()->with('error_code', 5)->with('facultad_old', $request->facultad_old);
         }
-        else{
-           
+        else{           
            $autor = New Autor;           
            $autor->cedula    =  $data['cedula'];
            $autor->nombre    =  $data['nombre'];
@@ -87,17 +86,12 @@ class AutorController extends Controller
            $autor->filiacion =  $data['filiacion'];
            $autor->save();
 
-           crearDirectorio('autor',$autor);
-           
-          /* $path = Storage::putFile('/autor/autor'.$autor->id,$request->file('documentos'));
-           
-           $autor->documentos = $path;
-           $autor->save();*/
+           crearDirectorio('autor',$autor);           
 
-           Session::flash('message','Registro agregado correctamente');
+           Session::flash('message','Autor Registrado correctamente');
  
           if(isset($data['editar'])){           
-            return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion"))->with('facultad_old', $request->facultad_old); 
+            return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion"))->with('facultad_old', $request->facultad_old)->with('coleccion_old', $request->coleccion_old)->with('modal_autor', 1); 
           }else{
             return redirect()->action('AutorController@index');
            }         

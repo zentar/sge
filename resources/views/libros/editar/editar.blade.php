@@ -76,6 +76,13 @@ if({{$flag_editar_autor}}==1){
 
 </script>
 
+<script>
+       @if (Session::get('modal_autor') == 1)
+       $(function() {
+           $('#modal_agregar_autor').modal('show');
+       });
+       @endif
+</script>
 
 <script type="text/javascript">
   //CENSA EN QUE TAB SE ENCUENTRA AL REFRESCAR LA PANTALLA

@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    @if (Session::has('message'))
+                    @if (Session::has('message') && Session::get('modal_autor') != 1)
                         <div class="alert alert-success">
                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <p>{{ Session::get('message') }}</p>

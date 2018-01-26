@@ -22,6 +22,7 @@ class CreateFileAutor extends Migration
             $table->integer('autor_id')->unsigned();
             $table->foreign('autor_id')->references('id')->on('autors');
 
+            $table->softDeletes();   
             $table->timestamps();
         });
     }

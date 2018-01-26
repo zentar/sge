@@ -92,8 +92,29 @@
       </table>  
       </div>
 </div></div>
+
+<div id="demo2" name="demo2" style="display: none;"></div>
 {!!Form::close()!!}  
 </div>
 @stop
 
 
+@section('especial')
+<script>
+//EVALUA QUE MODAL PRESENTAR CON LOS ERRORES
+       @if ($errors->count() > 0 and Session::get('error_code') == 5)
+       $(function() {
+           $('#modal_autor').modal('show');
+       });
+       @endif
+</script>
+
+<script>
+       @if (Session::get('modal_autor') == 1)
+       $(function() {
+           $('#modal_autor').modal('show');
+       });
+       @endif
+</script>
+
+@stop

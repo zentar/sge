@@ -12,8 +12,8 @@
             <div class=" form-group col-md-6" style="text-align:right;">    
          
           {!!link_to_route('libro.reporteCotizacion', $title = " Word", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!} 
-          {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}    
-     {{--{!!link_to_route('libro.reporteCotizacion', $title = " Excel", $parameters = [$libro->id,"xlsx"], $attributes = ['class'=>"btn btn-success fa fa-file-excel-o  ","target"=>"_blank"])!!}--}}    
+          {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}      
+          
           </div>
           @endif
        </div>

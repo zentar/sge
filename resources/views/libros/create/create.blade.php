@@ -35,4 +35,12 @@
        @endif
 
 </script>
+
+<script>
+       @if (Session::get('modal_autor') == 1)
+       $(function() {
+           $('#modal_agregar_autor').modal('show');
+       });
+       @endif
+</script>
 @stop

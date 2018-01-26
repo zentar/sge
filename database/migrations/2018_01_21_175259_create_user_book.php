@@ -26,6 +26,7 @@ class CreateUserBook extends Migration
 
             $table->integer('estado');
 
+            $table->softDeletes();   
             $table->timestamps();
         });
     }

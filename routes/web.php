@@ -81,6 +81,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@eliminarCapitulos',
         ]);
 
+    //GENERA SOLICITUD DE APROBACION DE LIBRO
+        Route::get('libro/{id}/solicitud', [
+                'as' => 'libro.solicitudAprobacion',
+                'uses' => 'LibroController@solicitudAprobacion',
+        ]);
+    
+
 
     //ASIGNA EDITOR A LIBRO    
         Route::post('libro/asignar', [
@@ -238,7 +245,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         ]);
         
 
-        //IMPORTA COTIZACIONES A UN ARCHIVO DOCX (PIPO)
+        //IMPORTA COTIZACIONES A UN ARCHIVO DOCX,PDF (PIPO)
         Route::get('libro/{id}/reporteCotizacion/{tipo}', [
             'as' => 'libro.reporteCotizacion',
             'uses' => 'LibroController@reporteCotizacion',

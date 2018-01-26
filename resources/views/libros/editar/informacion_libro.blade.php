@@ -90,10 +90,12 @@
                   
                          <ul>
                      @foreach ($libro->autor as $name)                    
-                     <li>{{$name->nombre}} {{$name->apellido}}</li>
-               
+                     <li id="autors{{$name->id}}2" type='text' name='text[]' value='"+autor+"2'>{{$name->nombre}} {{$name->apellido}}</li>
+                      @endforeach    
+                     
+                      <div id="demo2" name="demo2">
+                      </div> 
 
-                      @endforeach       
                       </ul>
                      </div>
                      
@@ -166,5 +168,7 @@
                
      <div class="fondo_formulario box-footer col-md-12">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
-                @can('libro_edit_informacion_accion')    <button type="submit" class="btn btn-primary">Grabar</button> @endcan
+                @can('libro_edit_informacion_accion')    <button type="submit" class="btn btn-primary">Grabar</button> 
+            @if($libro->estados_id<=1){!!link_to_route('libro.solicitudAprobacion', $title = "Solicitud de Aprobación", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-link","target"=>"_blank"])!!}@endif @endcan
+
                   </div> 

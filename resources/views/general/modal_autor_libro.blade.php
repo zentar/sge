@@ -9,11 +9,18 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Asignar Autores al Libro</h4>
       </div>
+  
 
       <div class="modal-body">
            <div class="box box-primary">
                 <div class="box-body">
-               
+                   
+      @if (Session::has('message'))
+      <div class="alert alert-success">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <p>{{ Session::get('message') }}</p>
+      </div>
+     @endif     
                     <div class="form-group col-md-12">
                     <label>Autores *</label>
                      <div class="panel-body">
