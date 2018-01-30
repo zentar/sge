@@ -31,11 +31,11 @@
         <tbody>
            @foreach($autores as $autor)
             <tr>    
-                <td class="dt-body-center">{{$autor->id}}</td>          
-                <td class="dt-body-center">{{$autor->cedula}}</td>
-                <td class="dt-body-center">{{$autor->nombre}} {{$autor->apellido}}</td>
-                <td class="dt-body-center">{{$autor->email}}</td> 
-                <td class="dt-body-center">{{$autor->telefono}}</td>
+                <td class="dt-body-left">{{$autor->id}}</td>          
+                <td class="dt-body-left">{{$autor->cedula}}</td>
+                <td class="dt-body-left">{{$autor->nombre}} {{$autor->apellido}}</td>
+                <td class="dt-body-left">{{$autor->email}}</td> 
+                <td class="dt-body-left">{{$autor->telefono}}</td>
                 <td class="dt-body-center"> 
                  <p>
                 {!!link_to_route('autor.consultar', $title = '', $parameters = $autor->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}

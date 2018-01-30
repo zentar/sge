@@ -34,10 +34,10 @@
                         @foreach ($users as $user)
                             <tr data-entry-id="{{ $user->id }}">
 
-                                <td class="dt-body-center" field-key='name'>{{ $user->name }}</td>
-                                <td class="dt-body-center" field-key='email'>{{ $user->email }}</td>
-                                <td class="dt-body-center" field-key='role'>{{ $user->role->title or '' }}</td>
-                                                                <td>
+                                <td class="dt-body-left" field-key='name'>{{ $user->name }}</td>
+                                <td class="dt-body-left" field-key='email'>{{ $user->email }}</td>
+                                <td class="dt-body-left" field-key='role'>{{ $user->role->title or '' }}</td>
+                                                                <td class="dt-body-center">
                                     @can('user_view')
                                     <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary fa fa-eye"></a>
                                     @endcan

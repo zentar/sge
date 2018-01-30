@@ -37,8 +37,8 @@
         <tbody>
       
           @foreach($libro->cotizacion as $file)
-           <tr @if($file->estado > 0) style="background-color:#59ea7d;" @endif >
-                <td width="2%" @if($file->estado > 0) style="background-color:#59ea7d;" @endif class="dt-body-center">{{$loop->index+1}}</td>
+           <tr @if($file->estado > 0) style="background-color:#87D37C;" @endif >
+                <td width="2%" @if($file->estado > 0) style="background-color:#87D37C;" @endif class="dt-body-center">{{$loop->index+1}}</td>
                 <td width="20%" class="dt-body-left">{{$file->imprenta}}</td>
                 <td width="10%" class="dt-body-right">{{$file->tiraje}}</td>
                 <td width="10%" class="dt-body-right">${{$file->valor}}</td>

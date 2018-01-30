@@ -49,8 +49,9 @@
                  
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Descripcion</th>
                 <th class="dt-head-center">Autores</th>
+                <th class="dt-head-center">Descripción</th>
+       
                 <th class="dt-head-center"></th>   
             </tr>
         </thead>
@@ -59,8 +60,9 @@
                  
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Descripcion</th>
                 <th class="dt-head-center">Autores</th>
+                <th class="dt-head-center">Descripción</th>
+          
                 <th class="dt-head-center"></th>             
             </tr>
         </tfoot>
@@ -69,16 +71,16 @@
                 @foreach ($libro->capitulos as $capitulos)
               
             <tr>
-                <td class="dt-body-center">{{$capitulos->id}}</td>
-                <td class="dt-body-center">{{$capitulos->titulo}}</td>
-                <td class="dt-body-center">{{$capitulos->descripcion}}</td>
-                 <td class="dt-body-center">
+                <td class="dt-body-left">{{$capitulos->id}}</td>
+                <td class="dt-body-left">{{$capitulos->titulo}}</td>
+           
+                 <td class="dt-body-left">
                  
                   @foreach ($capitulos->autor as $autor)
                    <p>{{$autor->nombre}} {{$autor->apellido}}</p>
                   @endforeach 
                 </td>
-               
+                <td class="dt-body-left">{{$capitulos->descripcion}}</td>
                 <td class="dt-body-center">          
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_capitulo({{$capitulos->id}},'{{$capitulos->titulo}}','{{$capitulos->descripcion}}',{{$capitulos->autor}})"></button>
               

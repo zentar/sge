@@ -55,9 +55,9 @@ class LibroController extends Controller
 
         //VARIABLE QUE CONTROLA EL FORMULARIO EN QUE SE ENCUENTRA PARA LA GENERACION DE LOS AUTORES
         $nuevo = 1 ;
-        $autores = Autor::all();
-        $facultades = Facultad::all();
-        $colecciones = Coleccion::all();
+        $autores = Autor::orderBy('nombre', 'asc')->get();
+        $facultades = Facultad::orderBy('nombre', 'asc')->get();
+        $colecciones = Coleccion::orderBy('titulo', 'asc')->get();
         $autores_nombre=[];
         $facultades_nombre=[];
         array_push($autores_nombre,"Seleccionar Autor"); 
@@ -167,20 +167,20 @@ class LibroController extends Controller
         //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
         $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel','caracteristicas.tipopapel','caracteristicas.colorpapel'])->get()->where('id',$id)->first();
         //CARGA LOS AUTORES
-        $autores = Autor::all();
+        $autores = Autor::orderBy('nombre', 'asc')->get();
         //CARGA LAS COLECCIONES
-         $colecciones = Coleccion::all();
+         $colecciones = Coleccion::orderBy('titulo', 'asc')->get();
         // CARGA TODOS LOS TIPOS DE DOCUMENTOS
-         $tipos = Tipodoc::all();    
+         $tipos = Tipodoc::orderBy('nombre', 'asc')->get();    
          //CARGA LOS TIPOS DE PAPEL
-         $tipos_papel = \App\TipoPapel::all(); 
+         $tipos_papel = \App\TipoPapel::orderBy('descripcion', 'asc')->get(); 
          //CARGA LOS TIPOS DE COLOR
-         $tipos_color = \App\ColorPapel::all();
+         $tipos_color = \App\ColorPapel::orderBy('descripcion', 'asc')->get();
          //BUSCA LOS DOCUMENTOS QUE FALTAN POR INGRESAR
         $doc_no_ingresados = filtrar_documentos_ingresados($libro);        
-        $tipos_doc_libro = DB::table('tipodoc')->where([['grupo', '=', 'libro']])->whereNotIn('id', $doc_no_ingresados)->get();        
+        $tipos_doc_libro = DB::table('tipodoc')->where([['grupo', '=', 'libro']])->whereNotIn('id', $doc_no_ingresados)->orderBy('nombre', 'asc')->get();        
         //CARGA LOS TIPOS DE TAMAÑOS DE PAPEL
-        $tamano_papel = \App\TamanoPapel::all();
+        $tamano_papel = \App\TamanoPapel::orderBy('descripcion', 'asc')->get();
         //SETEA EL PARAMETRO EDITAR 
         $flag_editar_autor=1;
         
@@ -211,7 +211,7 @@ class LibroController extends Controller
            foreach($autores as $autors){
                     $autores_nombre[$autors->id] = $autors->nombre." ".$autors->apellido;                   
                   }
-        $facultades = Facultad::all();
+        $facultades = Facultad::orderBy('nombre', 'asc')->get();
         $facultades_nombre=[];
     
         foreach($facultades as $facultad){
@@ -336,7 +336,7 @@ class LibroController extends Controller
     public function capitulos(Request $request,$id)
     {
         $libro = Book::find($id);     
-        $autores = Autor::all();  
+        $autores = Autor::orderBy('nombre', 'asc')->get();  
         return view('libros/capitulos', compact('libro','autores'));
     }
 

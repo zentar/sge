@@ -31,7 +31,17 @@ class ColeccionSeed extends Seeder
             'id' => 4, 
             'titulo' => 'Ciencias Técnicas',
             'Descripcion' => 'Descripcion coleccion'
-            ]
+            ],
+            [
+           'id' => 5, 
+           'titulo' => 'Eventos Academicos',
+           'Descripcion' => 'Descripcion coleccion'
+           ],
+           [
+           'id' => 6, 
+           'titulo' => 'Publicaciones Seriadas',
+           'Descripcion' => 'Descripcion coleccion'
+           ]
         ];
 
      /*   for($i=11;$i<100;$i++){

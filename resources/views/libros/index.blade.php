@@ -46,15 +46,15 @@
                 <td width="33%">{{$libro->titulo}}</td>
 
                 <!-- LAZO DE RELACION MUCHO A MUCHOS LIBRO - AUTOR-->
-                <td width="15%" class="dt-body-center">
+                <td width="15%" class="dt-body-left">
                 @foreach ($libro->autor as $name) 
                 {{$name->nombre}} {{$name->apellido}} <br>               
                 @endforeach  
                 </td> 
 
-                <td width="15%" class="dt-body-center"> {{ Carbon\Carbon::parse($libro->created_at)->format('d/m/Y') }}</td> 
-                <td width="10%" class="dt-body-center">{{$libro->coleccion->titulo}}</td> 
-                <td width="10%" class="dt-body-center">{{$libro->estados->nombre}}</td>
+                <td width="15%" class="dt-body-left"> {{ Carbon\Carbon::parse($libro->created_at)->format('d/m/Y') }}</td> 
+                <td width="10%" class="dt-body-left">{{$libro->coleccion->titulo}}</td> 
+                <td width="10%" class="dt-body-left">{{$libro->estados->nombre}}</td>
 
                 @if(Gate::allows('libro_view') || Gate::allows('libro_edit') || Gate::allows('libro_delete'))       
                  <td width="15%" class="dt-body-center"> 
@@ -84,6 +84,7 @@
     //RESETEA TABA CTIVA PARA NUEVA CONSULTAS
     localStorage.setItem('activeTab', null);
 </script>
+
 @endsection
 
 

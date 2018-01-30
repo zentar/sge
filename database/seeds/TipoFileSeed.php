@@ -13,16 +13,16 @@ class TipoDocSeed extends Seeder
     {
         $items = [             
             [
-                'id' => 1,
-                'grupo' => "cotizacion", 
-                'nombre' => 'Cotizacion',
-                'descripcion' => 'Cotizacion'
+            'id' => 1,
+            'grupo' => "cotizacion", 
+            'nombre' => 'Cotizacion',
+            'descripcion' => 'Cotizacion'
             ],
             [
-                'id' => 2,
-                'grupo' => "cotizacion", 
-                'nombre' => 'Cotizacion Aprobado',
-                'descripcion' => 'Cotizacion'
+            'id' => 2,
+            'grupo' => "cotizacion", 
+            'nombre' => 'Cotizacion Aprobado',
+            'descripcion' => 'Cotizacion'
             ], 
             [
             'id' => 3,
@@ -111,15 +111,39 @@ class TipoDocSeed extends Seeder
             [
             'id' => 17,
             'grupo' => "autor", 
-            'nombre' => 'Otros',
-            'descripcion' => 'Otros'
+            'nombre' => 'Varios',
+            'descripcion' => 'Varios'
             ],         
             [
             'id' => 18,
             'grupo' => "libro", 
-            'nombre' => 'Otros',
-            'descripcion' => 'Otros'
-            ]           
+            'nombre' => 'Varios',
+            'descripcion' => 'Varios'
+            ],         
+            [
+            'id' => 19,
+            'grupo' => "libro", 
+            'nombre' => 'Acta de entrega a Proveeduria',
+            'descripcion' => 'Acta de entrega a Proveeduria'
+            ],          
+            [
+            'id' => 20,
+            'grupo' => "original", 
+            'nombre' => 'Original',
+            'descripcion' => 'Original'
+            ],         
+            [
+            'id' => 21,
+            'grupo' => "cubierta", 
+            'nombre' => 'Cubierta',
+            'descripcion' => 'Cubierta'
+            ],         
+            [
+            'id' => 22,
+            'grupo' => "contenido", 
+            'nombre' => 'Contenido',
+            'descripcion' => 'Contenido'
+            ]               
         ];
 
         foreach ($items as $item) {

@@ -26,9 +26,9 @@ class ReportesController extends Controller
     public function index()
     {
         
-     $libros = \App\Book::all();
+     $libros = \App\Book::orderBy('titulo', 'asc')->get();
      $estados = \App\Estados::all();
-     $colecciones = \App\Coleccion::all();
+     $colecciones = \App\Coleccion::orderBy('titulo', 'asc')->get();
      return view("reportes/index",compact('libros','estados','colecciones'));  
     }
 

@@ -30,10 +30,10 @@
       
           @foreach($libro->file as $file)
           <tr>
-                <td class="dt-body-center">{{$loop->index+1}}</td>
-                <td class="dt-body-center">{{$file->tipodoc->nombre}}</td>
-                <td class="dt-body-center">{{$file->extension}}</td>  
-                <td class="dt-body-center">{{$file->observaciones}}</td>                
+                <td class="dt-body-left">{{$loop->index+1}}</td>
+                <td class="dt-body-left">{{$file->tipodoc->nombre}}</td>
+                <td class="dt-body-left">{{$file->extension}}</td>  
+                <td class="dt-body-left">{{$file->observaciones}}</td>                
                 <td class="dt-body-center"> 
               <p>
 

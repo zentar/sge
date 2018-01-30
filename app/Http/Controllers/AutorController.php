@@ -88,7 +88,7 @@ class AutorController extends Controller
 
            crearDirectorio('autor',$autor);           
 
-           Session::flash('message','Autor Registrado correctamente');
+           Session::flash('message','Autor ingresado correctamente');
  
           if(isset($data['editar'])){           
             return redirect()->back()->withInput(\Request::except("cedula","nombre","apellido","email","telefono","filiacion"))->with('facultad_old', $request->facultad_old)->with('coleccion_old', $request->coleccion_old)->with('modal_autor', 1); 
@@ -156,7 +156,7 @@ class AutorController extends Controller
                     
 
             $autor->save();
-            Session::flash('message','Registro editado correctamente');
+            Session::flash('message','Autor editado correctamente');
             return redirect()->action('AutorController@index'); 
         }
     }
@@ -176,7 +176,7 @@ class AutorController extends Controller
              return redirect()->action('AutorController@index'); 
         }else{
             if(DB::table('autorbook')->where('autor_id',$autor->id)->value('id')){
-               Session::flash('danger','No se pudo borrar el Registro debido a que esta siendo utilizado.'); 
+               Session::flash('danger','No se pudo borrar el Autor debido a que esta siendo utilizado.'); 
             }else{
           // Storage::delete($autor->documentos);
             $autor->delete();

@@ -133,8 +133,9 @@
                  
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Título</th>
-                <th class="dt-head-center">Descripción</th>
+              
                 <th class="dt-head-center">Autores</th>   
+                <th class="dt-head-center">Descripción</th>
             </tr>
         </thead>  
         <tbody>
@@ -142,14 +143,15 @@
                 @foreach ($libro->capitulos as $capitulos)
               
             <tr>
-                <td class="dt-body-center">{{$capitulos->id}}</td>
-                <td class="dt-body-center">{{$capitulos->titulo}}</td>
-                <td class="dt-body-center">{{$capitulos->descripcion}}</td>
-                 <td class="dt-body-center">                 
+                <td class="dt-body-left">{{$capitulos->id}}</td>
+                <td class="dt-body-left">{{$capitulos->titulo}}</td>
+        
+                 <td class="dt-body-left">                 
                   @foreach ($capitulos->autor as $autor)
                     <p>  {{$autor->nombre}} {{$autor->apellido}} </p>
                   @endforeach 
-                </td>            
+                </td>  
+                <td class="dt-body-left">{{$capitulos->descripcion}}</td>          
             </tr>
               @endforeach
         </tbody>
@@ -167,8 +169,11 @@
      @endif
                
      <div class="fondo_formulario box-footer col-md-12">
+              <div class="col-md-6">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
                 @can('libro_edit_informacion_accion')    <button type="submit" class="btn btn-primary">Grabar</button> 
-            @if($libro->estados_id<=1){!!link_to_route('libro.solicitudAprobacion', $title = "Solicitud de Aprobación", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-link","target"=>"_blank"])!!}@endif @endcan
-
-                  </div> 
+</div>
+<div align="right" class="col-md-6">
+            @if($libro->estados_id<=1){!!link_to_route('libro.solicitudAprobacion', $title = "Solicitud de Aprobación", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!}@endif @endcan
+</div>
+</div> 

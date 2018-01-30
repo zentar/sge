@@ -342,15 +342,23 @@ $(document).ready(function() {
              "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
    "order": [[ 0, "desc" ]],
-    "pageLength": 25,
-   "columns": [
+  "columns": [
      { "width": "2%" },
      { "width": "5%" },
      { "width": "5%" },
-     { "width": "30%" },
-     { "width": "45%" },
+     { "width": "25%" },
+     { "width": "50%" },
      { "width": "8%" }
    ],
+   columnDefs: [
+    {
+        render: function (data, type, full, meta) {
+            return "<div style='white-space:normal; width:200px;'>" + data + "</div>";
+        },
+        targets: 3
+    }
+ ]
+
  } );
 } );
 
