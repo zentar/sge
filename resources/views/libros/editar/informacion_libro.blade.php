@@ -122,6 +122,7 @@
                     </div>
                     @endcan
                     
+                    @can('libro_edit_informacion_accion')
                    <div class="form-group col-md-6"> 
                         <label>Original:</label>                    
                         {!!Form::File('libro_original')!!} 
@@ -134,9 +135,27 @@
                 @else
                 {!!link_to_route('image.documentos', $title = $libro->file()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->file()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
            
-     @endif  
+               @endif  
+            
                     
-                     @endif                
+                     @endif 
+                     @else
+                     <div class="form-group col-md-6"> 
+                        <label>Original:</label>
+                     @if($libro->file()->where('tipodoc_id', 20)->count() > 0)             
+
+                      
+@if($libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='png')
+<button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
+@else
+{!!link_to_route('image.documentos', $title = $libro->file()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->file()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
+
+@endif  
+
+    
+     @endif 
+
+                     @endcan                
                      </div>
 
 

@@ -88,7 +88,7 @@
     @endif
     </div>
     <div class="panel-footer">
-    @if($libro->estados_id < 3)
+    @if($libro->estados_id < 4)
      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edicion_mensajes_modal">Nuevo Mensaje</button>
      @endif
     </div>
