@@ -143,6 +143,12 @@ class TipoDocSeed extends Seeder
             'grupo' => "contenido", 
             'nombre' => 'Contenido',
             'descripcion' => 'Contenido'
+            ]  ,         
+            [
+            'id' => 23,
+            'grupo' => "mensaje_libro", 
+            'nombre' => 'mensaje',
+            'descripcion' => 'mensaje'
             ]               
         ];
 

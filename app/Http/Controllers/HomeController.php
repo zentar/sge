@@ -27,10 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-      //  $libros= Book::with(['autor','estados','coleccion'])->get();
+     //   $libros= Book::with(['autor','estados','coleccion'])->get();
 
     //    $libros = \Auth::User()->book;
-
+     //  dd($libros[0]->mensajes);
       //  return view('home', compact('libros'));
         if(\Auth::User()->role_id == 1){
             $libros= Book::with(['autor','estados','coleccion'])->get();

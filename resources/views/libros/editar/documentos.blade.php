@@ -29,6 +29,7 @@
         <tbody>
       
           @foreach($libro->file as $file)
+          @if($file->tipodoc->id != 23)
           <tr>
                 <td class="dt-body-left">{{$loop->index+1}}</td>
                 <td class="dt-body-left">{{$file->tipodoc->nombre}}</td>
@@ -47,9 +48,9 @@
                </p>
                 </td> 
               </tr>
+              @endif
              @endforeach           
-
+        
         </tbody>
       </table> 
-
              {!!Form::close()!!}

@@ -34,7 +34,7 @@
                     @else
                     <div class="form-group col-md-6">                     
                       <label>ISBN </label> 
-                       {!!Form::text('inf',"Debe ingresar los documentos de ISBN antes de ingresar el codigo.",['class'=>'form-control',
+                       {!!Form::text('inf',"Debe ingresar los documentos de ISBN antes de ingresar el código.",['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200','disabled'=>true])!!} 
                     </div>
                     @endif                  
@@ -48,7 +48,7 @@
                     @else
                     <div class="form-group col-md-6">                     
                       <label>ISBN </label> 
-                       {!!Form::text('inf',"Debe ingresar los documentos de ISBN antes de ingresar el codigo.",['class'=>'form-control',
+                       {!!Form::text('inf',"Debe ingresar los documentos de ISBN antes de ingresar el código.",['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200','disabled'=>true])!!} 
                     </div>
                     @endif
@@ -64,7 +64,7 @@
                     @else
                     <div class="form-group col-md-6">                     
                       <label>IEPI </label> 
-                       {!!Form::text('inf',"Debe ingresar los documentos de IEPI antes de ingresar el codigo.",['class'=>'form-control',
+                       {!!Form::text('inf',"Debe ingresar los documentos de IEPI antes de ingresar el código.",['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200','disabled'=>true])!!} 
                     </div> 
                     @endif
@@ -78,7 +78,7 @@
                     @else
                     <div class="form-group col-md-6">                     
                       <label>IEPI </label> 
-                       {!!Form::text('inf',"Debe ingresar los documentos de IEPI antes de ingresar el codigo.",['class'=>'form-control',
+                       {!!Form::text('inf',"Debe ingresar los documentos de IEPI antes de ingresar el código.",['class'=>'form-control',
                       'placeholder'=>'-','maxlength'=>'200','disabled'=>true])!!} 
                     </div> 
                     @endif
@@ -88,9 +88,9 @@
                     <strong>Autores</strong>
                  @can('libro_edit_informacion_accion')   <button type="button" class="btn btn-link fa fa-plus" id="asignar_autores" data-toggle="modal" data-target="#modal_agregar_autor">Asignar autores*</button> @endcan
                   
-                         <ul>
+                         <ul class="col-md-12 list-group">
                      @foreach ($libro->autor as $name)                    
-                     <li id="autors{{$name->id}}2" type='text' name='text[]' value='"+autor+"2'>{{$name->nombre}} {{$name->apellido}}</li>
+                     <li class="col-md-12 list-group-item" id="autors{{$name->id}}2" type='text' name='text[]' value='"+autor+"2'>{{$name->nombre}} {{$name->apellido}}</li>
                       @endforeach    
                      
                       <div id="demo2" name="demo2">

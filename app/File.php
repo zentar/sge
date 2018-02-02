@@ -61,4 +61,8 @@ class File extends Model
          return $this->belongsTo('App\Cotizacion');
     }
 
+    public function mensajes()
+    {
+        return $this->belongsTo('App\Mensajes');
+    }
 }

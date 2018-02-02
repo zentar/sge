@@ -9,7 +9,7 @@
                     @include('libros/editar/editar_form2')
                
                   {!!Form::close()!!}                        
-                <!--  {!! link_to_route('admin.home', $title = 'Regresar',$parameters =[],$attributes = ['class'=>"btn btn-primary"] ) !!}</p> -->
+          
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
@@ -18,6 +18,7 @@
               @include('general/modal_cot_libro')
               @include('general/modal_aprob_cot_libro')
               @include('general/modal_autor_libro')
+              @include('general/edicion_mensajes_modal')
               
               @include('general/documento_modal')
               
@@ -71,6 +72,12 @@ if({{$flag_editar_autor}}==1){
        @if ($errors->count() > 0 and Session::get('error_code') == 8)
        $(function() {
            $('#modal_aprob_cot_libro').modal('show');
+       });
+       @endif
+
+       @if ($errors->count() > 0 and Session::get('error_code') == 9)
+       $(function() {
+           $('#edicion_mensajes_modal').modal('show');
        });
        @endif
 

@@ -49,9 +49,10 @@ function historial($descripcion,$book_id){
 
 //REALIZA UN ARREGLO CON LOS ID DE LOS DOCUMENTOS INGRESADOS PARA FILTRARLOS EN LA CONSULTA WHERENOTIN
 function filtrar_documentos_ingresados($libro){
-    $doc_no_ingresados=[];  
+    $doc_no_ingresados=[]; 
+    $otros =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Varios']])->get()->first()->id;  
    foreach($libro->file as $documentos){
-    $otros =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Varios']])->get()->first()->id;   
+     
     if($documentos->tipodoc_id !=  $otros){
       array_push($doc_no_ingresados,$documentos->tipodoc_id);
     }

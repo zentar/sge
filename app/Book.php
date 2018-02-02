@@ -93,4 +93,9 @@ class Book extends Model
     {
          return $this->hasMany('App\Historial');
     }
+
+    public function mensajes()
+    {
+         return $this->hasMany('App\Mensajes');
+    }
 }

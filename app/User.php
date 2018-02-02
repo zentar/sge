@@ -57,6 +57,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Book','userbook')->withPivot('tipo','estado');
     }    
     
+    public function mensajes()
+    {
+        return $this->belongsTo('App\Mensajes');
+    }
 
     public function sendPasswordResetNotification($token)
     {

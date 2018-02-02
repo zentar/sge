@@ -86,7 +86,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
                 'as' => 'libro.solicitudAprobacion',
                 'uses' => 'LibroController@solicitudAprobacion',
         ]);
-    
+
+
+      
+        Route::post('libro/mensaje', [
+            'as' => 'libro.crear_mensaje',
+            'uses' => 'LibroController@crearMensaje',
+        ]);
 
 
     //ASIGNA EDITOR A LIBRO    

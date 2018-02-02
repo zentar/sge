@@ -15,37 +15,37 @@ class EstadosSeed extends Seeder
             [
             'id' => 1, 
             'nombre' => 'Ingresado',
-            'descripcion' => 'Estado1'
+            'descripcion' => 'Se coloca al crear un libro.'
             ],
                 [
             'id' => 2, 
             'nombre' => 'Aprobado',
-            'descripcion' => 'Estado2'
+            'descripcion' => 'Cambia al subir el documento de solicitud de aprobacion.'
             ],
                 [
             'id' => 3, 
             'nombre' => 'Edición',
-            'descripcion' => 'Estado3'
+            'descripcion' => 'Llega a este estado cuando se asigna un editor'
             ],
                 [
             'id' => 4, 
             'nombre' => 'Cotización',
-            'descripcion' => 'Estado4'
+            'descripcion' => 'LLega cuando se cierra la edicion y se ingresa las caracteristicas'
             ],
                 [
             'id' => 5, 
             'nombre' => 'Aprobado Cotización',
-            'descripcion' => 'Estado5'
+            'descripcion' => 'Cuando se escoge la opcion de avanzar estado en cotizaciones'
             ],
             [
             'id' => 6, 
             'nombre' => 'Producción',
-            'descripcion' => 'Estado7'
+            'descripcion' => 'Cuando se sube la cotizacion aprobado'
             ],
                 [
             'id' => 7, 
             'nombre' => 'Publicado',
-            'descripcion' => 'Estado8'
+            'descripcion' => 'Llega cuando se sube el documento de entrega a proveeduria'
             ]         
         ];
 

@@ -35,7 +35,7 @@
                     <button type="button" class="btn btn-link fa fa-plus" id="asignar_autores" data-toggle="modal" data-target="#modal_agregar_autor">Asignar autores*</button>                  
                    </div>
                    
-                   <ul>
+                   <ul class="col-md-6 list-group">
                    <div id="demo2" name="demo2">
                    </div>
                    </ul>

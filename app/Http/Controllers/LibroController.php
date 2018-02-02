@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Session;
 use App\Book;
 use App\Autor;
@@ -299,7 +300,7 @@ class LibroController extends Controller
            }
            
             Session::flash('message','Registro editado correctamente');
-            return redirect()->action('HomeController@index'); 
+            return redirect()->back(); 
         }
     }
 
@@ -542,7 +543,7 @@ class LibroController extends Controller
            Session::flash('message','No se han ingresado las caracteristicas.'); 
        }
 
-        return redirect()->action('HomeController@index');
+        return redirect()->back();
   
     }catch(\Exception $e){
         return $e->getMessage();
@@ -575,6 +576,60 @@ class LibroController extends Controller
         return response()->download('SolicitudLibro.docx','solicitud.docx');
  
 
+    }
+    
+
+    //CREA UN MENSAJE DE UN USUARIO 
+    public function crearMensaje(Request $request){
+       
+        $data = $request->all();
+     
+         $rules = array(
+        'mensaje' => 'required|max:500',
+        'archivo_imagen' => 'mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:20480',
+        );
+
+        $v = Validator::make($data,$rules);
+        if($v->fails())
+        {
+        return redirect()->back()
+                ->withErrors($v->errors())
+                ->withInput()->with('error_code', 9);
+        }
+        else{
+           $mensaje = new \App\Mensajes;
+           $mensaje->book_id = $data['libro_id'];
+           $mensaje->user_id = \Auth::User()->id;
+           $mensaje->mensaje = $data['mensaje'];
+           
+           if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
+           {
+             //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
+           $file = new \App\File;
+           $archivo = $data['archivo_imagen'];
+           $file->tipodoc_id = 23; 
+           $file->nombre = $archivo->getClientOriginalName();
+           $file->nombre_subida = $archivo->getClientOriginalName();
+           $file->extension = $archivo->extension();
+           $file->peso = $archivo->getClientSize();
+           $file->observaciones = "Archivo de mensaje guardado automaticamente";
+
+           //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
+           $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
+           $file->ruta = $path;
+           $file->save();
+           $libro_doc = new \App\filebook;
+           $libro_doc->book_id = $data['libro_id'];
+           $libro_doc->file_id = $file->id;
+           $libro_doc->save();
+           $mensaje->file_id = $file->id;
+           }
+           $mensaje->save();
+          //   dd($mensaje); 
+          Session::flash('message','Mensaje creado correctamente');
+          return redirect()->back(); 
+
+        }
     }
 
 }
