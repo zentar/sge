@@ -4,7 +4,7 @@
               <div class="box container">
                <div class="box-body">
 
-                  {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','id'=>"editar_libro",'name'=>"editar_libro"])!!}
+                  {!!Form::model($libro,['route'=> ['libro.update',$libro->id],'method'=>'POST','files'=>'true','id'=>"editar_libro",'name'=>"editar_libro"])!!}
                 
                     @include('libros/editar/editar_form2')
                

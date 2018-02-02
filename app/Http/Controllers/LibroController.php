@@ -243,7 +243,8 @@ class LibroController extends Controller
         $rules = array(
            "titulo" => 'max:170',
            "autor" => 'required',
-           "paginas" =>'numeric|between:1,9999'
+           "paginas" =>'numeric|between:1,9999',
+           'libro_original'=>'mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:20480'
         );
          
         $v=Validator::make($data,$rules);
@@ -273,9 +274,42 @@ class LibroController extends Controller
               
               if(isset($data['ISBN'])) $libro->isbn = $data['ISBN'];
               if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];
-
-         
               
+              
+              $eliminar_original = $libro->file()->where('tipodoc_id', 20)->first();
+          
+              if($eliminar_original != null && isset($data['libro_original']) && $data['libro_original'] != null ){
+
+               $relacion = \App\filebook::where('file_id', $eliminar_original->id)->where('book_id', 1)->first();
+               $relacion->forceDelete(); 
+
+               $eliminar_original->forceDelete(); 
+               Storage::delete($eliminar_original->ruta);
+            
+              }
+
+              if(isset($data['libro_original']) && $data['libro_original'] != null)
+           {
+             //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
+           $file = new \App\File;
+           $archivo = $data['libro_original'];
+           $file->tipodoc_id = 20; 
+           $file->nombre = $archivo->getClientOriginalName();
+           $file->nombre_subida = $archivo->getClientOriginalName();
+           $file->extension = $archivo->extension();
+           $file->peso = $archivo->getClientSize();
+           $file->observaciones = "Archivo original guardado automaticamente";
+
+           //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
+           $path = Storage::putFile('/libros/libro'.$libro->id,$archivo);           
+           $file->ruta = $path;
+           $file->save();
+           $libro_doc = new \App\filebook;
+           $libro_doc->book_id = $libro->id;
+           $libro_doc->file_id = $file->id;
+           $libro_doc->save();          
+           }
+
               $libro->save();
 
 
@@ -284,7 +318,7 @@ class LibroController extends Controller
                 $libro->save();
                 historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' Ingresó los codigos ISBN - IEPI - Estado:Publicado',$libro->id); 
               }
-           
+              
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
               $eliminar = autorbook::where('book_id', $libro->id);
@@ -298,6 +332,12 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
+
+          
+
+          
+           
+           
            
             Session::flash('message','Registro editado correctamente');
             return redirect()->back(); 

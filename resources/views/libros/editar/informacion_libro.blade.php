@@ -84,6 +84,10 @@
                     @endif
                    @endcan
 
+
+
+                
+
                     <div class="form-group col-md-6">
                     <strong>Autores</strong>
                  @can('libro_edit_informacion_accion')   <button type="button" class="btn btn-link fa fa-plus" id="asignar_autores" data-toggle="modal" data-target="#modal_agregar_autor">Asignar autores*</button> @endcan
@@ -117,10 +121,26 @@
                       </select>           
                     </div>
                     @endcan
+                    
+                   <div class="form-group col-md-6"> 
+                        <label>Original:</label>                    
+                        {!!Form::File('libro_original')!!} 
+
+                      @if($libro->file()->where('tipodoc_id', 20)->count() > 0)             
+
+                      
+                @if($libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='png')
+                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
+                @else
+                {!!link_to_route('image.documentos', $title = $libro->file()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->file()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
+           
+     @endif  
+                    
+                     @endif                
+                     </div>
 
 
-                    <div class = "espacio col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>  
-            
+                     <div class = "espacio col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
             
                     @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
