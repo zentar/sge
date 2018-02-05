@@ -166,7 +166,7 @@ class LibroController extends Controller
         //VARIABLE QUE CONTROLA EL FORMULARIO EN QUE SE ENCUENTRA PARA LA GENERACION DE LOS AUTORES
         $nuevo = 0 ; 
         //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
-        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel','caracteristicas.tipopapel','caracteristicas.colorpapel'])->get()->where('id',$id)->first();
+        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel','caracteristicas.tipopapel','caracteristicas.colorpapel','mensajes.file','mensajes.user'])->get()->where('id',$id)->first();
         //CARGA LOS AUTORES
         $autores = Autor::orderBy('nombre', 'asc')->get();
         //CARGA LAS COLECCIONES
@@ -332,12 +332,6 @@ class LibroController extends Controller
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
-
-          
-
-          
-           
-           
            
             Session::flash('message','Registro editado correctamente');
             return redirect()->back(); 
@@ -580,7 +574,7 @@ class LibroController extends Controller
         Session::flash('message','Edición cerrado sin problemas.');
        }
        else{
-           Session::flash('message','No se han ingresado las caracteristicas.'); 
+           Session::flash('warning','Para cerrar la edición necesita tener ingresado las caracteristicas.'); 
        }
 
         return redirect()->back();

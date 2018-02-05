@@ -151,6 +151,12 @@
                     @endif
                     <div class="fondo_formulario box-footer col-md-12">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>
-                 @can('libro_edit_caracteristicas_accion') <button type="submit" class="btn btn-primary">Grabar</button>@endcan
+  
+                 @can('libro_edit_caracteristicas_accion')
+                 @if($libro->estados_id < 4 || \Auth::User()->role->id == 1 )
+                  <button type="submit" class="btn btn-primary">Grabar</button>
+                  @endif
+                   @endcan
                   </div>   
                     {!!Form::close()!!}
+

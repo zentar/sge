@@ -141,8 +141,9 @@
                      @endif 
                      @else
                      <div class="form-group col-md-6"> 
+                     @if($libro->file()->where('tipodoc_id', 20)->count() > 0) 
                         <label>Original:</label>
-                     @if($libro->file()->where('tipodoc_id', 20)->count() > 0)             
+                              
 
                       
 @if($libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='png')

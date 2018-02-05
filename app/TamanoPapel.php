@@ -20,10 +20,7 @@ class TamanoPapel extends Model
     protected $softDelete = true;
 
     protected $fillable = ['descripcion'];
-
     
-
-
     public function caracteristicas()
     {
          return $this->belongsTo('App\Caracteristicas','tamano','id');

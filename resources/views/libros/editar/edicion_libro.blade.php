@@ -28,11 +28,11 @@
                 </div>
               </div>
 @else
-  @if($libro->estado_id == 2)
-  <h3>Este libro fue asignado ha: {{$editores}}</h3>
+  @if($libro->estados_id == 3)
+  <h4>El encargado de la edición de este libro es: {{$editores}}</h4>
   @else
-  @if($libro->estado_id > 3)
-    <h3>La edición de este libro fue concluido por: {{$editores}}</h3>
+  @if($libro->estados_id > 3)
+  <h4>La edición de este libro fue concluido por: {{$editores}}</h4>
     @endif 
   @endif
 
@@ -68,7 +68,9 @@
     
     @if(count($libro->mensajes)>0)
     @foreach($libro->mensajes as $mensajes)  
-    <blockquote>
+
+    <blockquote class="col-md-12">
+    <div class="col-md-10">
     <p align="justify" style="line-height:30px;"> {{$mensajes->mensaje}} 
     @if(isset($mensajes->file))      
     @if($mensajes->file->extension=='pdf' || $mensajes->file->extension=='jpeg' ||$mensajes->file->extension=='bmp' || $mensajes->file->extension=='jpg' || $mensajes->file->extension=='png')
@@ -76,10 +78,18 @@
                 @else
                 {!!link_to_route('image.documentos', $title = '{{$mensajes->file->nombre}}', $parameters = $mensajes->file->id, $attributes = ['class'=>"btn btn-link"])!!}
                 @endif    
-     @endif  
-      </p>
-    <footer> {{$mensajes->user->name}} -  {{ Carbon\Carbon::parse($mensajes->created_at)->format('d/m/Y - H:i') }}</footer>
-  </blockquote>
+     @endif    
+     
+     </p>
+     <footer> {{$mensajes->user->name}} -  {{ Carbon\Carbon::parse($mensajes->created_at)->format('d/m/Y - H:i') }}</footer>
+     </div>
+
+     <div align="center" class="col-md-2 ">
+     <button class="btn btn-warning btn-md fa fa-pencil-square-o"></button> <button class="btn btn-danger btn-danger btn-md fa fa-trash-o "></button> 
+     </div>
+    </blockquote>
+    
+   
     @endforeach
     @else
     <div>
@@ -88,7 +98,7 @@
     @endif
     </div>
     <div class="panel-footer">
-    @if($libro->estados_id < 4)
+    @if($libro->estados_id < 4 || \Auth::User()->role->id == 1)
      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edicion_mensajes_modal">Nuevo Mensaje</button>
      @endif
     </div>

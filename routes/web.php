@@ -180,7 +180,44 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         ]);
 
 
+ //caracteristicas
 
+ Route::resource('caracteristicas','CaracteristicasController');
+
+ Route::get('caracteristicas/{id}/edit/{tipo}', [
+    'as' => 'caracteristicas.edit',
+    'uses' => 'caracteristicasController@edit',
+]);
+
+ Route::post('caracteristicas/createtamano', [
+    'as' => 'caracteristicas.createtamano',
+    'uses' => 'caracteristicasController@createtamano',
+]);
+
+ Route::post('caracteristicas/createtipo', [
+    'as' => 'caracteristicas.createtipo',
+    'uses' => 'caracteristicasController@createtipo',
+]);
+
+ Route::post('caracteristicas/createcolor', [
+    'as' => 'caracteristicas.createcolor',
+    'uses' => 'caracteristicasController@createcolor',
+]);
+
+ Route::get('caracteristicas/destroytamano/{id}', [
+    'as' => 'caracteristicas.destroytamanopapel',
+    'uses' => 'caracteristicasController@destroytamanopapel',
+]);
+
+ Route::get('caracteristicas/destroytipo/{id}', [
+    'as' => 'caracteristicas.destroytipopapel',
+    'uses' => 'caracteristicasController@destroytipopapel',
+]);
+
+ Route::get('caracteristicas/destroycolor/{id}', [
+    'as' => 'caracteristicas.destroycolorpapel',
+    'uses' => 'caracteristicasController@destroycolorpapel',
+]); 
 
  //Colecciones
 

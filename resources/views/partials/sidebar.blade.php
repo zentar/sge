@@ -111,6 +111,17 @@
                             </span>
                         </a>
                     </li>
+                @endcan 
+
+                @can('user_access')
+                <li class="{{ $request->segment(1) == 'caracteristicas' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('caracteristicas.index') }}">
+                            <i class="fa fa-clipboard"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.caracteristicas')
+                            </span>
+                        </a>
+                    </li>
                 @endcan  
 
                @can('user_access')

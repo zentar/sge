@@ -62,7 +62,7 @@
                 {!!link_to_route('libro.show', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
                 @endcan
               @can('libro_edit')  
-                {!!link_to_route('libro.edit', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-primary btn-warning btn-md fa fa-pencil-square-o"])!!}
+                {!!link_to_route('libro.edit', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-warning btn-md fa fa-pencil-square-o"])!!}
                 @endcan
               @can('libro_delete')
                 {!!link_to_route('libro.delete', $title = '', $parameters = $libro->id, $attributes = ['class'=>"btn btn-danger btn-danger btn-md fa fa-trash-o ",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}

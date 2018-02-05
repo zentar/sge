@@ -362,6 +362,21 @@ $(document).ready(function() {
  } );
 } );
 
+
+$(document).ready(function() {
+    var table = $('.caracteristicas').DataTable({
+          "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+        
+   "columns": [
+    { "width": "5%" },
+    { "width": "61%" },
+    { "width": "33%" }
+    ]
+ } );
+} );
+
 // TABLES DE ROLES Y USUARIOS EN ADMINLTE/JS/MAIN.JS
 
 function add_autores(){

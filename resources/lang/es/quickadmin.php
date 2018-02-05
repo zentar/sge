@@ -9,6 +9,7 @@ return [
 		'libros' => 'Libros',
 		'autores' => 'Autores',
 		'reportes'=>'Reportes'
+
 	],
 
 
@@ -19,6 +20,7 @@ return [
 			'estado'=>'Estados',
 			'auditoria'=>'Auditoria',
 			'coleccion'=>'Colecciónes',
+			'caracteristicas'=>'Características'
 	
 		],
 	],
