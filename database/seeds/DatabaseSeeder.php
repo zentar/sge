@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPapelSeed::class);
         $this->call(ColorPapelSeed::class);
         
-      //  $this->call(LibroSeed::class);
-      //  $this->call(HistorialSeed::class);
-      //  $this->call(CaracteristicasSeed::class);
-      //  $this->call(AutoresSeed::class);
-      //  $this->call(AutorBookSeed::class);
+        $this->call(LibroSeed::class);
+        $this->call(HistorialSeed::class);
+        $this->call(CaracteristicasSeed::class);
+        $this->call(AutoresSeed::class);
+        $this->call(AutorBookSeed::class);
      
     }
 }

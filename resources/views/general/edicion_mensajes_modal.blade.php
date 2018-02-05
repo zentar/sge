@@ -26,7 +26,7 @@
                      <div class="form-group col-md-12">                     
                         <label>Mensaje*:</label> 
                          {!!Form::textarea('mensaje',null,['class'=>'form-control',
-                      'placeholder'=>'-','maxlength'=>'500',"style"=>"overflow:auto;overflow-y:scroll;resize:none","rows"=>"3", "cols"=>"30"])!!} 
+                      'placeholder'=>'-','maxlength'=>'500','id'=>'mensaje',"style"=>"overflow:auto;overflow-y:scroll;resize:none","rows"=>"3", "cols"=>"30"])!!} 
                      </div>
 
                      <div class="form-group col-md-12"> 

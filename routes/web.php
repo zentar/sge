@@ -94,6 +94,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'uses' => 'LibroController@crearMensaje',
         ]);
 
+        
+ Route::get('libro/mensajedestroy/{id}', [
+    'as' => 'libro.mensajedestroy',
+    'uses' => 'LibroController@mensajedestroy',
+]);
+
 
     //ASIGNA EDITOR A LIBRO    
         Route::post('libro/asignar', [

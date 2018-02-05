@@ -614,10 +614,9 @@ class LibroController extends Controller
     
 
     //CREA UN MENSAJE DE UN USUARIO 
-    public function crearMensaje(Request $request){
-       
+    public function crearMensaje(Request $request){       
         $data = $request->all();
-     
+      // dd($data);
          $rules = array(
         'mensaje' => 'required|max:500',
         'archivo_imagen' => 'mimes:jpeg,bmp,png,pdf,doc,docx,xlsx|max:20480',
@@ -631,6 +630,74 @@ class LibroController extends Controller
                 ->withInput()->with('error_code', 9);
         }
         else{
+            if($data['mensaje_edit'] > 0){
+                $mensaje = \App\Mensajes::find($data['mensaje_edit']);
+                $mensaje->mensaje = $data['mensaje'];
+
+                if($mensaje->file_id > 0){                    
+                if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
+                {
+                
+                //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
+                $file = \App\File::find($mensaje->file_id);
+                Storage::delete($file->ruta);
+                $archivo = $data['archivo_imagen'];
+                $file->tipodoc_id = 23; 
+                $file->nombre = $archivo->getClientOriginalName();
+                $file->nombre_subida = $archivo->getClientOriginalName();
+                $file->extension = $archivo->extension();
+                $file->peso = $archivo->getClientSize();
+                $file->observaciones = "Archivo de mensaje guardado automaticamente";
+     
+                //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
+                $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
+                $file->ruta = $path;
+                $file->save();
+                $libro_doc = \App\filebook::where('file_id',$mensaje->file_id)->first();
+                $libro_doc->book_id = $data['libro_id'];
+                $libro_doc->file_id = $file->id;
+                $libro_doc->save();
+                $mensaje->file_id = $file->id;
+                $mensaje->save();
+                Session::flash('message','Mensaje editado correctamente');  
+                }else{
+                    $mensaje = \App\Mensajes::find($data['mensaje_edit']);
+                $mensaje->mensaje = $data['mensaje'];
+                $mensaje->save();
+                Session::flash('message','Mensaje editado correctamente');  
+
+                }                   
+                }else{
+
+                if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
+                {
+                //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
+                $file = new \App\File;
+                $archivo = $data['archivo_imagen'];
+                $file->tipodoc_id = 23; 
+                $file->nombre = $archivo->getClientOriginalName();
+                $file->nombre_subida = $archivo->getClientOriginalName();
+                $file->extension = $archivo->extension();
+                $file->peso = $archivo->getClientSize();
+                $file->observaciones = "Archivo de mensaje guardado automaticamente";
+     
+                //GUARDA IMAGEN SUBIDA A RUTA AUTOR/AUTOR Y DEVUELVE EL PATH EN DONDE SE ALMACENO
+                $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
+                $file->ruta = $path;
+                $file->save();
+                $libro_doc = new \App\filebook;
+                $libro_doc->book_id = $data['libro_id'];
+                $libro_doc->file_id = $file->id;
+                $libro_doc->save();
+                $mensaje->file_id = $file->id;
+                }
+                $mensaje->save();
+                Session::flash('message','Mensaje editado correctamente');  
+            }
+
+
+                    
+            }else{
            $mensaje = new \App\Mensajes;
            $mensaje->book_id = $data['libro_id'];
            $mensaje->user_id = \Auth::User()->id;
@@ -638,7 +705,7 @@ class LibroController extends Controller
            
            if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
            {
-             //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
+           //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
            $file = new \App\File;
            $archivo = $data['archivo_imagen'];
            $file->tipodoc_id = 23; 
@@ -659,11 +726,31 @@ class LibroController extends Controller
            $mensaje->file_id = $file->id;
            }
            $mensaje->save();
-          //   dd($mensaje); 
+          //dd($mensaje); 
           Session::flash('message','Mensaje creado correctamente');
-          return redirect()->back(); 
-
+    
         }
+        return redirect()->back(); 
+      }
     }
+
+     public function mensajedestroy($id){
+         $mensaje = \App\Mensajes::find($id);
+        //VERIFICA QUE EXISTA EL MENSAJE
+         if(count($mensaje) > 0){
+         $file = \App\File::find($mensaje->file_id);
+         //VERIFICA SI EXISTIA UN ARCHIVO VINCULADA A LA IMAGEN
+         if(count($file) > 0){
+             //ELIMINA ARCHIVO VINCULADO A LA IMAGEN
+            $file->delete();
+         }
+        //ELIMINA MENSAJE
+         $mensaje->delete();
+         Session::flash('message','Mensaje eliminado con éxito.');
+        }else{
+            Session::flash('warning','Mensaje no encontrado.');  
+        }
+        return redirect()->back();
+     }
 
 }

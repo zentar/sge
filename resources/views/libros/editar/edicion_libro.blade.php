@@ -83,10 +83,14 @@
      </p>
      <footer> {{$mensajes->user->name}} -  {{ Carbon\Carbon::parse($mensajes->created_at)->format('d/m/Y - H:i') }}</footer>
      </div>
-
+   @if( Carbon\Carbon::parse($mensajes->created_at)->diffInMinutes() < 5 && $mensajes->user->id ==\Auth::User()->id ) 
      <div align="center" class="col-md-2 ">
-     <button class="btn btn-warning btn-md fa fa-pencil-square-o"></button> <button class="btn btn-danger btn-danger btn-md fa fa-trash-o "></button> 
+         
+      <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_mensaje('{{$mensajes->id}}','{{$mensajes->mensaje}}')"></button>
+
+     {!!link_to_route('libro.mensajedestroy', $title = '', $parameters = [$mensajes->id], $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("¿Esta seguro de borrar este mensaje?")'])!!} 
      </div>
+    @endif
     </blockquote>
     
    
@@ -99,7 +103,7 @@
     </div>
     <div class="panel-footer">
     @if($libro->estados_id < 4 || \Auth::User()->role->id == 1)
-     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edicion_mensajes_modal">Nuevo Mensaje</button>
+     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edicion_mensajes_modal" onclick="nuevo_mensaje()" >Nuevo Mensaje</button>
      @endif
     </div>
   </div>
@@ -117,3 +121,6 @@
 @endif
 
 </div>
+
+
+

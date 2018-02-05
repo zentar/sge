@@ -103,4 +103,38 @@ $(document).ready(function(){
   }
 });
 </script>
+
+
+<script>
+function editar_mensaje(id,mensaje){
+       document.getElementById('mensaje').value = mensaje;
+       console.log(id,mensaje);
+       $("#documento").val('');
+
+         $('<input />').attr('type', 'hidden')
+          .attr('name', "mensaje_edit")
+          .attr('value', id)
+          .appendTo('#crear_libro_mensaje');
+
+        $('#edicion_mensajes_modal').modal("show");  
+    }
+
+    function nuevo_mensaje(){
+      document.getElementById('mensaje').value = "";
+
+      $("#documento").val('');
+
+      $('<input />').attr('type', 'hidden')
+         .attr('name', "mensaje_edit")
+         .attr('value', 0)
+         .appendTo('#crear_libro_mensaje');
+  
+   }
+
+      $('<input />').attr('type', 'hidden')
+         .attr('name', "mensaje_edit")
+         .attr('value', 0)
+         .appendTo('#crear_libro_mensaje'); 
+</script>
+
 @stop
