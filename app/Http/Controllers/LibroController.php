@@ -110,6 +110,8 @@ class LibroController extends Controller
               $libro->titulo = $data["titulo"];
               $libro->coleccion_id = $data["coleccion_id"];
               $libro->facultad_id = $data["facultad_id"];
+
+              //ESTADO INGRESADO 
               $libro->estados_id = 1;
               $libro->save();
 
@@ -178,8 +180,15 @@ class LibroController extends Controller
          //CARGA LOS TIPOS DE COLOR
          $tipos_color = \App\ColorPapel::orderBy('descripcion', 'asc')->get();
          //BUSCA LOS DOCUMENTOS QUE FALTAN POR INGRESAR
-        $doc_no_ingresados = filtrar_documentos_ingresados($libro);        
+          $doc_no_ingresados = filtrar_documentos_ingresados($libro); 
+
+        if($libro->estados_id < 6){ array_push($doc_no_ingresados,19);}
+        if(\Auth::User()->id == 1 || \Auth::User()->id == 2 || \Auth::User()->id == 3)
         $tipos_doc_libro = DB::table('tipodoc')->where([['grupo', '=', 'libro']])->whereNotIn('id', $doc_no_ingresados)->orderBy('nombre', 'asc')->get();        
+        if(\Auth::User()->id == 4)
+        $tipos_doc_libro = \App\Tipodoc::where([['nombre', '=', 'Contenido'],['grupo', '=', 'libro']])->orWhere([['nombre', '=', 'Cubierta'],['grupo', '=', 'libro']])->orWhere([['nombre', '=', 'Revisión de Pares'],['grupo', '=', 'libro']])->orderBy('nombre', 'asc')->get();        
+        
+       // dd(\Auth::User()->id,$tipos_doc_libro);
         //CARGA LOS TIPOS DE TAMAÑOS DE PAPEL
         $tamano_papel = \App\TamanoPapel::orderBy('descripcion', 'asc')->get();
         //SETEA EL PARAMETRO EDITAR 
@@ -200,8 +209,6 @@ class LibroController extends Controller
         $gestor_p = \App\User::where('role_id',3)->get();
         else    
         $gestor_p = "";
-
-     //   dd($gestor_p);
 
         //COMPRUEBA QUE LOS REGISTROS DE LOS DOCUMENTOS PERTENECIENTES AL ISBN O IEPI RESPECTIVAMENTE EXISTAN
         $flag_ISBN = permisos_isbn_iepi($libro,"isbn");
@@ -313,11 +320,6 @@ class LibroController extends Controller
               $libro->save();
 
 
-             if($libro->estados_id == 6 && isset($libro->isbn) && isset($libro->iepi)){
-                $libro->estados_id =7;            
-                $libro->save();
-                historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' Ingresó los codigos ISBN - IEPI - Estado:Publicado',$libro->id); 
-              }
               
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
@@ -510,6 +512,7 @@ class LibroController extends Controller
           $m->to($user->email, $user->name)->subject('Asignacion de Libro - Edición');
       });
       
+      //ESTADO EDICION
       $libro->estados_id = 3;
       $libro->asignado = 1;
       $libro->save();
@@ -538,11 +541,9 @@ class LibroController extends Controller
           $m->to($user->email, $user->name)->subject('Asignación para Cotización de Libro');
       });
       
-      $libro->estados_id = 5;
       $libro->asignado = 1;
       $libro->save();
-      historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ha asignado a un cotizador '.$user->name.', Estado:Aprobado-Cotización',$libro->id); 
-
+     
       Session::flash('message','Gestor de Producción Asignado sin problemas.');
       return redirect()->back()->withInput();      
       
@@ -563,6 +564,7 @@ class LibroController extends Controller
         $asignacion->estado=0; 
         $asignacion->save();
 
+        //ESTADO COTIZACION
         $libro->estados_id = 4;
 
         $libro->asignado = 0;
@@ -574,7 +576,7 @@ class LibroController extends Controller
         Session::flash('message','Edición cerrado sin problemas.');
        }
        else{
-           Session::flash('warning','Para cerrar la edición necesita tener ingresado las caracteristicas.'); 
+           Session::flash('warning','Para cerrar la edición necesita tener ingresado todas las caracteristicas.'); 
        }
 
         return redirect()->back();
@@ -693,10 +695,7 @@ class LibroController extends Controller
                 }
                 $mensaje->save();
                 Session::flash('message','Mensaje editado correctamente');  
-            }
-
-
-                    
+            }                    
             }else{
            $mensaje = new \App\Mensajes;
            $mensaje->book_id = $data['libro_id'];
@@ -751,6 +750,15 @@ class LibroController extends Controller
             Session::flash('warning','Mensaje no encontrado.');  
         }
         return redirect()->back();
+     }
+
+     public function PasarCotizacionAprobado($id){
+         $libro = \App\Book::find($id);
+         $libro->estados_id = 5;
+         $libro->save();
+         Session::flash('message','Se ha avanzado a estado Aprobado Cotización con éxito.');
+         historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ha aprobado el pase al estado Estado:Aprobado-Cotización',$libro->id); 
+         return redirect()->back();
      }
 
 }

@@ -44,8 +44,9 @@
               @else
               {!!link_to_route('image.documentos', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-primary fa fa-download"])!!}
               @endif
-
+              @if($file->tipodoc_id != 13 && $file->tipodoc_id != 2 && $file->tipodoc_id != 19)
                 {!!link_to_route('image.delete_libro', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar el documento '.$file->tipodoc->nombre.'?")'])!!}
+             @endif
                </p>
                 </td> 
               </tr>

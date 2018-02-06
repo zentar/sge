@@ -10,8 +10,11 @@
       
            @if(count($libro->cotizacion)>0)   
             <div class=" form-group col-md-6" style="text-align:right;">    
-     @if($libro->estados_id==5) {!!link_to_route('libro.reporteCotizacion', $title = " Pasar a producción", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary"])!!}@endif
-       
+     @if($libro->estados_id==4)     
+  
+     {!!link_to_route('libro.PasarCotizacionAprobado', $title = "A cotización aprobado", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-primary fa fa-arrow-right"])!!}
+  
+     @endif
           {!!link_to_route('libro.reporteCotizacion', $title = " Word", $parameters = [$libro->id,"docx"], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!} 
           {!!link_to_route('libro.reporteCotizacion', $title = " PDF", $parameters = [$libro->id,"pdf"], $attributes = ['class'=>"btn btn-danger fa fa-file-pdf-o  ","target"=>"_blank"])!!}      
           
@@ -84,8 +87,9 @@
 
         </tbody>
       </table> 
-
-
       </div>
   </div>   
   @include('libros/editar/asignar_cotizaciones')    
+
+
+

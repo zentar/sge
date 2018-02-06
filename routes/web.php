@@ -292,6 +292,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'libro.editarcotizacion',
             'uses' => 'LibroController@editarCotizacion',
         ]);
+
+        Route::get('libro/{id}/CotizacionAprobado', [
+            'as' => 'libro.PasarCotizacionAprobado',
+            'uses' => 'LibroController@PasarCotizacionAprobado',
+        ]);
+
+        
         
 
         //IMPORTA COTIZACIONES A UN ARCHIVO DOCX,PDF (PIPO)

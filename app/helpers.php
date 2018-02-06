@@ -51,12 +51,18 @@ function historial($descripcion,$book_id){
 function filtrar_documentos_ingresados($libro){
     $doc_no_ingresados=[]; 
     $otros =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Varios']])->get()->first()->id;  
+    $revision_pares =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Revisión de Pares']])->get()->first()->id;  
+    $cubierta =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Cubierta']])->get()->first()->id;  
+    $contenido =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Contenido']])->get()->first()->id;     
    foreach($libro->file as $documentos){
      
-    if($documentos->tipodoc_id !=  $otros){
+    if($documentos->tipodoc_id !=  $otros && $documentos->tipodoc_id !=  $revision_pares && $documentos->tipodoc_id !=  $cubierta && $documentos->tipodoc_id !=  $contenido){
+          
       array_push($doc_no_ingresados,$documentos->tipodoc_id);
+    
     }
 }
+
  return $doc_no_ingresados;   
 }
 

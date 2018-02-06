@@ -134,13 +134,13 @@ class TipoDocSeed extends Seeder
             ],         
             [
             'id' => 21,
-            'grupo' => "cubierta", 
+            'grupo' => "libro", 
             'nombre' => 'Cubierta',
             'descripcion' => 'Cubierta'
             ],         
             [
             'id' => 22,
-            'grupo' => "contenido", 
+            'grupo' => "libro", 
             'nombre' => 'Contenido',
             'descripcion' => 'Contenido'
             ]  ,         
@@ -149,7 +149,13 @@ class TipoDocSeed extends Seeder
             'grupo' => "mensaje_libro", 
             'nombre' => 'mensaje',
             'descripcion' => 'mensaje'
-            ]               
+            ]  ,         
+            [
+            'id' => 24,
+            'grupo' => "libro", 
+            'nombre' => 'Revisión de Pares',
+            'descripcion' => 'Revision de Pares'
+            ]                
         ];
 
         foreach ($items as $item) {

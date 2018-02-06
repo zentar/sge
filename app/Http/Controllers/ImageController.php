@@ -150,7 +150,8 @@ class ImageController extends Controller
            $libro_doc->book_id = $data['libro_id'];
            $libro_doc->file_id = $file->id;
            $libro_doc->save();
-
+           
+           //ESTADO APROBADO
            if($data['tipo_doc'][0] == 13){
                $libro = Book::find($data['libro_id']);
                $libro->estados_id = 2;
@@ -158,7 +159,15 @@ class ImageController extends Controller
                historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ingreso el documento de solicitud de aprobación, Estado:Aprobado',$libro->id);              
            }
 
+           if($data['tipo_doc'][0] == 19){
+            $libro = Book::find($data['libro_id']);
+            // ESTADO PUBLICADO
+            $libro->estados_id =7;            
+            $libro->save();
+            historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' Ingresó el documento de acta a Proveeduria Estado:Publicado',$libro->id); 
+          }
 
+          Session::flash('message','Registro creado sin problemas.');
            return redirect()->back(); 
         }
 
@@ -392,6 +401,7 @@ class ImageController extends Controller
           $filebook->save();   
           
           //UNA VEZ SUBIO EL DOCUMENTO APROBADO, EL LIBRO PASA AL ESTADO PRODUCCION
+          //ESTADO PRODUCCION
           $libro->estados_id = 6;
           historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ingresó el documento de aprobación de cotización - Estado:Producción ',$libro->id);             
           $libro->save();

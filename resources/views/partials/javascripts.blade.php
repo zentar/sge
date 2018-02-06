@@ -146,5 +146,3 @@ function documentos_modal(id,extension,nombre){
           .appendTo('#crear_libro_cotizacion'); 
 </script>
 
-
-

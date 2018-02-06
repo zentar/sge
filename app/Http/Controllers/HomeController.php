@@ -38,7 +38,8 @@ class HomeController extends Controller
         }
 
         if(\Auth::User()->role_id == 2){
-            $libros = \Auth::User()->book;
+         //   $libros = \Auth::User()->book;
+            $libros= Book::with(['autor','estados','coleccion'])->get();
             return view('home', compact('libros'));
          }
         

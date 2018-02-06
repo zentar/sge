@@ -104,7 +104,7 @@ class AuthServiceProvider extends ServiceProvider
        });
 
        Gate::define('libro_edit_documentos', function ($user) {
-           return in_array($user->role_id, [1,2]);
+           return in_array($user->role_id, [1,2,4]);
        });
        Gate::define('libro_edit_edicion', function ($user) {
         return in_array($user->role_id, [1,2,3,4]);
