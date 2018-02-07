@@ -5,7 +5,8 @@
       <div class="row col-md-12">
         <div class=" form-group col-md-6">
           <button type="button" class="btn btn-success" onclick="nuevoCotizacion()" id="modal_libro" data-toggle="modal" data-target="#modal_cot_libro">Nuevo</button>       
-  @if(count($libro->cotizacion)>0)<button type="button" class="btn btn-warning" id="aprobar_cot" data-toggle="modal" data-target="#modal_aprob_cot_libro">Aprobar</button>  @endif     
+ 
+  @if(count($libro->cotizacion)>0 && $libro->estados_id==5)<button type="button" class="btn btn-warning" id="aprobar_cot" data-toggle="modal" data-target="#modal_aprob_cot_libro">Aprobar</button>  @endif     
            </div> 
       
            @if(count($libro->cotizacion)>0)   

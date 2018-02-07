@@ -192,37 +192,37 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
  Route::get('caracteristicas/{id}/edit/{tipo}', [
     'as' => 'caracteristicas.edit',
-    'uses' => 'caracteristicasController@edit',
+    'uses' => 'CaracteristicasController@edit',
 ]);
 
  Route::post('caracteristicas/createtamano', [
     'as' => 'caracteristicas.createtamano',
-    'uses' => 'caracteristicasController@createtamano',
+    'uses' => 'CaracteristicasController@createtamano',
 ]);
 
  Route::post('caracteristicas/createtipo', [
     'as' => 'caracteristicas.createtipo',
-    'uses' => 'caracteristicasController@createtipo',
+    'uses' => 'CaracteristicasController@createtipo',
 ]);
 
  Route::post('caracteristicas/createcolor', [
     'as' => 'caracteristicas.createcolor',
-    'uses' => 'caracteristicasController@createcolor',
+    'uses' => 'CaracteristicasController@createcolor',
 ]);
 
  Route::get('caracteristicas/destroytamano/{id}', [
     'as' => 'caracteristicas.destroytamanopapel',
-    'uses' => 'caracteristicasController@destroytamanopapel',
+    'uses' => 'CaracteristicasController@destroytamanopapel',
 ]);
 
  Route::get('caracteristicas/destroytipo/{id}', [
     'as' => 'caracteristicas.destroytipopapel',
-    'uses' => 'caracteristicasController@destroytipopapel',
+    'uses' => 'CaracteristicasController@destroytipopapel',
 ]);
 
  Route::get('caracteristicas/destroycolor/{id}', [
     'as' => 'caracteristicas.destroycolorpapel',
-    'uses' => 'caracteristicasController@destroycolorpapel',
+    'uses' => 'CaracteristicasController@destroycolorpapel',
 ]); 
 
  //Colecciones

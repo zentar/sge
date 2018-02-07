@@ -10,8 +10,8 @@
 
             <div class="panel panel-default">
 
-                <div class="panel-heading text-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="background-color:rgb(153,9,42); color:white"> 
-                  <img src="{{URL::asset('logos/dpB-big-white.png')}}" alt="SGD" align="center">
+                <div class="panel-heading text-center col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="background-color:#A61E4A; color:white"> 
+                  <img src="{{URL::asset('logos/DP2.png')}}" alt="SGD" height="50%" width="50%" align="center">
                 </div>
 
                 <div class = "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top:5%"></div>        
