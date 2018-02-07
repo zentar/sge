@@ -98,8 +98,10 @@
 </div>
 <ul>
        @foreach($libro->file as $documentos)
+       @if($documentos->tipodoc->id != 23)
 	   <li>{{$documentos->tipodoc->nombre}}</li>
-	   @endforeach
+	   @endif
+       @endforeach
 	   </ul>
 @endif
 
