@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
+use DB;
 class ReportesController extends Controller
 {
 
@@ -26,10 +27,28 @@ class ReportesController extends Controller
     public function index()
     {
         
-     $libros = \App\Book::orderBy('titulo', 'asc')->get();
+     $libros = \App\Libro::orderBy('titulo', 'asc')->get();
      $estados = \App\Estados::all();
      $colecciones = \App\Coleccion::orderBy('titulo', 'asc')->get();
-     return view("reportes/index",compact('libros','estados','colecciones'));  
+
+
+     //GRAFICO ESTADO POR LIBRO 
+     $grafico_data =[];
+     $data =  DB::select('Select estados_id, count(*) as cantidad from libros where deleted_at is null and estados_id in (select id from estados) group by estados_id order by estados_id;');
+     
+         foreach($data as $dato){
+             $grafico_data[$dato->estados_id] =  $dato->cantidad;
+         }
+
+         for($j=1;$j<=7;$j++){
+            if(!isset($grafico_data[$j]))   
+            $grafico_data[$j] = "";
+         }
+
+       //  dd($data,$grafico_data);
+
+ 
+     return view("reportes/index",compact('libros','estados','colecciones','grafico_estados','grafico_data'));  
     }
 
     /**
@@ -60,7 +79,7 @@ class ReportesController extends Controller
                 ->withInput();
         }
         else{
-          $libro = \App\Book::find($data['libro_id']);
+          $libro = \App\Libro::find($data['libro_id']);
           // dd($libro->caracteristicas->tamanopapel);
           $autores = "";
 
@@ -120,15 +139,15 @@ public function create_general(Request $request){
 
     if($estado != null){
         if($coleccion != null){
-            $libros = \App\Book::where("created_at",">=",date($data['desde']))->where("created_at","<=",date($data['hasta']))->where("estados_id","=",$estado)->where("coleccion_id","=",$coleccion)->get();  
+            $libros = \App\Libro::where("created_at",">=",date($data['desde']))->where("created_at","<=",date($data['hasta']))->where("estados_id","=",$estado)->where("coleccion_id","=",$coleccion)->get();  
         }else{
-          $libros = \App\Book::where("created_at",">=",date($data['desde']))->where("created_at","<=",date($data['hasta']))->where("estados_id","=",$estado)->get();  
+          $libros = \App\Libro::where("created_at",">=",date($data['desde']))->where("created_at","<=",date($data['hasta']))->where("estados_id","=",$estado)->get();  
         }
      }else{
         if($coleccion != null){
-            $libros = \App\Book::where("created_at",">=",date($desde))->where("created_at","<=",date($hasta))->where("coleccion_id","=",$coleccion)->get();
+            $libros = \App\Libro::where("created_at",">=",date($desde))->where("created_at","<=",date($hasta))->where("coleccion_id","=",$coleccion)->get();
         }else{
-          $libros = \App\Book::where("created_at",">=",date($desde))->where("created_at","<=",date($hasta))->get();
+          $libros = \App\Libro::where("created_at",">=",date($desde))->where("created_at","<=",date($hasta))->get();
         } 
     }
 

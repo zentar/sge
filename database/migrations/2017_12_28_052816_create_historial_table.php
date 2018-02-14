@@ -17,8 +17,8 @@ class CreateHistorialTable extends Migration
             
             $table->increments('id');
             
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->integer('libro_id')->unsigned();
+            $table->foreign('libro_id')->references('id')->on('libros');
 
             $table->string('descripcion');
             

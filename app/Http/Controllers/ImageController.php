@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Session;
 use App\Autor;
-use App\File;
-use App\fileautor;
-use App\filebook;
+use App\Archivo;
+use App\archivoautor;
+use App\archivolibro;
 use App\Cotizacion;
-use App\Book;
+use App\Libro;
 use Response;
 
 class ImageController extends Controller
@@ -31,7 +31,7 @@ class ImageController extends Controller
     { 
       try{     
         //RECUPERA EL REGISTRO DEL ARCHIVO DE LA BD  
-        $doc = File::find($file);
+        $doc = Archivo::find($file);
         //FILTRA POR EXTENSION DE ARCHIVO EL MODO DE PRESENTACION
         if($doc->extension=='jpeg' || $doc->extension=='png' || $doc->extension=='bmp' ||
            $doc->extension=='jpg'){  
@@ -71,7 +71,7 @@ class ImageController extends Controller
         }
         else{
           //CREA UN NUEVO FILE (ARCHIVO) Y LE ASIGNA LOS VALORES
-           $file = new file();
+           $file = new Archivo();
            $archivo = $data['documento'];
            $file->tipodoc_id = $data['tipo_doc'][0]; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -89,9 +89,9 @@ class ImageController extends Controller
            $file->save();
            
            //CREA RELACION ENTRE ARCHIVO Y EL AUTOR
-           $autor_doc = new fileautor();
+           $autor_doc = new archivoautor();
            $autor_doc->autor_id = $data['autor_id'];
-           $autor_doc->file_id = $file->id;
+           $autor_doc->archivo_id = $file->id;
            $autor_doc->save();
            return redirect()->back(); 
         }
@@ -102,10 +102,10 @@ class ImageController extends Controller
     //ELIMINA DOCUMENTO VINCULADO A UN AUTOR.
     public function delete_autor($id)
     {
-     $file = file::find($id);
+     $file = Archivo::find($id);
      Storage::delete($file->ruta);
 
-     $autor_doc = fileautor::get()->where('file_id',$id)->first();
+     $autor_doc = archivoautor::get()->where('archivo_id',$id)->first();
      $autor_doc->delete();
      
      Session::flash('message','Registro borrado sin problemas.');
@@ -131,7 +131,7 @@ class ImageController extends Controller
         }
         else{
           //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-           $file = new file();
+           $file = new Archivo();
            $archivo = $data['documento'];
            $file->tipodoc_id = $data['tipo_doc'][0]; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -146,21 +146,21 @@ class ImageController extends Controller
            $file->ruta = $path;
            $file->save();
 
-           $libro_doc = new filebook();
-           $libro_doc->book_id = $data['libro_id'];
-           $libro_doc->file_id = $file->id;
+           $libro_doc = new archivolibro();
+           $libro_doc->libro_id = $data['libro_id'];
+           $libro_doc->archivo_id = $file->id;
            $libro_doc->save();
            
            //ESTADO APROBADO
            if($data['tipo_doc'][0] == 13){
-               $libro = Book::find($data['libro_id']);
+               $libro = Libro::find($data['libro_id']);
                $libro->estados_id = 2;
                $libro->save();   
                historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ingreso el documento de solicitud de aprobación, Estado:Aprobado',$libro->id);              
            }
 
            if($data['tipo_doc'][0] == 19){
-            $libro = Book::find($data['libro_id']);
+            $libro = Libro::find($data['libro_id']);
             // ESTADO PUBLICADO
             $libro->estados_id =7;            
             $libro->save();
@@ -176,15 +176,15 @@ class ImageController extends Controller
    //ELIMINA DOCUMENTO Y SU VINCULACION CON EL LIBRO
     public function delete_libro($id){ 
 
-     $file = file::find($id);
+     $file = Archivo::find($id);
    //dd($file);
      //SI EL DOCUMENTO ES DE APROBACION DE COTIZACION, DESHACE LA ACCION DE APROBACION
      if($file->tipodoc_id == 2){
-      $libro_doc = filebook::get()->where('file_id',$id)->first(); 
-      $libro = Book::find($libro_doc->book_id);
+      $libro_doc = archivolibro::get()->where('archivo_id',$id)->first(); 
+      $libro = Libro::find($libro_doc->libro_id);
       foreach($libro->cotizacion as $cotizacion){
        if($cotizacion->estado > 0){
-           foreach($libro->file as $documentos){
+           foreach($libro->archivo as $documentos){
               if($documentos->tipodoc_id == 2){
                //COLOCO EN 0 EL ESTADO APROBADO ANTERIOR                                     
                $cotizacion->estado = 0;
@@ -192,7 +192,7 @@ class ImageController extends Controller
                Storage::delete($documentos->ruta);
                $cotizacion->save();  
                // ELIMINA REGISTRO DE RELACION AUTOR CON ARCHIVO APROBADO ANTERIOR
-               $filebook = filebook::get()->where('book_id',$libro->id)->where('file_id',$documentos->id)->first();
+               $filebook = archivolibro::get()->where('libro_id',$libro->id)->where('archivo_id',$documentos->id)->first();
                $filebook->delete();
                //ELIMINA EL REGISTRO DEL ARCHIVO APROBADO ANTERIOR
                $documentos->delete();                  
@@ -207,7 +207,7 @@ class ImageController extends Controller
 
      Storage::delete($file->ruta);
 
-     $libro_doc = filebook::get()->where('file_id',$id)->first();
+     $libro_doc = archivolibro::get()->where('archivo_id',$id)->first();
      $libro_doc->delete();
 
      Session::flash('message','Registro borrado sin problemas.');
@@ -232,7 +232,7 @@ class ImageController extends Controller
         else{
           if($data['cotizacion_edit'] == "0"){ 
            //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-           $file = new file();
+           $file = new archivo();
            $archivo = $data['documento'];
            $file->tipodoc_id = 1; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -248,8 +248,8 @@ class ImageController extends Controller
            $file->save();
 
            $cotizacion = new Cotizacion();
-           $cotizacion->book_id = $data['libro_id'];
-           $cotizacion->file_id = $file->id;
+           $cotizacion->libro_id = $data['libro_id'];
+           $cotizacion->archivo_id = $file->id;
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
            $cotizacion->valor = $data['valor'];
@@ -269,7 +269,7 @@ class ImageController extends Controller
            
            }
            else{
-           $file = file::find($data['file_id']);
+           $file = Archivo::find($data['file_id']);
            //dd(storage_path('app/'.$file->ruta));
   
            Storage::delete($file->ruta);
@@ -287,8 +287,8 @@ class ImageController extends Controller
            $file->save();
 
            $cotizacion = cotizacion::find($data['cotizacion_edit']);
-           $cotizacion->book_id = $data['libro_id'];
-           $cotizacion->file_id = $file->id;
+           $cotizacion->libro_id = $data['libro_id'];
+           $cotizacion->archivo_id = $file->id;
            $cotizacion->imprenta = $data['imprenta'];
            $cotizacion->tiraje = $data['tiraje'];
            $cotizacion->valor = $data['valor'];
@@ -324,7 +324,7 @@ class ImageController extends Controller
       else{
       //SI NO ESTA APROBADA SE PROCEDE A LA ELIMINACION DEL REGISTRO DE COTIZACION
       $cotizacion->delete();      
-      $file = $cotizacion->file;
+      $file = $cotizacion->archivo;
       //A LA ELIMINACION DE LA IMAGEN FISICA DE LA COTIZACION
       Storage::delete($file->ruta);
       //A LA ELIMINACION DEL REGISTRO DE LA IMAGEN
@@ -352,10 +352,10 @@ class ImageController extends Controller
                 ->withInput()->with('error_code', 8);
         }
         else{
-          $libro = Book::find($data['libro_id']);
+          $libro = Libro::find($data['libro_id']);
          foreach($libro->cotizacion as $cotizacion){
           if($cotizacion->estado > 0){
-              foreach($libro->file as $documentos){
+              foreach($libro->archivo as $documentos){
                  if($documentos->tipodoc_id == 2){
                   //COLOCO EN 0 EL ESTADO APROBADO ANTERIOR                                     
                   $cotizacion->estado = 0;
@@ -363,7 +363,7 @@ class ImageController extends Controller
                   Storage::delete($documentos->ruta);
                   $cotizacion->save();  
                   // ELIMINA REGISTRO DE RELACION AUTOR CON ARCHIVO APROBADO ANTERIOR
-                  $filebook = filebook::get()->where('book_id',$libro->id)->where('file_id',$documentos->id)->first();
+                  $filebook = archivolibro::get()->where('libro_id',$libro->id)->where('archivo_id',$documentos->id)->first();
                   $filebook->delete();
                   //ELIMINA EL REGISTRO DEL ARCHIVO APROBADO ANTERIOR
                   $documentos->delete();                  
@@ -379,7 +379,7 @@ class ImageController extends Controller
           
           //GRABA UN NUEVO FILE CON EL DOCUMENTO DE ACEPTACION DE COTIZACION
           $archivo = $data['documento'];
-          $file = new File;
+          $file = new Archivo;
           $file->tipodoc_id = 2; 
           $file->nombre = $archivo->getClientOriginalName();
           $file->nombre_subida = $archivo->getClientOriginalName();
@@ -388,16 +388,16 @@ class ImageController extends Controller
           $file->observaciones = "Documento de Cotización aprobado de imprenta ".$cotizacion->imprenta." con tiraje de ".$cotizacion->tiraje." ejemplares y valor de $".$cotizacion->total;
 
            //GUARDA IMAGEN SUBIDA A RUTA /libros/librox/cotizacion Y DEVUELVE EL PATH EN DONDE SE ALMACENO
-          $path = Storage::putFile('/libros/libro'.$cotizacion->book_id.'/cotizacion',$request->file('documento'));
+          $path = Storage::putFile('/libros/libro'.$cotizacion->libro_id.'/cotizacion',$request->file('documento'));
           
           //ALMACENA IMAGEN DEL DOCUMENTO DE ACEPTACION DE COTIZACION
           $file->ruta = $path;        
           $file->save();
 
           //CREA RELACION ENTRE EL LIBRO Y EL DOCUMENTO CREADO
-          $filebook = new filebook;
-          $filebook->book_id = $cotizacion->book_id;
-          $filebook->file_id =  $file->id;
+          $filebook = new archivolibro;
+          $filebook->libro_id = $cotizacion->libro_id;
+          $filebook->archivo_id =  $file->id;
           $filebook->save();   
           
           //UNA VEZ SUBIO EL DOCUMENTO APROBADO, EL LIBRO PASA AL ESTADO PRODUCCION

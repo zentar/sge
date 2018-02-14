@@ -14,22 +14,22 @@ class HistorialSeed extends Seeder
         $items = [
             [
             'id' => 1, 
-            'book_id' => 1,
+            'libro_id' => 1,
             'descripcion' => "Creación de libro, estado ingresado"
             ],
             [
             'id' => 2, 
-            'book_id' => 2,
+            'libro_id' => 2,
             'descripcion' => "Creación de libro, estado ingresado" 
             ],
             [
             'id' => 3, 
-            'book_id' => 3,
+            'libro_id' => 3,
             'descripcion' => "Creación de libro, estado ingresado"
             ],
             [
           'id' => 4, 
-            'book_id' => 4,
+            'libro_id' => 4,
             'descripcion' => "Creación de libro, estado ingresado"
             ]
 

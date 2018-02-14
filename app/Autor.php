@@ -12,7 +12,7 @@ class Autor extends Model
     
     use LogsActivity;
 	
-    protected $table = 'autors';
+    protected $table = 'autores';
 
     const CREATED_AT = 'created_at';
 	
@@ -36,9 +36,9 @@ class Autor extends Model
     protected static $logOnlyDirty = true;
 
 
-     public function Book()
+     public function Libro()
     {
-        return $this->belongsToMany('App\Book','autorbook');
+        return $this->belongsToMany('App\Libro','autorlibro');
     }
 
     public function Capitulos()
@@ -46,9 +46,9 @@ class Autor extends Model
         return $this->belongsToMany('App\Capitulos','autorcapitulos');
     }
 
-    public function File()
+    public function Archivo()
     {
-        return $this->belongsToMany('App\File','fileautor');
+        return $this->belongsToMany('App\Archivo','archivoautor');
     }
     
 

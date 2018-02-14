@@ -25,9 +25,9 @@ class Mensajes extends Model
 
     protected $fillable = ['mensaje'];
 
-    public function book()
+    public function libro()
     {
-        return $this->belongsTo('App\Book');
+        return $this->belongsTo('App\Libro');
     }
 
     public function user()
@@ -35,8 +35,8 @@ class Mensajes extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function file()
+    public function archivo()
     {
-        return $this->belongsTo('App\File');
+        return $this->belongsTo('App\Archivo');
     }
 }

@@ -40,11 +40,8 @@
 
                 <td style="text-align:center;">{{$libro->IEPI}}</td> 
 
-               
-                
                 <td style="text-align:center;">{{$libro->estados->nombre}}</td> 
-
-                 
+                
             </tr>
             @endforeach        
         </tbody>

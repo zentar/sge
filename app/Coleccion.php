@@ -28,8 +28,8 @@ class Coleccion extends Model
 
     protected $fillable = ['titulo','descripcion'];
 
-    public function Book()
+    public function Libro()
     {
-        return $this->hasMany('App\Book');
+        return $this->hasMany('App\Libro');
     }  
 }

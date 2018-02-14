@@ -5,7 +5,7 @@
     <h1 class="page-title">@lang('quickadmin.users.title')</h1>
     @can('user_create')
     <p>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang('quickadmin.qa_add_new')</a>
+        <a href="{{ route('admin.users.create') }}" class="btn btn-success fa fa-plus"> @lang('quickadmin.qa_add_new')</a>
         
     </p>
     @endcan
@@ -18,12 +18,14 @@
         </div>--}}
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped usuarios">
+            <table class="table table-bordered table-striped compact usuarios">
                 <thead>
                     <tr> 
                         <th class="dt-head-center">@lang('quickadmin.users.fields.name')</th>
                         <th class="dt-head-center">@lang('quickadmin.users.fields.email')</th>
                         <th class="dt-head-center">@lang('quickadmin.users.fields.role')</th>
+                                                <th class="dt-head-center">&nbsp;</th>
+                                                <th class="dt-head-center">&nbsp;</th>
                                                 <th class="dt-head-center">&nbsp;</th>
 
                     </tr>
@@ -34,17 +36,23 @@
                         @foreach ($users as $user)
                             <tr data-entry-id="{{ $user->id }}">
 
-                                <td class="dt-body-left" field-key='name'>{{ $user->name }}</td>
-                                <td class="dt-body-left" field-key='email'>{{ $user->email }}</td>
-                                <td class="dt-body-left" field-key='role'>{{ $user->role->title or '' }}</td>
-                                                                <td class="dt-body-center">
+                                <td width="25%"  style="vertical-align: middle;" class="dt-body-left" field-key='name'>{{ $user->name }}</td>
+                                <td width="37%"  style="vertical-align: middle;" class="dt-body-left" field-key='email'>{{ $user->email }}</td>
+                                <td width="26%"  style="vertical-align: middle;" class="dt-body-left" field-key='role'>{{ $user->role->title or '' }}</td>
+                    
+                             
                                     @can('user_view')
+                                    <td width="4%"  style="vertical-align: middle;" class="dt-body-center">
                                     <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-primary fa fa-eye"></a>
+                                    </td>
                                     @endcan
                                     @can('user_edit')
+                                    <td width="4%"  style="vertical-align: middle;" class="dt-body-center">
                                     <a href="{{ route('admin.users.edit',[$user->id]) }}" class="btn btn-primary btn-warning btn-md fa fa-pencil-square-o"></a>
+                                    </td>
                                     @endcan
                                     @can('user_delete')
+                                    <td width="4%"  style="vertical-align: middle;" class="dt-body-center">
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
@@ -52,8 +60,9 @@
                                         'route' => ['admin.users.destroy', $user->id])) !!}
                                         <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     {!! Form::close() !!}
+                                    </td>
                                     @endcan
-                                </td>
+                        
 
                             </tr>
                         @endforeach

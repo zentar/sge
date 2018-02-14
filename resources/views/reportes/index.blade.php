@@ -4,7 +4,6 @@
 
 <div class="box">
    <div class="box-body">
-
    <div class="col-md-6">
          <label>Tipo de reporte:</label>
             <select id="tipo_reporte" style="width: 100%" class="form-control" name="tipo_reporte" onchange="mostrar_reportes()">
@@ -65,6 +64,9 @@
                           {!!Form::close()!!}      
    </div>
 
+   <div class="col-md-9 col-sm-12 col-xs-12 col-lg-9">
+           <canvas id="myChart" style="margin-left:15%;"></canvas>   
+   </div>
 </div>
 
 <div class="box" id="reporte_especifico" name="reporte_especifico" style="display:none;">
@@ -93,7 +95,10 @@
                   </div> 
                      {!!Form::close()!!}
    </div>
+
+   
    </div>
+
   
 @endsection
 
@@ -195,6 +200,201 @@ $(document).ready(function() {
 });
 
   </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"> </script>
+
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, { 
+ // type: 'horizontalBar',
+  type: 'bar',  
+  data: {
+    labels: ["Ingresado", "Aprobado", "Edición", "Cotización", "Aprobado Cotización", "Producción","Publicado"],
+    datasets: [{
+      label: 'Ingresado',
+      backgroundColor: "rgba(255,153,0,0.4)",
+      data: [{!! $grafico_data[1] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+        color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        
+        }
+      },
+    }, {
+      label: 'Aprobado',
+      backgroundColor: "rgba(39,165,161,1)",
+      data: [{!! $grafico_data[2] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    }, {
+      label: 'Edición',
+      backgroundColor: "rgba(30, 30, 102,0.72)",
+      data: [{!! $grafico_data[3] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    },{
+      label: 'Cotización',
+      backgroundColor: "rgba(253,163,0,0.7)",
+      data:[{!! $grafico_data[4] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    }, {
+      label: 'Aprobado Cotización',
+      backgroundColor: "rgba(0,255,0,0.3)",
+      data:[{!! $grafico_data[5] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    }, {
+      label: 'Producción',
+      backgroundColor: "rgba(205, 29, 29,0.7)",
+      data:[{!! $grafico_data[6] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    },{
+      label: 'Publicado',
+      backgroundColor: "rgba(164, 29, 205,0.5)",
+      data:[{!! $grafico_data[7] !!}],
+      fill:false,
+      datalabels:{
+        anchor:'center',
+        align:'top',
+         color:"rgba(0,0,0,1)",
+        font:{
+          size: 17,
+          style:"bold",
+        }
+      },
+    }]
+  },
+
+  options: {
+  // legendCallback: function(chart) {},
+    responsive: true,
+    animation: {
+            "duration": 0,
+    },  
+    title: {
+         display: true,
+         text: 'Cantidad de Libros por estado',
+       },
+
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        fontColor: "#000080",
+
+      },
+      
+  /*   DESHABILITA OPCION DE CLICK EN LEGENDA DE LA IMAGEN  
+  
+     onClick: function (e) {
+        console.log(e);
+        e.stopPropagation();
+    },*/
+
+
+    },
+    scales: {
+      xAxes: [{
+   
+          stacked: false,
+          beginAtZero: true,
+          ticks: {
+              min: 0,
+              autoSkip: false
+          },
+          position: 'bottom',
+        
+           scaleLabel: {
+             display: true,
+             labelString: 'Estados'
+           },
+           categoryPercentage: 1.0,
+           barPercentage: 0.6,
+      }],
+      yAxes: [{
+     
+          stacked: false,
+          beginAtZero: true,
+          ticks: {
+            min: 0,
+            beginAtZero: true
+          },
+          position: 'left',
+         
+           scaleLabel: {
+             display: true,
+             labelString: 'Cantidad de Libros'
+           },
+           categoryPercentage: 1.0,
+           barPercentage: 0.6,
+      }]
+  },
+  
+ 
+ /* hover: {
+          mode: 'label',
+          intersect: true
+  },*/
+  tooltips:{
+         // mode:'label',
+         // intersect:false,
+          callbacks: {
+         title: function() {}
+      },
+  },
+  }
+  
+});
+
+</script>
 @endsection
 
 

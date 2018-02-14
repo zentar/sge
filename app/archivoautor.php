@@ -5,12 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class autorbook extends Model
+class archivoautor extends Model
 {
-
-	use SoftDeletes;
-
-    protected $table = 'autorbook';
+    protected $table = 'archivoautor';
 
     const CREATED_AT = 'created_at';
 	

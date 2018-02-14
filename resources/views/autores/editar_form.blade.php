@@ -31,11 +31,11 @@
                       'placeholder'=>'-','maxlength'=>'100'])!!}
                     </div>         
 
-                    @if($autor->file->count() > 0)  
+                    @if($autor->archivo->count() > 0)  
                     <div class="form-group col-md-12">
                        <label>Documentos</label>{!!link_to_route('autor.editardocumentos', $title = "Editar documentos", $parameters = $autor->id, $attributes = ['class'=>"btn btn-link fa fa-plus"])!!}       
                      </div>
-                    @foreach ($autor->file as $file)
+                    @foreach ($autor->archivo as $file)
                     <div class="form-group panel panel-default col-md-12">
                       <ul>
                     <li>{{$file->tipodoc->nombre}}

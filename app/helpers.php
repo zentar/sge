@@ -42,7 +42,7 @@ function valorPredeterminado($valor){
 function historial($descripcion,$book_id){
         $historial = new \App\Historial;
         $historial->descripcion = $descripcion;
-        $historial->book_id = $book_id;
+        $historial->libro_id = $book_id;
         $historial->save();   
 
 }
@@ -54,7 +54,7 @@ function filtrar_documentos_ingresados($libro){
     $revision_pares =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Revisión de Pares']])->get()->first()->id;  
     $cubierta =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Cubierta']])->get()->first()->id;  
     $contenido =  DB::table('tipodoc')->where([['grupo', '=', 'libro']])->where([['nombre', '=', 'Contenido']])->get()->first()->id;     
-   foreach($libro->file as $documentos){
+   foreach($libro->archivo as $documentos){
      
     if($documentos->tipodoc_id !=  $otros && $documentos->tipodoc_id !=  $revision_pares && $documentos->tipodoc_id !=  $cubierta && $documentos->tipodoc_id !=  $contenido){
           
@@ -75,7 +75,7 @@ function permisos_isbn_iepi($libro,$tipo){
 
   if($tipo == "isbn"){
     $tipos = [];
-    foreach($libro->file as $file){
+    foreach($libro->archivo as $file){
          if($file->tipodoc_id == 4 || $file->tipodoc_id == 5 || $file->tipodoc_id ==  6)
          array_push($tipos,$file->tipodoc_id);
     }
@@ -86,7 +86,7 @@ function permisos_isbn_iepi($libro,$tipo){
     return 0;
   }elseif($tipo == "iepi"){
     $tipos = [];
-    foreach($libro->file as $file){
+    foreach($libro->archivo as $file){
          if($file->tipodoc_id == 8 || $file->tipodoc_id == 9 || $file->tipodoc_id ==  10)
          array_push($tipos,$file->tipodoc_id);
     }

@@ -5,18 +5,23 @@
       <h3>{{$libro->titulo}}</h3>
    </div>
    <div class="col-md-4"> 
-           <h3 align="right">Estado: {{$libro->estados->nombre}} </h3>    
+
+              
+           <h3 align="right">Estado: {{$libro->estados->nombre}} </h3> 
+     
+ 
    </div>
 </div>
 
 
   <ul class="nav nav-tabs" id="tab_libro">
-   @can('libro_edit_informacion')<li class="active"><a class=" tableta fa fa-info-circle" data-toggle="tab" href="#informacion"> Información</a></li>@endcan
+   @can('libro_edit_informacion')<li class="active"><a class="tableta fa fa-info-circle active" data-toggle="tab" href="#informacion"> Información</a></li>@endcan
    @can('libro_edit_edicion') @if($libro->estados_id >= 2) <li><a class=" tableta fa fa-pencil" data-toggle="tab" href="#edicion"> Edición</a></li>@endcan  @endif 
    @can('libro_edit_documentos') <li><a class=" tableta fa fa-file" data-toggle="tab" href="#documentos"> Documentos</a></li>@endcan 
    @can('libro_edit_caracteristicas') <li><a class=" tableta fa fa-list-ul" data-toggle="tab" href="#caracteristicas"> Caracteristicas</a></li>@endcan 
    @can('libro_edit_cotizaciones') <li><a class=" tableta fa fa-money" data-toggle="tab" href="#cotizaciones"> Cotizaciones</a></li>@endcan 
    @can('libro_edit_historico') <li><a class=" tableta fa fa-history" data-toggle="tab" href="#historico"> Historico</a></li>@endcan 
+
   </ul>
 
   <div class="tab-content">

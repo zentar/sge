@@ -5,12 +5,12 @@
     <h1 class="page-title">@lang('quickadmin.roles.title')</h1>
     @can('role_create')
     <p>
-        <a href="{{ route('admin.roles.create') }}" class="btn btn-success">Nuevo</a>        
+        <a href="{{ route('admin.roles.create') }}" class="btn btn-success fa fa-plus"> Nuevo</a>        
     </p>
     @endcan
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped roles">
+            <table class="table table-bordered table-striped compact roles">
                 <thead>
                     <tr>
                         <th class="dt-head-center">@lang('quickadmin.roles.fields.title')</th>

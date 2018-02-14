@@ -12,7 +12,7 @@ class CreateAutorTable extends Migration
      */
     public function up()
     {
-        Schema::create('autors', function (Blueprint $table) {
+        Schema::create('autores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cedula');
             $table->string('nombre');
@@ -32,6 +32,6 @@ class CreateAutorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('autors');
+        Schema::drop('autores');
     }
 }

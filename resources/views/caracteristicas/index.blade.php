@@ -18,7 +18,7 @@
 
 <div  id="tipo_papel" style="display:none;">
   <div class="col-md-12">
- <button type="button" class="btn btn-success" id="modal_tipopapel" data-toggle="modal" data-target="#tipo_papel_modal_crear" onclick="nuevo_tipopapel()">Nuevo</button>
+ <button type="button" class="btn btn-success fa fa-plus" id="modal_tipopapel" data-toggle="modal" data-target="#tipo_papel_modal_crear" onclick="nuevo_tipopapel()"> Nuevo</button>
 </div>
 <div class="panel-body col-md-12">
             <table id="example1" class="table table-striped table-bordered display compact caracteristicas" cellspacing="0" width="100%">
@@ -26,25 +26,32 @@
              <tr>                 
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Descripción</th>
-                <th class="dt-head-center"></th> 
+                <th class="dt-head-center"></th>
+                <th class="dt-head-center"></th>    
             </tr>
         </thead>
         <tfoot>
             <tr>                 
             <th class="dt-head-center">ID</th>
             <th class="dt-head-center">Descripción</th>
-            <th class="dt-head-center"></th>  
+            <th class="dt-head-center"></th> 
+            <th class="dt-head-center"></th>         
             </tr>
         </tfoot>
         <tbody>
            @foreach($tipo_papel as $tipo)
            <tr>
-           <td  width="5%">{{$tipo->id}}</td>
-           <td  width="61%" class="dt-body-center">{{$tipo->descripcion}}</td>
-           <td  width="33%" class="dt-body-center"> 
+           <td  width="5%" style="vertical-align: middle;">{{$tipo->id}}</td>
+           <td  width="69%" style="vertical-align: middle;" class="dt-body-center">{{$tipo->descripcion}}</td>
+           
+           <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
                  <p>
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_tipopapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
-                
+                </p>
+                </td>
+
+                <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+                 <p>    
                 {!!link_to_route('caracteristicas.destroytipopapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
              
 
@@ -60,7 +67,7 @@
 <div  id="tamano_papel" style="display:none;" >
   <div class="col-md-12">
 
-  <button type="button" class="btn btn-success" id="modal_tamanopapel" data-toggle="modal" data-target="#tamano_papel_modal_crear" onclick="nuevo_tamanopapel()">Nuevo</button>
+  <button type="button" class="btn btn-success fa fa-plus" id="modal_tamanopapel" data-toggle="modal" data-target="#tamano_papel_modal_crear" onclick="nuevo_tamanopapel()"> Nuevo</button>
 </div>
     <div class="panel-body col-md-12">
             <table id="example1" class="table table-striped table-bordered display compact caracteristicas" cellspacing="0" width="100%">
@@ -69,6 +76,7 @@
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Descripción</th>
                 <th class="dt-head-center"></th>
+                 <th class="dt-head-center"></th>
             </tr>
         </thead>
         <tfoot>
@@ -76,17 +84,21 @@
             <th class="dt-head-center">ID</th>
             <th class="dt-head-center">Descripción</th>
             <th class="dt-head-center"></th>  
+             <th class="dt-head-center"></th>
             </tr>
         </tfoot>
         <tbody>
         @foreach($tamano_papel as $tipo)
            <tr>
-           <td  width="5%">{{$tipo->id}}</td>
-           <td  width="61%" class="dt-body-center">{{$tipo->descripcion}}</td>
-           <td  width="33%" class="dt-body-center"> 
+           <td  width="5%" style="vertical-align: middle;">{{$tipo->id}}</td>
+           <td  width="69%" style="vertical-align: middle;" class="dt-body-center">{{$tipo->descripcion}}</td>
+           <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
                  <p>   
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_tamanopapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
-                
+                </p>
+                </td>
+                <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+                 <p>      
                 {!!link_to_route('caracteristicas.destroytamanopapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-sm btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
                </p>
                 </td>
@@ -99,7 +111,7 @@
 </div>
     <div id="color_papel" style="display:none;" >   
     <div class="col-md-12"> 
-   <button type="button" class="btn btn-success" id="modal_colorpapel" data-toggle="modal" data-target="#color_papel_modal_crear" onclick="nuevo_colorpapel()">Nuevo</button>
+   <button type="button" class="btn btn-success fa fa-plus" id="modal_colorpapel" data-toggle="modal" data-target="#color_papel_modal_crear" onclick="nuevo_colorpapel()"> Nuevo</button>
    </div> 
 
     <div class="panel-body col-md-12" >
@@ -108,6 +120,7 @@
              <tr>                 
                 <th class="dt-head-center">ID</th>
                 <th class="dt-head-center">Descripción</th>
+                <th class="dt-head-center"></th>  
                 <th class="dt-head-center"></th>            
                   </tr>
         </thead>
@@ -117,6 +130,7 @@
             <th class="dt-head-center">ID</th>
             <th class="dt-head-center">Descripción</th>
             <th class="dt-head-center"></th>  
+            <th class="dt-head-center"></th>  
                 
          
             </tr>
@@ -124,12 +138,15 @@
         <tbody>
         @foreach($color_papel as $tipo)
            <tr>
-           <td  width="5%">{{$tipo->id}}</td>
-           <td  width="61%" class="dt-body-center">{{$tipo->descripcion}}</td>
-           <td  width="33%" class="dt-body-center"> 
+           <td  width="5%" style="vertical-align: middle;" >{{$tipo->id}}</td>
+           <td  width="69%" style="vertical-align: middle;"  class="dt-body-center">{{$tipo->descripcion}}</td>
+           <td  width="10%" style="vertical-align: middle;"  class="dt-body-center"> 
                  <p>
                    <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_colorpapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
-                
+                   </p>
+                </td>
+                   <td  width="10%" style="vertical-align: middle;"  class="dt-body-center"> 
+                 <p>
                 {!!link_to_route('caracteristicas.destroycolorpapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-sm btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
                </p>
                 </td>

@@ -23,7 +23,7 @@
           @endif
        </div>
        @endcan
-       <div class = "espacio col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>  
+       <div class = "espacio2 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>  
 
        <div class ="col-md-12">
          <table id="documentos_libro" class="table responsive table-striped table-bordered display compact cotizaciones" cellspacing="0" width="100%">
@@ -50,7 +50,7 @@
                 <td width="10%" class="dt-body-right">${{$file->total}}</td>
                 <td width="15%" class="dt-body-center">@if($file->estado > 0)
                   @if($file->estado > 0)
-              @foreach($libro->file as $fil)
+              @foreach($libro->archivo as $fil)
                  @if($fil->tipodoc_id==2)
 
                  @if($fil->extension=='pdf' || $fil->extension=='jpeg' ||$fil->extension=='bmp' || $fil->extension=='jpg' || $fil->extension=='png')
@@ -69,14 +69,14 @@
                 <td width="23%" class="dt-body-center"> 
               <p>
                 
-                @if($file->file->extension=='pdf' || $file->file->extension=='jpeg' ||$file->file->extension=='bmp' || $file->file->extension=='jpg' || $file->file->extension=='png')
-                <button type="button" class="btn btn-primary fa fa-eye" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $file->file->id}}','{{ $file->file->extension}}','{{$file->file->nombre}}')"></button>
+                @if($file->archivo->extension=='pdf' || $file->archivo->extension=='jpeg' ||$file->archivo->extension=='bmp' || $file->archivo->extension=='jpg' || $file->archivo->extension=='png')
+                <button type="button" class="btn btn-primary fa fa-eye" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $file->archivo->id}}','{{ $file->archivo->extension}}','{{$file->archivo->nombre}}')"></button>
                 @else
                 {!!link_to_route('image.documentos', $title = '', $parameters = $file->file->id, $attributes = ['class'=>"btn btn-primary fa fa-download"])!!}
                 @endif
 
 
-                <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_cotizacion({{$file->id}},{{$file->file_id}},'{{$file->imprenta}}','{{$file->tiraje}}','{{$file->valor}}','{{$file->iva}}')"></button>
+                <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_cotizacion({{$file->id}},{{$file->archivo_id}},'{{$file->imprenta}}','{{$file->tiraje}}','{{$file->valor}}','{{$file->iva}}')"></button>
 
                 {!!link_to_route('image.delete_cotizacion', $title = '', $parameters = $file->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>

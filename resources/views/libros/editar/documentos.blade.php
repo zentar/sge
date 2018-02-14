@@ -28,7 +28,7 @@
         </tfoot>
         <tbody>
       
-          @foreach($libro->file as $file)
+          @foreach($libro->archivo as $file)
           @if($file->tipodoc->id != 23)
           @if( $file->tipodoc->id != 20)
           <tr>

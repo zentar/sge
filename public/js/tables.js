@@ -4,7 +4,6 @@ $(document).ready(function() {
          "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
-
    buttons: [
          /*   {
                 extend: 'copy',
@@ -62,12 +61,14 @@ $(document).ready(function() {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         },
   "columns": [
-    { "width": "5%" },
-    { "width": "8%" },
-    { "width": "30%" },
+    { "width": "1%" },
+    { "width": "12%" },
+    { "width": "36%" },
     { "width": "25%" },
-    { "width": "10%" },
-    { "width": "20%" }
+    { "width": "12%" },
+    { "width": "4%" },
+    { "width": "4%" },
+    { "width": "4%" }
   ],
      buttons: [
             {
@@ -182,11 +183,6 @@ $(document).ready(function() {
                 "searchable": false
             }
           ],
-  "columns": [
-    { "width": "5%" },
-    { "width": "10%" },
-    { "width": "10%" }
-  ],
 } );
 } );
 
@@ -205,9 +201,11 @@ $(document).ready(function() {
           ],
   "columns": [
     { "width": "5%" },
-    { "width": "20%" },
-    { "width": "20%" },
-    { "width": "20%" }
+    { "width": "35%" },
+    { "width": "40%" },
+    { "width": "6%" },
+    { "width": "6%" },
+    { "width": "6%" }
   ],
 } );
 } );
@@ -270,18 +268,13 @@ $(document).ready(function() {
           "language": {
              "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
-         "columnDefs": [
-             {
-                 "targets": [ 0 ],
-                 "visible": false,
-                 "searchable": false
-             }
-           ],
+    
    "columns": [
-     { "width": "2%" },
+
      { "width": "25%" },
      { "width": "25%" },
-     { "width": "40%" }
+     { "width": "20%" },
+     { "width": "20%" }
    ],
  } );
 } );
@@ -325,14 +318,7 @@ $(document).ready(function() {
     var table = $('.usuarios').DataTable({
           "language": {
              "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-         },
-        
-   "columns": [
-    { "width": "25%" },
-    { "width": "25%" },
-    { "width": "25%" },
-    { "width": "25%" }
-    ]
+         }
  } );
 } );
 
@@ -368,12 +354,7 @@ $(document).ready(function() {
           "language": {
              "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
-        
-   "columns": [
-    { "width": "5%" },
-    { "width": "61%" },
-    { "width": "33%" }
-    ]
+  
  } );
 } );
 

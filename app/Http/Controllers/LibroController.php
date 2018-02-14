@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Session;
-use App\Book;
+use App\Libro;
 use App\Autor;
 use App\Capitulos;
 use App\Facultad;
 use App\Estados;
-use App\autorbook;
+use App\autorlibro;
 use App\autorcapitulos;
 use App\Coleccion;
 use App\Tipodoc;
@@ -106,7 +106,7 @@ class LibroController extends Controller
         }
         else{
               //LIBRO
-              $libro = new Book;            
+              $libro = new Libro;            
               $libro->titulo = $data["titulo"];
               $libro->coleccion_id = $data["coleccion_id"];
               $libro->facultad_id = $data["facultad_id"];
@@ -117,12 +117,12 @@ class LibroController extends Controller
 
               //CARACTERISTICAS
               $caracteristicas = new Caracteristicas;
-              $caracteristicas->book_id = $libro->id;
+              $caracteristicas->libro_id = $libro->id;
               $caracteristicas->save();
 
                foreach($data['autor'] as $autor){  
-                 $libroAutor = new autorbook;
-                 $libroAutor->book_id=$libro->id;
+                 $libroAutor = new autorlibro;
+                 $libroAutor->libro_id=$libro->id;
                  $libroAutor->autor_id=$autor; 
                  $libroAutor->save();
                }
@@ -148,7 +148,7 @@ class LibroController extends Controller
             return abort(403);
         }
 
-        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion'])->get()->where('id',$id)->first();
+        $libro =  Libro::with(['cotizacion.archivo','archivo.tipodoc','coleccion'])->get()->where('id',$id)->first();
       // dd($libro);    
         return view('libros/consultar/consultar', compact('libro'));
     }
@@ -168,7 +168,7 @@ class LibroController extends Controller
         //VARIABLE QUE CONTROLA EL FORMULARIO EN QUE SE ENCUENTRA PARA LA GENERACION DE LOS AUTORES
         $nuevo = 0 ; 
         //BUSCA EL LIBRO CON ID Y CARGA TAMBIEN LAS RELACIONES 
-        $libro =  Book::with(['cotizacion.file','file.tipodoc','coleccion','caracteristicas.tamanopapel','caracteristicas.tipopapel','caracteristicas.colorpapel','mensajes.file','mensajes.user'])->get()->where('id',$id)->first();
+        $libro =  Libro::with(['cotizacion.archivo','archivo.tipodoc','coleccion','caracteristicas.tamanopapel','caracteristicas.tipopapel','caracteristicas.colorpapel','mensajes.archivo','mensajes.user'])->get()->where('id',$id)->first();
         //CARGA LOS AUTORES
         $autores = Autor::orderBy('nombre', 'asc')->get();
         //CARGA LAS COLECCIONES
@@ -226,7 +226,6 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
 
-              
         //dd($libro->coleccion->titulo);                 
         return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color','editores','gestor_p'));
     }
@@ -263,7 +262,7 @@ class LibroController extends Controller
         }
         else{
               //CARACTERISTICAS
-              $caracteristicas = Caracteristicas::get()->where('book_id',$id)->first();
+          $caracteristicas = Caracteristicas::get()->where('libro_id',$id)->first();
           if(isset($data['tamano']))         $caracteristicas->tamano = valorPredeterminado($data['tamano']);
           if(isset($data['tipopapel']))      $caracteristicas->tipopapel_id = valorPredeterminado($data['tipopapel']);
           if(isset($data['paginas']))        $caracteristicas->n_paginas = valorPredeterminado($data['paginas']);
@@ -274,7 +273,7 @@ class LibroController extends Controller
               $caracteristicas->save();              
 
               //LIBRO            
-              $libro = Book::find($id);            
+              $libro = Libro::find($id);            
           if(isset($data["titulo"]))          $libro->titulo = $data["titulo"];
           if(isset($data["coleccion_id"]))    $libro->coleccion_id = $data["coleccion_id"];
           if(isset($data["facultad_id"]))     $libro->facultad_id = $data["facultad_id"];
@@ -283,11 +282,11 @@ class LibroController extends Controller
               if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];
               
               
-              $eliminar_original = $libro->file()->where('tipodoc_id', 20)->first();
+              $eliminar_original = $libro->archivo()->where('tipodoc_id', 20)->first();
           
               if($eliminar_original != null && isset($data['libro_original']) && $data['libro_original'] != null ){
 
-               $relacion = \App\filebook::where('file_id', $eliminar_original->id)->where('book_id', 1)->first();
+               $relacion = \App\archivolibro::where('archivo_id', $eliminar_original->id)->where('libro_id', 1)->first();
                $relacion->forceDelete(); 
 
                $eliminar_original->forceDelete(); 
@@ -298,7 +297,7 @@ class LibroController extends Controller
               if(isset($data['libro_original']) && $data['libro_original'] != null)
            {
              //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-           $file = new \App\File;
+           $file = new \App\Archivo;
            $archivo = $data['libro_original'];
            $file->tipodoc_id = 20; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -311,9 +310,9 @@ class LibroController extends Controller
            $path = Storage::putFile('/libros/libro'.$libro->id,$archivo);           
            $file->ruta = $path;
            $file->save();
-           $libro_doc = new \App\filebook;
-           $libro_doc->book_id = $libro->id;
-           $libro_doc->file_id = $file->id;
+           $libro_doc = new \App\archivolibro;
+           $libro_doc->libro_id = $libro->id;
+           $libro_doc->archivo_id = $file->id;
            $libro_doc->save();          
            }
 
@@ -323,14 +322,14 @@ class LibroController extends Controller
               
             
               //ELIMINA RELACION CON AUTORES CARACTERISTICAS
-              $eliminar = autorbook::where('book_id', $libro->id);
+              $eliminar = autorlibro::where('libro_id', $libro->id);
               if(!$eliminar==null)
               $eliminar->forceDelete();  
 
         //CREA RELACIONES NUEVAS DE LIBROS CON AUTORES
         foreach($data['autor'] as $autor){  
-            $libroAutor = new autorbook;
-            $libroAutor->book_id=$libro->id;
+            $libroAutor = new autorlibro;
+            $libroAutor->libro_id=$libro->id;
             $libroAutor->autor_id=$autor; 
             $libroAutor->save();
            }
@@ -352,8 +351,8 @@ class LibroController extends Controller
             return abort(403);
         }
 
-        $libro = Book::find($id);
-        $libro_autor =  autorbook::all()->where('book_id',$id);
+        $libro = Libro::find($id);
+        $libro_autor =  autorlibro::all()->where('libro_id',$id);
         if(empty($libro))
         {
             Session::flash('message','Registro no encontrado');
@@ -372,7 +371,7 @@ class LibroController extends Controller
 
     public function capitulos(Request $request,$id)
     {
-        $libro = Book::find($id);     
+        $libro = Libro::find($id);     
         $autores = Autor::orderBy('nombre', 'asc')->get();  
         return view('libros/capitulos', compact('libro','autores'));
     }
@@ -415,7 +414,7 @@ class LibroController extends Controller
 
          }else{
               $capitulo = new capitulos();
-              $capitulo->book_id = $data["libro_id"];
+              $capitulo->libro_id = $data["libro_id"];
               $capitulo->titulo = $data["titulo"];
               $capitulo->descripcion = $data["descripcion"];
               $capitulo->save();
@@ -451,27 +450,27 @@ class LibroController extends Controller
     public function editarDocumentos(Request $request, $id)
     {
       $tipos = Tipodoc::get()->where('grupo','libro');
-      $libro = Book::find($id);
+      $libro = Libro::find($id);
       return view('libros/documentos', compact('tipos','libro'));
     }
 
     public function agregarCotizacion(Request $request, $id)
     {
-       $libro = Book::find($id);
+       $libro = Libro::find($id);
       return view('libros/cotizacion', compact('tipos','libro'));
     }
 
     public function editarCotizacion(Request $request, $id)
     {
-      $libro = Book::with('cotizacion.file')->get()->where('id',$id)->first(); 
+      $libro = Libro::with('cotizacion.file')->get()->where('id',$id)->first(); 
      // dd($libro);
      return view('libros/cotizacion', compact('tipos','libro'));
     }
 
     public function reporteCotizacion(Request $request, $id,$tipo)
     {       
-          $cotizaciones = \App\Cotizacion::get()->where('book_id',$id);
-          $libro = Book::find($id);
+          $cotizaciones = \App\Cotizacion::get()->where('libro_id',$id);
+          $libro = Libro::find($id);
           if(count($cotizaciones)>0){
             if($tipo=="docx"){         
               return reporte_cotizacion($libro,$cotizaciones);
@@ -495,15 +494,15 @@ class LibroController extends Controller
             $data = $request->all();
             //dd($data);   
        if($data['tipo']=="edicion"){
-        $asignacion = new \App\userbook();
-        $asignacion->book_id = $data['libro_id'];
+        $asignacion = new \App\userlibro();
+        $asignacion->libro_id = $data['libro_id'];
         $asignacion->user_id = $data['editor_id'];
         $asignacion->tipo = $data['tipo'];
         $asignacion->estado = 1; 
         $asignacion->save();
 
       $user = \App\User::findOrFail($data['editor_id']);
-      $libro = \App\Book::find($data['libro_id']);
+      $libro = \App\Libro::find($data['libro_id']);
 
 
       Mail::send('mails.avisoEditor', ['user' => $user,'libro'=>$libro], function ($m) use ($user) {
@@ -524,15 +523,15 @@ class LibroController extends Controller
 
       }elseif($data['tipo']=="cotizacion"){ 
 
-        $asignacion = new \App\userbook();
-        $asignacion->book_id = $data['libro_id'];
+        $asignacion = new \App\userlibro();
+        $asignacion->libro_id = $data['libro_id'];
         $asignacion->user_id = $data['gp_id'];
         $asignacion->tipo = $data['tipo'];
         $asignacion->estado = 1; 
         $asignacion->save();
 
       $user = \App\User::findOrFail($data['gp_id']);
-      $libro = \App\Book::find($data['libro_id']);
+      $libro = \App\Libro::find($data['libro_id']);
 
 
       Mail::send('mails.avisoCotizador', ['user' => $user,'libro'=>$libro], function ($m) use ($user) {
@@ -557,10 +556,10 @@ class LibroController extends Controller
     public function cierreEdicion(Request $request){
     try{
         $data = $request->all();
-        $libro = \App\Book::find($data['libro_id']);
+        $libro = \App\Libro::find($data['libro_id']);
         
         if($libro->caracteristicas->n_paginas !=1 && $libro->caracteristicas->cubierta != "-" && $libro->caracteristicas->solapas !="-"){
-        $asignacion = \App\userbook::where('book_id',$data['libro_id'])->where('tipo','edicion')->first();
+        $asignacion = \App\userlibro::where('libro_id',$data['libro_id'])->where('tipo','edicion')->first();
         $asignacion->estado=0; 
         $asignacion->save();
 
@@ -588,7 +587,7 @@ class LibroController extends Controller
     }
 
     public function solicitudAprobacion($id){
-        $libro = Book::find($id);
+        $libro = Libro::find($id);
         $solicitud = new  \PhpOffice\PhpWord\TemplateProcessor('SolicitudAprobacion.docx');
         setlocale(LC_TIME, "es_ES", 'Spanish_Spain', 'Spanish');
         $fecha_guardado = iconv('ISO-8859-2', 'UTF-8', strftime("%d de %B de %Y", strtotime(\Carbon\Carbon::now())));
@@ -636,12 +635,12 @@ class LibroController extends Controller
                 $mensaje = \App\Mensajes::find($data['mensaje_edit']);
                 $mensaje->mensaje = $data['mensaje'];
 
-                if($mensaje->file_id > 0){                    
+                if($mensaje->archivo_id > 0){                    
                 if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
                 {
                 
                 //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-                $file = \App\File::find($mensaje->file_id);
+                $file = \App\Archivo::find($mensaje->archivo_id);
                 Storage::delete($file->ruta);
                 $archivo = $data['archivo_imagen'];
                 $file->tipodoc_id = 23; 
@@ -655,11 +654,11 @@ class LibroController extends Controller
                 $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
                 $file->ruta = $path;
                 $file->save();
-                $libro_doc = \App\filebook::where('file_id',$mensaje->file_id)->first();
-                $libro_doc->book_id = $data['libro_id'];
-                $libro_doc->file_id = $file->id;
+                $libro_doc = \App\archivolibro::where('archivo_id',$mensaje->archivo_id)->first();
+                $libro_doc->libro_id = $data['libro_id'];
+                $libro_doc->archivo_id = $file->id;
                 $libro_doc->save();
-                $mensaje->file_id = $file->id;
+                $mensaje->archivo_id = $file->id;
                 $mensaje->save();
                 Session::flash('message','Mensaje editado correctamente');  
                 }else{
@@ -674,7 +673,7 @@ class LibroController extends Controller
                 if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
                 {
                 //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-                $file = new \App\File;
+                $file = new \App\Archivo;
                 $archivo = $data['archivo_imagen'];
                 $file->tipodoc_id = 23; 
                 $file->nombre = $archivo->getClientOriginalName();
@@ -687,25 +686,25 @@ class LibroController extends Controller
                 $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
                 $file->ruta = $path;
                 $file->save();
-                $libro_doc = new \App\filebook;
-                $libro_doc->book_id = $data['libro_id'];
-                $libro_doc->file_id = $file->id;
+                $libro_doc = new \App\archivolibro;
+                $libro_doc->libro_id = $data['libro_id'];
+                $libro_doc->archivo_id = $file->id;
                 $libro_doc->save();
-                $mensaje->file_id = $file->id;
+                $mensaje->archivo_id = $file->id;
                 }
                 $mensaje->save();
                 Session::flash('message','Mensaje editado correctamente');  
             }                    
             }else{
            $mensaje = new \App\Mensajes;
-           $mensaje->book_id = $data['libro_id'];
+           $mensaje->libro_id = $data['libro_id'];
            $mensaje->user_id = \Auth::User()->id;
            $mensaje->mensaje = $data['mensaje'];
            
            if(isset($data['archivo_imagen']) && $data['archivo_imagen'] != null)
            {
            //CREA UN NUEVO FILE Y LE ASIGNA LOS VALORES
-           $file = new \App\File;
+           $file = new \App\Archivo;
            $archivo = $data['archivo_imagen'];
            $file->tipodoc_id = 23; 
            $file->nombre = $archivo->getClientOriginalName();
@@ -718,17 +717,27 @@ class LibroController extends Controller
            $path = Storage::putFile('/libros/libro'.$data['libro_id'].'/mensajes',$archivo);           
            $file->ruta = $path;
            $file->save();
-           $libro_doc = new \App\filebook;
-           $libro_doc->book_id = $data['libro_id'];
-           $libro_doc->file_id = $file->id;
+           $libro_doc = new \App\archivolibro;
+           $libro_doc->libro_id = $data['libro_id'];
+           $libro_doc->archivo_id = $file->id;
            $libro_doc->save();
-           $mensaje->file_id = $file->id;
+           $mensaje->archivo_id = $file->id;
            }
            $mensaje->save();
           //dd($mensaje); 
+     
           Session::flash('message','Mensaje creado correctamente');
     
         }
+
+        $libro = \App\Libro::find($data['libro_id']);
+        $user = \Auth::User(); 
+        Mail::send('mails.avisoMensaje', ['user' => $user,'libro'=>$libro,'mensaje'=>$data['mensaje']], function ($m) use ($user) {
+          $m->from('ceid1994@gmail.com', 'Sistema de Gestion Editorial UCSG');
+
+          $m->to($user->email, $user->name)->subject('Mensaje - Edición');
+         });
+
         return redirect()->back(); 
       }
     }
@@ -737,7 +746,7 @@ class LibroController extends Controller
          $mensaje = \App\Mensajes::find($id);
         //VERIFICA QUE EXISTA EL MENSAJE
          if(count($mensaje) > 0){
-         $file = \App\File::find($mensaje->file_id);
+         $file = \App\Archivo::find($mensaje->archivo_id);
          //VERIFICA SI EXISTIA UN ARCHIVO VINCULADA A LA IMAGEN
          if(count($file) > 0){
              //ELIMINA ARCHIVO VINCULADO A LA IMAGEN
@@ -753,12 +762,80 @@ class LibroController extends Controller
      }
 
      public function PasarCotizacionAprobado($id){
-         $libro = \App\Book::find($id);
+         $libro = \App\Libro::find($id);
          $libro->estados_id = 5;
          $libro->save();
          Session::flash('message','Se ha avanzado a estado Aprobado Cotización con éxito.');
          historial(\Auth::User()->name.' con id '.\Auth::User()->id.' y rol '.\Auth::User()->role->title.' ha aprobado el pase al estado Estado:Aprobado-Cotización',$libro->id); 
          return redirect()->back();
+     }
+
+     public function regresarEstado($id){
+       $libro = \App\Libro::find($id);  
+     
+       switch ($libro->estados_id) {
+        case 2:
+                $archivo = $libro->archivo()->where('tipodoc_id', 13)->first();              
+                $relacion = \App\archivolibro::where('libro_id',$libro->id)->where('archivo_id',$archivo->id)->first();
+                Storage::delete($archivo->ruta);  
+                $relacion->forcedelete();
+                $archivo->forcedelete();
+                $libro->estados_id = 1;
+                $libro->save();
+                Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');
+                break;
+
+        case 3:
+                $relacion = $libro->user()->first()->pivot;
+                $relacion->forcedelete();
+                $libro->estados_id = 2;
+                $libro->asignado = 0;
+                $libro->save();
+                Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');      
+                break;
+        case 4:
+                $libro->estados_id = 3;
+                $libro->save();
+                Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');      
+                break;
+           
+        case 5:
+                $libro->estados_id = 4;
+                $libro->save();
+                Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');      
+                break;
+        case 6:
+              $aprobado = $libro->cotizacion()->where('estado',1)->get()->first();
+              $aprobado->estado = 0;
+              $aprobado->save();
+              $archivo = $libro->archivo()->where('tipodoc_id', 2)->first(); 
+              Storage::delete($archivo->ruta);  
+              $filebook = \App\archivolibro::get()->where('libro_id',$libro->id)->where('archivo_id',$archivo->id)->first();
+              $filebook->forcedelete();                
+              $archivo->forcedelete();         
+              
+              $libro->estados_id = 5;
+              $libro->save();
+              Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');      
+            break;
+        case 7:
+              $acta = $libro->archivo()->where('tipodoc_id',19)->first();
+              Storage::delete($acta->ruta); 
+
+              $filebook = \App\archivolibro::get()->where('libro_id',$libro->id)->where('archivo_id',$acta->id)->first();
+              $filebook->forcedelete();  
+              $acta->forcedelete();  
+
+              $libro->estados_id = 6;
+              $libro->save();
+              Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');    
+            break;
+        default:
+           echo "HOLA MUNDO";
+    }
+    
+    return redirect()->back();
+
      }
 
 }

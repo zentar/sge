@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -21,8 +22,6 @@ class UsersController extends Controller
         if (! Gate::allows('user_access')) {
             return abort(401);
         }
-
-
                 $users = User::all();
 
         return view('admin.users.index', compact('users'));
@@ -55,7 +54,25 @@ class UsersController extends Controller
         if (! Gate::allows('user_create')) {
             return abort(401);
         }
-        $user = User::create($request->all());
+        
+        $data = $request->all();
+
+        $rules = array(
+            'password' => 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'     
+            );
+
+            $v = Validator::make($data,$rules);      
+
+            if($v->fails())
+            {
+             return redirect()->back()
+                    ->withErrors($v->errors())
+                    ->withInput();
+            }
+            else{
+                $user = User::create($request->all());
+            }
+      
 
 
 
@@ -94,9 +111,25 @@ class UsersController extends Controller
         if (! Gate::allows('user_edit')) {
             return abort(401);
         }
+
+        $data = $request->all();
+
+        $rules = array(
+            'password' => 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'     
+            );
+
+            $v = Validator::make($data,$rules);      
+
+            if($v->fails())
+            {
+             return redirect()->back()
+                    ->withErrors($v->errors())
+                    ->withInput();
+            }
+            else{
         $user = User::findOrFail($id);
         $user->update($request->all());
-
+            }
 
 
         return redirect()->route('admin.users.index');

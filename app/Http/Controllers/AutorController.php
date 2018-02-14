@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use App\Autor;
-use App\autorbook;
+use App\autorlibro;
 use App\Tipodoc;
-use App\File;
+use App\Archivo;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -60,10 +60,10 @@ class AutorController extends Controller
         $data = $request->all();
         //dd($data);
         $rules = array(
-        'cedula' => 'required|digits:10|unique:autors,cedula',
+        'cedula' => 'required|digits:10|unique:autores,cedula',
         'nombre' => 'required|max:85',
         'apellido' => 'required|max:85',
-        'email' => 'required|email|unique:autors,email',
+        'email' => 'required|email|unique:autores,email',
         'telefono' => 'required|digits:7'
         );
         
@@ -77,7 +77,7 @@ class AutorController extends Controller
                 ->withInput()->with('error_code', 5)->with('facultad_old', $request->facultad_old);
         }
         else{           
-           $autor = New Autor;           
+           $autor = New Autor;       
            $autor->cedula    =  $data['cedula'];
            $autor->nombre    =  $data['nombre'];
            $autor->apellido  =  $data['apellido'];
@@ -175,7 +175,7 @@ class AutorController extends Controller
             Session::flash('danger','Registro no encontrado');
              return redirect()->action('AutorController@index'); 
         }else{
-            if(DB::table('autorbook')->where('autor_id',$autor->id)->value('id')){
+            if(DB::table('autorlibro')->where('autor_id',$autor->id)->value('id')){
                Session::flash('danger','No se pudo borrar el Autor debido a que esta siendo utilizado.'); 
             }else{
           // Storage::delete($autor->documentos);
@@ -195,7 +195,7 @@ class AutorController extends Controller
     public function editarDocumentos(Request $request, $id)
     {
       $tipos = Tipodoc::get()->where('grupo','autor');
-      $autor = Autor::with('file.tipodoc')->get()->first();
+      $autor = Autor::with('archivo.tipodoc')->get()->first();
       return view('autores/documentos', compact('tipos','autor'));
     }
 }

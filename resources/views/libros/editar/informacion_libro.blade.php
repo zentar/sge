@@ -127,13 +127,13 @@
                         <label>Original:</label>                    
                         {!!Form::File('libro_original')!!} 
 
-                      @if($libro->file()->where('tipodoc_id', 20)->count() > 0)             
+                      @if($libro->archivo()->where('tipodoc_id', 20)->count() > 0)             
 
                       
-                @if($libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='png')
-                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
+                @if($libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='png')
+                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->archivo()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
                 @else
-                {!!link_to_route('image.documentos', $title = $libro->file()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->file()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
+                {!!link_to_route('image.documentos', $title = $libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->archivo()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
            
                @endif  
             
@@ -141,15 +141,15 @@
                      @endif 
                      @else
                      <div class="form-group col-md-6"> 
-                     @if($libro->file()->where('tipodoc_id', 20)->count() > 0) 
+                     @if($libro->archivo()->where('tipodoc_id', 20)->count() > 0) 
                         <label>Original:</label>
                               
 
                       
-@if($libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->file()->where('tipodoc_id', 20)->get()->first()->extension=='png')
-<button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->file()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->file()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
+@if($libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='pdf' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='jpeg' ||$libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='bmp' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='jpg' || $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension=='png')
+<button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $libro->archivo()->where('tipodoc_id', 20)->get()->first()->id}}','{{ $libro->archivo()->where('tipodoc_id', 20)->get()->first()->extension}}','{{$libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre}}')">{{$libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre}}</button>
 @else
-{!!link_to_route('image.documentos', $title = $libro->file()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->file()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
+{!!link_to_route('image.documentos', $title = $libro->archivo()->where('tipodoc_id', 20)->get()->first()->nombre, $parameters = $libro->archivo()->where('tipodoc_id', 20)->get()->first()->id, $attributes = ['class'=>"btn btn-link"])!!}
 
 @endif  
 
@@ -160,7 +160,7 @@
                      </div>
 
 
-                     <div class = "espacio col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+                     <div class = "espacio2 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
             
                     @if($libro->capitulos->count() > 0)  
                     <div class="form-group col-md-12">
@@ -169,9 +169,8 @@
                      <div class="col-md-12">
                      <table id="example1" class="table table-striped table-bordered display compact consultarCapitulo" cellspacing="0" width="100%">
         <thead>
-            <tr>
-                 
-                <th class="dt-head-center">ID</th>
+            <tr>                
+            
                 <th class="dt-head-center">Título</th>
               
                 <th class="dt-head-center">Autores</th>   
@@ -183,7 +182,6 @@
                 @foreach ($libro->capitulos as $capitulos)
               
             <tr>
-                <td class="dt-body-left">{{$capitulos->id}}</td>
                 <td class="dt-body-left">{{$capitulos->titulo}}</td>
         
                  <td class="dt-body-left">                 
@@ -214,6 +212,9 @@
                 @can('libro_edit_informacion_accion')    <button type="submit" class="btn btn-primary">Grabar</button> 
 </div>
 <div align="right" class="col-md-6">
+
+@if($libro->estados_id>1 && \Auth::User()->id == 1) {!!link_to_route('libro.regresarEstado', $title = "Regresar Estado", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-danger fa fa-exclamation-triangle",'onclick'=>'return confirm("¿Esta seguro que desea retroceder estado del libro?")'])!!} @endif
+
             @if($libro->estados_id<=1){!!link_to_route('libro.solicitudAprobacion', $title = "Solicitud de Aprobación", $parameters = [$libro->id], $attributes = ['class'=>"btn btn-primary fa fa-file-word-o","target"=>"_blank"])!!}@endif @endcan
 </div>
 </div> 

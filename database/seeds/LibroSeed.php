@@ -77,14 +77,15 @@ class LibroSeed extends Seeder
           array_push($items,['id' => $i, 
           'titulo' => 'Coleccion '.$i,
           'facultad_id' => 10,
-          'estados_id' => '4',
+          'estados_id' => '2',
           'isbn' => '978-9942-904-62-1',
           'iepi' => '978-9942-904-62-1',
           'coleccion_id' =>'1']);
       }*/
+  
 
         foreach ($items as $item) {
-            \App\Book::create($item);
+            \App\Libro::create($item);
         }
     }
 }

@@ -87,6 +87,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
                 'uses' => 'LibroController@solicitudAprobacion',
         ]);
 
+        
+        Route::get('libro/{id}/restado', [
+            'as' => 'libro.regresarEstado',
+            'uses' => 'LibroController@regresarEstado',
+    ]);
+
 
       
         Route::post('libro/mensaje', [

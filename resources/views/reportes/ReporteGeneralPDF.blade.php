@@ -1,5 +1,13 @@
       <div class="row container-fluid ">
       <div class="box-body table-responsive">
+      <table style="width:100%;">
+<tr>
+<td><img src={{public_path('logoNormal.png')}} style="width:160; height:45; align:left;" alt="logo_publicaciones"></td>
+
+<td><img src={{public_path('LogoUCSG.png')}} style="width:113; height:56;" align="right" alt="logo_UCSG"></td>
+</tr>
+</table>
+<br>
 
       <div class="panel-body">
             <table style=" border-collapse: collapse;" border="1" width="100%">

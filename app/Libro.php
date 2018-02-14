@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Book extends Model
+class Libro extends Model
 {
   
     use SoftDeletes;
 
     use LogsActivity;
 
-    protected $table = 'books';
+    protected $table = 'libros';
 
     const CREATED_AT = 'created_at';
 	
@@ -46,12 +46,12 @@ class Book extends Model
     // RELACIONES DE LIBRO
     public function autor()
     {
-        return $this->belongsToMany('App\Autor','autorbook');
+        return $this->belongsToMany('App\Autor','autorlibro');
     }
 
     public function user()
     {
-        return $this->belongsToMany('App\User','userbook')->withPivot('tipo','estado');
+        return $this->belongsToMany('App\User','userlibro')->withPivot('tipo','estado');
     }
 
     public function facultad()
@@ -84,9 +84,9 @@ class Book extends Model
         return $this->hasOne('App\Caracteristicas');
     }
 
-    public function file()
+    public function archivo()
     {
-        return $this->belongsToMany('App\File','filebook');
+        return $this->belongsToMany('App\Archivo','archivolibro');
     }
 
     public function historial()

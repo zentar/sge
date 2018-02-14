@@ -16,8 +16,8 @@ class CreateMensajesTable extends Migration
         Schema::create('mensajes', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->integer('libro_id')->unsigned();
+            $table->foreign('libro_id')->references('id')->on('libros');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
@@ -26,8 +26,8 @@ class CreateMensajesTable extends Migration
             
           //  $table->integer('file_id')->default(0);
 
-            $table->integer('file_id')->nullable()->unsigned()->default(null);
-            $table->foreign('file_id')->references('id')->on('file');
+            $table->integer('archivo_id')->nullable()->unsigned()->default(null);
+            $table->foreign('archivo_id')->references('id')->on('archivos');
 
             $table->softDeletes();  
             $table->timestamps();

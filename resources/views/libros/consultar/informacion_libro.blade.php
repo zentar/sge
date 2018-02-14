@@ -43,8 +43,7 @@
         </thead>  
         <tbody>
              @if($libro->capitulos->count() > 0)  
-                @foreach ($libro->capitulos as $capitulos)
-              
+                @foreach ($libro->capitulos as $capitulos)              
             <tr>
                 <td class="dt-body-center">{{$capitulos->id}}</td>
                 <td class="dt-body-center">{{$capitulos->titulo}}</td>

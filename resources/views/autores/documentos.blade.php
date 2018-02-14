@@ -61,7 +61,7 @@
         </tfoot>
         <tbody>
       
-          @foreach($autor->file as $file)
+          @foreach($autor->archivo as $file)
           <tr>
                 <td class="dt-body-center">{{$file->id}}</td>
                 <td class="dt-body-center">{{$file->tipodoc->nombre}}</td>

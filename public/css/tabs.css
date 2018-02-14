@@ -1,22 +1,31 @@
 
 
 .tableta {
-    background-color: #f2f2f2 !important; 
+ 
     border: 1px solid #d3d3d3; 
     border-top: 0px none;
+    
 }
 
 .espacio {
     padding-top: 1%;
-    background-color: #f2f2f2 !important;
+    background-color: #ffffff !important;
     border-left: 1px solid #d3d3d3; 
     border-right: 1px solid #d3d3d3;
     
 }
 
+.espacio2 {
+    padding-top: 1%;
+    background-color: #ffffff !important;    
+}
 
 .fondo_formulario {
-    background-color: #f2f2f2 !important;
+    background-color: #ffffff !important;
+}
+
+#centrar_texto_tabla {
+    vertical-align: middle;  
 }
 
 

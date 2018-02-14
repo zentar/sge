@@ -37,11 +37,11 @@
                     </div>
 
 
-                    @if($autores->file->count() > 0)  
+                    @if($autores->archivo->count() > 0)  
                     <div class="form-group col-md-12">
                        <label>Documentos</label>
                      </div>
-                    @foreach ($autores->file as $file)
+                    @foreach ($autores->archivo as $file)
                     <div class="form-group panel panel-default col-md-12">
                       <ul>
                     <li>{{$file->tipodoc->nombre}}

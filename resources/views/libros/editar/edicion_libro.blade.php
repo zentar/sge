@@ -64,19 +64,31 @@
 
   <div class="panel panel-default">
     <div class="panel-heading"><strong>Mensajes:</strong> {{$libro->titulo}}</div>
-    <div class="panel-body" style="height:300px; overflow-y:scroll; width:100%;">
+    <div class="panel-body" style="height:300px; overflow-y:scroll; width:100%;" >
     
     @if(count($libro->mensajes)>0)
-    @foreach($libro->mensajes as $mensajes)  
+    @foreach($libro->mensajes as $mensajes) 
 
-    <blockquote class="col-md-12">
-    <div class="col-md-10">
-    <p align="justify" style="line-height:30px;"> {{$mensajes->mensaje}} 
-    @if(isset($mensajes->file))      
-    @if($mensajes->file->extension=='pdf' || $mensajes->file->extension=='jpeg' ||$mensajes->file->extension=='bmp' || $mensajes->file->extension=='jpg' || $mensajes->file->extension=='png')
-                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $mensajes->file->id}}','{{ $mensajes->file->extension}}','{{$mensajes->file->nombre}}')">{{$mensajes->file->nombre}}</button>
+    <blockquote class="col-md-12"
+    
+     @if($mensajes->user->id ==\Auth::User()->id) 
+     
+     style="border-style: solid; border-color:black ;background-color: #DCF8C5;  border-radius: 25px;border-width: 0.5px;"
+     
+     @else 
+  style="border-style: solid; border-color:black ;background-color: #FDFDFB;  border-radius: 25px;border-width: 0.5px;"
+   
+  
+  @endif>
+   
+   
+   <div class= @if( Carbon\Carbon::parse($mensajes->created_at)->diffInMinutes() < 5 && $mensajes->user->id ==\Auth::User()->id ) "col-md-10" @else "col-md-12" @endif >
+    <p align="justify" style="line-height:30px; overflow-wrap:break-word"> {{$mensajes->mensaje}} 
+    @if(isset($mensajes->archivo))      
+    @if($mensajes->archivo->extension=='pdf' || $mensajes->archivo->extension=='jpeg' ||$mensajes->archivo->extension=='bmp' || $mensajes->archivo->extension=='jpg' || $mensajes->archivo->extension=='png')
+                <button type="button" class="btn btn-link" id="nuevo_documento" data-toggle="modal" data-target="#modal_documento" onclick="documentos_modal('{{ $mensajes->archivo->id}}','{{ $mensajes->archivo->extension}}','{{$mensajes->archivo->nombre}}')">{{$mensajes->archivo->nombre}}</button>
                 @else
-                {!!link_to_route('image.documentos', $title = '{{$mensajes->file->nombre}}', $parameters = $mensajes->file->id, $attributes = ['class'=>"btn btn-link"])!!}
+                {!!link_to_route('image.documentos', $title = '{{$mensajes->archivo->nombre}}', $parameters = $mensajes->archivo->id, $attributes = ['class'=>"btn btn-link"])!!}
                 @endif    
      @endif    
      
@@ -91,9 +103,7 @@
      {!!link_to_route('libro.mensajedestroy', $title = '', $parameters = [$mensajes->id], $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("¿Esta seguro de borrar este mensaje?")'])!!} 
      </div>
     @endif
-    </blockquote>
-    
-   
+    </blockquote> 
     @endforeach
     @else
     <div>

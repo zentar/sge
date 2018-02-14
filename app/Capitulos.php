@@ -30,9 +30,9 @@ class Capitulos extends Model
     protected $fillable = ['titulo','descripcion'];
 
 
-    public function book()
+    public function libro()
     {
-        return $this->belongsTo('App\Book');
+        return $this->belongsTo('App\Libro');
     }
     public function autor()
     {

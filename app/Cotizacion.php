@@ -36,13 +36,13 @@ class Cotizacion extends Model
     //SOLO REGISTRA LOS CAMBIOS E UPDTES
     protected static $logOnlyDirty = true;
 
-    public function book()
+    public function libro()
     {
-        return $this->belongsTo('App\Book');
+        return $this->belongsTo('App\Libro');
     }
 
-    public function file()
+    public function archivo()
     {
-        return $this->belongsTo('App\File');
+        return $this->belongsTo('App\Archivo');
     }
 }

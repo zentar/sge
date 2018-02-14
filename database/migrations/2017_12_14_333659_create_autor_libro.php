@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAutorBook extends Migration
+class CreateAutorLibro extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreateAutorBook extends Migration
      */
     public function up()
     {
-        Schema::create('autorbook', function(Blueprint $table) {
+        Schema::create('autorlibro', function(Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->integer('libro_id')->unsigned();
+            $table->foreign('libro_id')->references('id')->on('libros');
 
             $table->integer('autor_id')->unsigned();
-            $table->foreign('autor_id')->references('id')->on('autors');
+            $table->foreign('autor_id')->references('id')->on('autores');
 
             $table->softDeletes();        
             $table->timestamps();
@@ -33,7 +33,7 @@ class CreateAutorBook extends Migration
      */
     public function down()
     {
-        Schema::table('autorbook', function(Blueprint $table) {
+        Schema::table('autorlibro', function(Blueprint $table) {
             
         });
     }

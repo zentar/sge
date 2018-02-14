@@ -29,9 +29,9 @@ class Tipodoc extends Model
     protected $fillable = ['nombre','descripcion'];
 
 
-    public function file()
+    public function archivo()
     {
-        return $this->hasMany('App\File');
+        return $this->hasMany('App\Archivo');
     }  
     
 }

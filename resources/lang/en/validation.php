@@ -73,6 +73,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'password' => array(
+            'regex' => 'La contraseña debe contener mínimo 8 caracteres, una letra minúscula y una mayúscula y un carácter especial del siguiente grupo !$#%',
+            'min'=> 'La contraseña debe contener mínimo 8 caracteres'
+        )
     ],
 
 ];

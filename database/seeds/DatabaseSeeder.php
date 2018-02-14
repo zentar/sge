@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HistorialSeed::class);
         $this->call(CaracteristicasSeed::class);
         $this->call(AutoresSeed::class);
-        $this->call(AutorBookSeed::class);
+        $this->call(AutorLibroSeed::class);
      
     }
 }

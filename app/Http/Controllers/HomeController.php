@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Book;
 use App\Autor;
 use App\helpers;
 
@@ -33,23 +32,23 @@ class HomeController extends Controller
      //  dd($libros[0]->mensajes);
       //  return view('home', compact('libros'));
         if(\Auth::User()->role_id == 1){
-            $libros= Book::with(['autor','estados','coleccion'])->get();
+            $libros= \App\Libro::with(['autor','estados','coleccion'])->get();
            return view('home', compact('libros'));
         }
 
         if(\Auth::User()->role_id == 2){
          //   $libros = \Auth::User()->book;
-            $libros= Book::with(['autor','estados','coleccion'])->get();
+            $libros= \App\Libro::with(['autor','estados','coleccion'])->get();
             return view('home', compact('libros'));
          }
         
         if(\Auth::User()->role_id == 3){
-            $libros = \Auth::User()->book;
+            $libros = \Auth::User()->libro;
             return view('home', compact('libros'));
          }
 
          if(\Auth::User()->role_id == 4){
-             $libros = \Auth::User()->book;
+             $libros = \Auth::User()->libro;
            // $asignados = \Auth::User()->book;
           //  dd($asignados);
           //  $libros = [];

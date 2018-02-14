@@ -16,11 +16,11 @@ class CreateCotizacionesTable extends Migration
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->integer('libro_id')->unsigned();
+            $table->foreign('libro_id')->references('id')->on('libros');
 
-            $table->integer('file_id')->unsigned();
-            $table->foreign('file_id')->references('id')->on('file');
+            $table->integer('archivo_id')->unsigned();
+            $table->foreign('archivo_id')->references('id')->on('archivos');
 
             $table->string('imprenta');
             $table->string('tiraje');

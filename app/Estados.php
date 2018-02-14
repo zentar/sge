@@ -32,8 +32,8 @@ class Estados extends Model
 
 
 
-    public function book()
+    public function libro()
     {
-        return $this->hasMany('App\Book');
+        return $this->hasMany('App\Libro');
     }  
 }

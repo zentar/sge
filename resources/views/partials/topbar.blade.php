@@ -9,7 +9,10 @@
         <!-- logo for regular state and mobile devices -->
        <span class="logo-lg">
          {{--  <img src="{{URL::asset('logos/dpB-big-white.png')}}" alt="SGD"></span> --}}
-         <img src="{{URL::asset('logos/DP2.png')}}" alt="SGD" height="80%" width="80%"></span> 
+
+         
+
+         <img class="col-md-*" src="{{URL::asset('logos/DP2.png')}}" alt="SGD" height="80%" width="80%"></span> 
 
     </a>
     <!-- Header Navbar: style can be found in header.less -->

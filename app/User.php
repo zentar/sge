@@ -52,9 +52,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function book()
+    public function libro()
     {
-        return $this->belongsToMany('App\Book','userbook')->withPivot('tipo','estado');
+        return $this->belongsToMany('App\Libro','userlibro')->withPivot('tipo','estado');
     }    
     
     public function mensajes()

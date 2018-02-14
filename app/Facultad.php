@@ -28,8 +28,8 @@ class Facultad extends Model
 
     protected $fillable = ['nombre'];
 
-    public function book()
+    public function Libro()
     {
-        return $this->hasMany('App\Book');
+        return $this->hasMany('App\Libro');
     }  
 }

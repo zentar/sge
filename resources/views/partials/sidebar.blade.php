@@ -1,7 +1,7 @@
 @inject('request', 'Illuminate\Http\Request')
 <!-- Left side column. contains the sidebar -->
 
-<aside class="main-sidebar" style="background-color:rgb(0,0,0); color:white">
+<aside class="main-sidebar" style="background-color:rgba(0, 0, 0, 1); color:white">
  
 
     
@@ -148,7 +148,7 @@
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
-                    <i class="fa fa-arrow-left"></i>
+                    <i class="fa fa-sign-out"></i>
                     <span class="title">@lang('quickadmin.qa_logout')</span>
                 </a>
             </li>        

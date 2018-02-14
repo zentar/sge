@@ -26,8 +26,8 @@ class Historial extends Model
     protected $fillable = ['descripcion'];
 
     
-    public function book()
+    public function libro()
     {
-        return $this->belongsTo('App\Book');
+        return $this->belongsTo('App\Libro');
     }
 }

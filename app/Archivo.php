@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class File extends Model
+class Archivo extends Model
 {
     use SoftDeletes;
 
     use LogsActivity;
 	
-    protected $table = 'file';
+    protected $table = 'archivos';
 
     const CREATED_AT = 'created_at';
 	
@@ -39,9 +39,9 @@ class File extends Model
     //SOLO REGISTRA LOS CAMBIOS E UPDTES
     protected static $logOnlyDirty = true;
 
-    public function Book()
+    public function Libro()
     {
-        return $this->belongsToMany('App\Book','filebook');
+        return $this->belongsToMany('App\Libro','filelibro');
     }
 
     public function autor()

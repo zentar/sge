@@ -14,7 +14,7 @@ class CaracteristicasSeed extends Seeder
       $items = [
             [
             'id' => 1, 
-            'book_id' => 1,
+            'libro_id' => 1,
             'tamano' => 1,                
             'tipopapel_id' => 1, 
             'n_paginas' => 1,
@@ -25,7 +25,7 @@ class CaracteristicasSeed extends Seeder
             ],
                    [
             'id' => 2, 
-            'book_id' =>2,
+            'libro_id' =>2,
             'tamano' => 1,                
             'tipopapel_id' => 1, 
             'n_paginas' => 1,
@@ -36,7 +36,7 @@ class CaracteristicasSeed extends Seeder
             ],
             [
             'id' => 3, 
-            'book_id' => 3,
+            'libro_id' => 3,
             'tamano' => 1,                
             'tipopapel_id' => 1, 
             'n_paginas' => 1,
@@ -47,7 +47,7 @@ class CaracteristicasSeed extends Seeder
             ],
             [
             'id' => 4, 
-            'book_id' => 4,
+            'libro_id' => 4,
             'tamano' => 1,                
             'tipopapel_id' => 1, 
             'n_paginas' => 1,

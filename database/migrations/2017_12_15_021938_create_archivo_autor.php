@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFileAutor extends Migration
+class CreateArchivoAutor extends Migration
 {
   /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateFileAutor extends Migration
      */
     public function up()
     {
-        Schema::create('fileautor', function(Blueprint $table) {
+        Schema::create('archivoautor', function(Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('file_id')->unsigned();
-            $table->foreign('file_id')->references('id')->on('file');
+            $table->integer('archivo_id')->unsigned();
+            $table->foreign('archivo_id')->references('id')->on('archivos');
 
             $table->integer('autor_id')->unsigned();
-            $table->foreign('autor_id')->references('id')->on('autors');
+            $table->foreign('autor_id')->references('id')->on('autores');
 
             $table->softDeletes();   
             $table->timestamps();
@@ -34,7 +34,7 @@ class CreateFileAutor extends Migration
      */
     public function down()
     {
-         Schema::table('fileautor', function(Blueprint $table) {
+         Schema::table('archivoautor', function(Blueprint $table) {
             
         });
     }

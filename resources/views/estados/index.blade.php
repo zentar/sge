@@ -4,7 +4,7 @@
 
       <div class="row container-fluid ">
       <div class="box-body table-responsive">
-           {!! link_to_route('estados.create', $title = 'Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-success"] ) !!}</p>         
+           {!! link_to_route('estados.create', $title = ' Nuevo',$parameters = null ,$attributes = ['class'=>"btn btn-success fa fa-plus"] ) !!}</p>         
         <div class="panel-body">
             <table id="table_estados" class="table table-bordered tabke-striped display compact estados" cellspacing="0" width="100%">
         <thead>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserBook extends Migration
+class CreateUserLibro extends Migration
 {
   /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUserBook extends Migration
      */
     public function up()
     {
-        Schema::create('userbook', function(Blueprint $table) {
+        Schema::create('userlibro', function(Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->integer('libro_id')->unsigned();
+            $table->foreign('libro_id')->references('id')->on('libros');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
@@ -38,7 +38,7 @@ class CreateUserBook extends Migration
      */
     public function down()
     {
-        Schema::table('userbook', function(Blueprint $table) {
+        Schema::table('userlibro', function(Blueprint $table) {
             
         });
     }

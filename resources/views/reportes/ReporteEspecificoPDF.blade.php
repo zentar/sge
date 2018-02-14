@@ -92,12 +92,12 @@
 @endif
 <br>
 
-@if(count($libro->file)>0)
+@if(count($libro->archivo)>0)
 <div class="row col-md-12">      
        <div align="left"><label style="font-weight: bold;">Documentos ingresados del Libro</label></div>
 </div>
 <ul>
-       @foreach($libro->file as $documentos)
+       @foreach($libro->archivo as $documentos)
        @if($documentos->tipodoc->id != 23)
 	   <li>{{$documentos->tipodoc->nombre}}</li>
 	   @endif

@@ -24,6 +24,7 @@
 <![endif]-->
 
 <link href="{{ url('adminlte/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
 <link rel="stylesheet"
       href="{{ url('quickadmin/css') }}/select2.min.css"/>
 <link href="{{ url('adminlte/css/AdminLTE.min.css') }}" rel="stylesheet">
@@ -44,3 +45,4 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css"/>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.standalone.min.css"/>
+
