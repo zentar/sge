@@ -731,7 +731,18 @@ class LibroController extends Controller
         }
 
         $libro = \App\Libro::find($data['libro_id']);
-        $user = \Auth::User(); 
+        
+
+        if( \Auth::User()->id != 1){
+            if($libro->user->first() != null) {
+                $user = $libro->user->first();
+            } }
+             else{ 
+                  $user = \App\User::where('id',1)->get()->first(); 
+            }
+        
+        
+       // dd($data);
         Mail::send('mails.avisoMensaje', ['user' => $user,'libro'=>$libro,'mensaje'=>$data['mensaje']], function ($m) use ($user) {
           $m->from('ceid1994@gmail.com', 'Sistema de Gestion Editorial UCSG');
 
