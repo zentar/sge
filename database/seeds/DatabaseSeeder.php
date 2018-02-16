@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPapelSeed::class);
         $this->call(ColorPapelSeed::class);
         
+        $this->call(CampoGeneralSeed::class);
+        $this->call(CampoEspecificoSeed::class);
+        $this->call(CampoDetalladoSeed::class);
+        
         $this->call(LibroSeed::class);
         $this->call(HistorialSeed::class);
         $this->call(CaracteristicasSeed::class);

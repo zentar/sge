@@ -19,7 +19,7 @@ return [
 			'facultad'=>'Facultades',
 			'estado'=>'Estados',
 			'auditoria'=>'Auditoria',
-			'coleccion'=>'Colecciónes',
+			'coleccion'=>'Colecciones',
 			'caracteristicas'=>'Características'
 	
 		],

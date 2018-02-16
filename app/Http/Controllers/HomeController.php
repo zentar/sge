@@ -32,23 +32,23 @@ class HomeController extends Controller
      //  dd($libros[0]->mensajes);
       //  return view('home', compact('libros'));
         if(\Auth::User()->role_id == 1){
-            $libros= \App\Libro::with(['autor','estados','coleccion'])->get();
+            $libros= \App\Libro::with(['autor','estados','coleccion'])->whereNotIn('estados_id', [7])->get();
            return view('home', compact('libros'));
         }
 
         if(\Auth::User()->role_id == 2){
          //   $libros = \Auth::User()->book;
-            $libros= \App\Libro::with(['autor','estados','coleccion'])->get();
+            $libros= \App\Libro::with(['autor','estados','coleccion'])->whereNotIn('estados_id', [7])->get();
             return view('home', compact('libros'));
          }
         
         if(\Auth::User()->role_id == 3){
-            $libros = \Auth::User()->libro;
+            $libros = \Auth::User()->libro()->whereNotIn('estados_id', [7])->get();;
             return view('home', compact('libros'));
          }
 
          if(\Auth::User()->role_id == 4){
-             $libros = \Auth::User()->libro;
+             $libros = \Auth::User()->libro()->whereNotIn('estados_id', [7])->get();;
            // $asignados = \Auth::User()->book;
           //  dd($asignados);
           //  $libros = [];

@@ -84,6 +84,46 @@
                     @endif
                    @endcan
 
+     @can('libro_edit_informacion_accion')
+                  <div class="form-group col-md-6">               
+                      <label>Colección *</label>
+                      <select id="coleccion_id"  class="form-control select2" name="coleccion_id">                    
+                       @foreach($colecciones as $coleccion)
+                        <option value="{{ $coleccion->id }}" @if($coleccion->id == $libro->coleccion->id) selected @endif> {{ $coleccion->titulo }} </option>
+                       @endforeach
+                      </select>
+           
+                    </div>
+                    @else
+                    <div class="form-group col-md-6">               
+                      <label>Colección *</label>
+                      <select id="coleccion_id"  class="form-control select2" disabled name="coleccion_id">
+                        <option value='null'> {{ $libro->coleccion->titulo }} </option>               
+                      </select>           
+                    </div>
+                    @endcan
+
+                     
+
+                   @can('libro_edit_informacion_accion')
+                  <div class="form-group col-md-6">               
+                      <label>Campo General *</label>
+                      <select id="campo_general_id"  class="form-control select2" name="campo_general_id">                    
+                       @foreach($campo_general as $campoG)
+                        <option value="{{ $campoG->id }}" @if($campoG->id == $libro->campogeneral->id) selected @endif> {{ $campoG->titulo }} </option>
+                       @endforeach
+                      </select>
+           
+                    </div>
+                    @else
+                    <div class="form-group col-md-6">               
+                      <label>Campo General *</label>
+                      <select id="campo_general_id"  class="form-control select2" disabled name="campo_general_id">
+                        <option value='null'> {{ $libro->campogeneral->titulo }} </option>               
+                      </select>           
+                    </div>
+                    @endcan
+
 
 
                 
@@ -103,24 +143,45 @@
                       </ul>
                      </div>
                      
-                     @can('libro_edit_informacion_accion')
+
+                           @can('libro_edit_informacion_accion')
                   <div class="form-group col-md-6">               
-                      <label>Colección *</label>
-                      <select id="coleccion_id"  class="form-control select2" name="coleccion_id">                    
-                       @foreach($colecciones as $coleccion)
-                        <option value="{{ $coleccion->id }}" @if($coleccion->id == $libro->coleccion->id) selected @endif> {{ $coleccion->titulo }} </option>
+                      <label>Campo Especifico *</label>
+                      <select id="campo_especifico_id"  class="form-control select2" name="campo_especifico_id">                    
+                       @foreach($campo_especifico as $campoES)
+                        <option value="{{ $campoES->id }}" @if($campoES->id == $libro->campoespecifico->id) selected @endif> {{ $campoES->titulo }} </option>
                        @endforeach
                       </select>
            
                     </div>
                     @else
                     <div class="form-group col-md-6">               
-                      <label>Colección *</label>
-                      <select id="coleccion_id"  class="form-control select2" disabled name="coleccion_id">
-                        <option value='null'> {{ $libro->coleccion->titulo }} </option>               
+                      <label>Campo Especifico *</label>
+                      <select id="campo_especifico_id"  class="form-control select2" disabled name="campo_especifico_id">
+                        <option value='null'> {{ $libro->campoespecifico->titulo }} </option>               
                       </select>           
                     </div>
                     @endcan
+
+                     @can('libro_edit_informacion_accion')
+                  <div class="form-group col-md-6">               
+                      <label>Campo Detallado *</label>
+                      <select id="campo_detallado_id"  class="form-control select2" name="campo_detallado_id">                    
+                       @foreach($campo_detallado as $campoDT)
+                        <option value="{{ $campoDT->id }}" @if($campoDT->id == $libro->campodetallado->id) selected @endif> {{ $campoDT->titulo }} </option>
+                       @endforeach
+                      </select>
+           
+                    </div>
+                    @else
+                    <div class="form-group col-md-6">               
+                      <label>Campo Detallado *</label>
+                      <select id="campo_detallado_id"  class="form-control select2" disabled name="campo_detallado_id">
+                        <option value='null'> {{ $libro->campodetallado->titulo }} </option>               
+                      </select>           
+                    </div>
+                    @endcan                
+                    
                     
                     @can('libro_edit_informacion_accion')
                    <div class="form-group col-md-6"> 

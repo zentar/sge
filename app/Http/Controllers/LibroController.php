@@ -181,6 +181,12 @@ class LibroController extends Controller
          $tipos_color = \App\ColorPapel::orderBy('descripcion', 'asc')->get();
          //BUSCA LOS DOCUMENTOS QUE FALTAN POR INGRESAR
           $doc_no_ingresados = filtrar_documentos_ingresados($libro); 
+         // dd($libro->campogeneral,$libro->campoespecifico,$libro->campodetallado);
+        
+         $campo_general = \App\CampoGeneral::all();
+         $campo_especifico = \App\CampoEspecifico::all();
+         $campo_detallado = \App\CampoDetallado::all();;
+
 
         if($libro->estados_id < 6){ array_push($doc_no_ingresados,19);}
         if(\Auth::User()->id == 1 || \Auth::User()->id == 2 || \Auth::User()->id == 3)
@@ -227,7 +233,7 @@ class LibroController extends Controller
                   }  
 
         //dd($libro->coleccion->titulo);                 
-        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color','editores','gestor_p'));
+        return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color','editores','gestor_p','campo_general','campo_especifico','campo_detallado'));
     }
 
     /**
@@ -261,6 +267,7 @@ class LibroController extends Controller
                 ->withInput();
         }
         else{
+          //  dd($data);
               //CARACTERISTICAS
           $caracteristicas = Caracteristicas::get()->where('libro_id',$id)->first();
           if(isset($data['tamano']))         $caracteristicas->tamano = valorPredeterminado($data['tamano']);
@@ -277,6 +284,10 @@ class LibroController extends Controller
           if(isset($data["titulo"]))          $libro->titulo = $data["titulo"];
           if(isset($data["coleccion_id"]))    $libro->coleccion_id = $data["coleccion_id"];
           if(isset($data["facultad_id"]))     $libro->facultad_id = $data["facultad_id"];
+
+          if(isset($data["campo_general_id"]))       $libro->campo_general = $data["campo_general_id"];
+          if(isset($data["campo_especifico_id"]))    $libro->campo_especifico = $data["campo_especifico_id"];
+          if(isset($data["campo_detallado_id"]))     $libro->campo_detallado = $data["campo_detallado_id"];
               
               if(isset($data['ISBN'])) $libro->isbn = $data['ISBN'];
               if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];

@@ -9,14 +9,39 @@
     <section class="sidebar">  
       
         <ul class="sidebar-menu" >
-        @can('libro_access')
+  
+
+    
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-book"></i>
+                    <span class="title">@lang('quickadmin.user-management.libros') </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                
+                @can('libro_access')
             <li class="{{ $request->segment(2) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/') }}">
-                    <i class="fa fa-book"></i>
-                    <span class="title">@lang('quickadmin.user-management.libros')</span>
+                    <i class="fa fa-clipboard"></i>
+                    <span class="title">Pendientes</span>
                 </a>
             </li>
         @endcan
+        @can('libro_access')
+            <li class="{{ $request->segment(2) == 'publicados' ? 'active' : '' }}">
+                <a href="{{ url('/publicados') }}">
+                    <i class="fa fa-flag-checkered"></i>
+                    <span class="title">Publicados </span>
+                </a>
+            </li>
+        @endcan
+                </ul>
+            </li>
+        
+
 
             @can('autor_access')
             <li class="{{ $request->segment(1) == 'autor' ? 'active' : '' }}">

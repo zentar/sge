@@ -26,6 +26,32 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
 });
 
+Route::get('/publicados', function () {
+
+    if(\Auth::User()->role_id == 1){
+        $libros= \App\Libro::with(['autor','estados','coleccion'])->where('estados_id', [7])->get();
+        return view('home', compact('libros'));
+    }
+
+    if(\Auth::User()->role_id == 2){
+        $libros= \App\Libro::with(['autor','estados','coleccion'])->where('estados_id', [7])->get();
+        return view('home', compact('libros'));
+     }
+    
+    if(\Auth::User()->role_id == 3){
+        $libros = \Auth::User()->libro()->where('estados_id', [7])->get();
+        return view('home', compact('libros'));
+     }
+
+     if(\Auth::User()->role_id == 4){
+         $libros = \Auth::User()->libro()->where('estados_id', [7])->get();
+        return view('home', compact('libros'));
+    }
+
+
+ 
+});
+
 //CRUD LIBROS
    Route::resource('libro','LibroController');
    

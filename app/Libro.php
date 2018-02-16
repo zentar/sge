@@ -98,4 +98,22 @@ class Libro extends Model
     {
          return $this->hasMany('App\Mensajes');
     }
+
+    public function campogeneral()
+    {
+        return $this->belongsTo('App\CampoGeneral','campo_general');
+    }
+
+    public function campoespecifico()
+    {
+        return $this->belongsTo('App\CampoEspecifico','campo_especifico');
+    }
+
+    public function campodetallado()
+    {
+        return $this->belongsTo('App\CampoDetallado','campo_detallado');
+    }
+
+
+
 }
