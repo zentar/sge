@@ -348,6 +348,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             'as' => 'reportes.create_general',
             'uses' => 'ReportesController@create_general',
         ]); 
+
+        Route::post('reportes/create_grafico', [
+            'as' => 'reportes.create_grafico',
+            'uses' => 'ReportesController@create_grafico',
+        ]); 
  
       
 

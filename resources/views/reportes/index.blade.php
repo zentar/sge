@@ -46,6 +46,16 @@
             </select>
          </div>
 
+        <div class="col-md-6">
+         <label>Facultad:</label>
+            <select id="facultad_id" style="width: 100%" class="form-control select2" name="facultad_id">
+               <option value=null> Seleccionar Facultad </option>
+               @foreach($facultades as $facultades)
+               <option value="{{ $facultades->id }}">{{$facultades->nombre}}</option>
+               @endforeach
+            </select>
+         </div>
+
          </div>  
 
          <div class="col-md-12">
@@ -60,12 +70,13 @@
          <div class="box-footer col-md-12">
                    <button type="submit" id="general_pdf" name="general_pdf" onclick="agregar_a_post('general','pdf')" class="btn btn-danger fa fa-file-pdf-o ">PDF</button>
                    <button type="submit" id="general_excel" name="general_excel" onclick="agregar_a_post('general','xlsx')"  class="btn btn-success fa fa-file-excel-o">Excel</button>
-                  </div> 
+                   <button type="button" id="generar_grafico" name="generar_grafico" onclick="crear_grafico()"  class="btn btn-primary fa fa-bar-chart">Gráfico</button>
+         </div> 
                           {!!Form::close()!!}      
    </div>
 
-   <div class="col-md-9 col-sm-12 col-xs-12 col-lg-9">
-           <canvas id="myChart" style="margin-left:15%;"></canvas>   
+   <div class="col-md-9 col-sm-12 col-xs-12 col-lg-9" id="grafico" name="grafico">
+           <canvas id="myChart" name="myChart" style="margin-left:15%;"></canvas>   
    </div>
 </div>
 
@@ -204,10 +215,46 @@ $(document).ready(function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"> </script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"> </script>
 
+
+
+<script>
+function crear_grafico(){
+ /* $('#myChart').remove();
+  $('#grafico').append('<canvas id="myChart" name="myChart" style="margin-left:15%;">asdasd</canvas>');*/
+  myChart.destroy();
+   var estado_id = $( "#estado_id option:selected" ).val();
+   var coleccion_id = $( "#coleccion_id option:selected" ).val();
+   var facultad_id = $( "#facultad_id option:selected" ).val();
+   var desde = $( "#datepicker_desde" ).val();
+   var hasta = $( "#datepicker_hasta" ).val();
+   var data;
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   	
+     $.ajax({
+            type: "POST",
+            url: "{{ route('reportes.create_grafico') }}",
+            data: {estado: estado_id, coleccion: coleccion_id, facultad: facultad_id, desde:desde,hasta:hasta},
+            success: function( msg ) { 
+              console.log(msg);
+              myChart = new Chart(ctx, msg); 
+            }
+        });
+
+      
+  }
+</script>
+
+
+
+
+
 <script>
 var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, { 
- // type: 'horizontalBar',
+var myChart = new Chart(ctx,{ 
   type: 'bar',  
   data: {
     labels: ["Ingresado", "Aprobado", "Edición", "Cotización", "Aprobado Cotización", "Producción","Publicado"],
@@ -331,19 +378,16 @@ var myChart = new Chart(ctx, {
         fontColor: "#000080",
 
       },
-      
-  /*   DESHABILITA OPCION DE CLICK EN LEGENDA DE LA IMAGEN  
   
+  //   DESHABILITA OPCION DE CLICK EN LEGENDA DE LA IMAGEN    
      onClick: function (e) {
-        console.log(e);
         e.stopPropagation();
-    },*/
-
-
     },
+
+      },
+
     scales: {
-      xAxes: [{
-   
+      xAxes: [{   
           stacked: false,
           beginAtZero: true,
           ticks: {
@@ -377,24 +421,18 @@ var myChart = new Chart(ctx, {
            barPercentage: 0.6,
       }]
   },
-  
- 
- /* hover: {
-          mode: 'label',
-          intersect: true
-  },*/
+
   tooltips:{
-         // mode:'label',
-         // intersect:false,
-          callbacks: {
+           callbacks: {
          title: function() {}
       },
   },
-  }
-  
+  }  
 });
 
 </script>
+
+
 @endsection
 
 

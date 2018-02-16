@@ -95,7 +95,7 @@
      </p>
      <footer> {{$mensajes->user->name}} -  {{ Carbon\Carbon::parse($mensajes->created_at)->format('d/m/Y - H:i') }}</footer>
      </div>
-   @if( Carbon\Carbon::parse($mensajes->created_at)->diffInMinutes() < 5 && $mensajes->user->id ==\Auth::User()->id ) 
+   @if( Carbon\Carbon::parse($mensajes->created_at)->diffInMinutes() < 11 && $mensajes->user->id ==\Auth::User()->id ) 
      <div align="center" class="col-md-2 ">
          
       <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_mensaje('{{$mensajes->id}}','{{$mensajes->mensaje}}')"></button>
