@@ -163,10 +163,10 @@ $(document).ready(function() {
             }
           ],
   "columns": [
+    { "width": "28%" },
     { "width": "2%" },
-    { "width": "38%" },
     { "width": "30%" },
-    { "width": "30%" }
+    { "width": "40%" }
   ],
 } );
 } );
@@ -200,12 +200,13 @@ $(document).ready(function() {
             }
           ],
   "columns": [
+    { "width": "6%" },
+    { "width": "6%" },
+    { "width": "6%" },
     { "width": "5%" },
     { "width": "35%" },
-    { "width": "40%" },
-    { "width": "6%" },
-    { "width": "6%" },
-    { "width": "6%" }
+    { "width": "40%" }
+  
   ],
 } );
 } );

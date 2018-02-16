@@ -21,10 +21,13 @@
                 <tbody>
                     @if (count($roles) > 0)
                         @foreach ($roles as $role)
-                            <tr data-entry-id="{{ $role->id }}">                             
+                            <tr data-entry-id="{{ $role->id }}">  
+
+                                                
 
                                 <td  class="dt-body-center">{{ $role->title }}</td>
-                                <td  class="dt-body-center">
+
+                                       <td  class="dt-body-center">
                                     @can('role_view')
                                     <a href="{{ route('admin.roles.show',[$role->id]) }}" class="btn btn-primary fa fa-eye"></a>
                                     @endcan
@@ -40,7 +43,8 @@
                                         <button type="submit" class="btn btn-danger btn-md fa fa-trash-o"></button>
                                     {!! Form::close() !!}
                                     @endcan
-                                </td>
+                                </td>  
+                              
                             </tr>
                         @endforeach
                     @else
