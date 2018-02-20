@@ -119,7 +119,6 @@
     //RESETEA TABA CTIVA PARA NUEVA CONSULTAS
     localStorage.setItem('activeTab', null);
 </script>
-
 @endsection
 
 

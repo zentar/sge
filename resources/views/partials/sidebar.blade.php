@@ -161,8 +161,8 @@
 
                 
             @can('user_access')
-                <li class="{{ $request->segment(1) == 'auditoria' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('auditoria.index') }}">
+                <li class="{{ $request->segment(1) == 'parametros' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('parametros.index') }}">
                             <i class="fa fa-list-alt"></i>
                             <span class="title">
                                @lang('quickadmin.administrador.fields.campos_cine')

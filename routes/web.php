@@ -381,6 +381,105 @@ Route::get('/publicados', function () {
             'as' => 'reportes.create_grafico',
             'uses' => 'ReportesController@create_grafico',
         ]); 
+
+        Route::resource('parametros','ParametrosController');
+
+        Route::get('parametros', [
+            'as' => 'parametros.index',
+            'uses' => 'ParametrosController@index',
+        ]); 
+
+        Route::get('parametros/detallado/{id}', [
+            'as' => 'parametros.indexDetallado',
+            'uses' => 'ParametrosController@indexDetallado',
+        ]); 
+
+        Route::get('parametros/nuevodetallado/{id}', [
+            'as' => 'parametros.nuevoDetallado',
+            'uses' => 'ParametrosController@nuevoDetallado',
+        ]); 
+
+        Route::get('parametros/nuevoEspecifico/{id}', [
+            'as' => 'parametros.nuevoEspecifico',
+            'uses' => 'ParametrosController@nuevoEspecifico',
+        ]); 
+
+        Route::post('parametros/storeDetallado', [
+            'as' => 'parametros.storeDetallado',
+            'uses' => 'ParametrosController@storeDetallado',
+        ]); 
+
+        Route::post('parametros/storeEspecifico', [
+            'as' => 'parametros.storeEspecifico',
+            'uses' => 'ParametrosController@storeEspecifico',
+        ]); 
+
+        Route::get('parametros/editDetallado/{id}', [
+            'as' => 'parametros.editDetallado',
+            'uses' => 'ParametrosController@editDetallado',
+        ]);
+
+        Route::get('parametros/editEspecifico/{id}', [
+            'as' => 'parametros.editEspecifico',
+            'uses' => 'ParametrosController@editEspecifico',
+        ]);
+
+        Route::get('parametros/editGeneral/{id}', [
+            'as' => 'parametros.editGeneral',
+            'uses' => 'ParametrosController@editGeneral',
+        ]);
+
+        
+
+        
+
+        Route::post('parametros/updateDetallado', [
+            'as' => 'parametros.updateDetallado',
+            'uses' => 'ParametrosController@updateDetallado',
+        ]);
+
+        Route::post('parametros/updateEspecifico', [
+            'as' => 'parametros.updateEspecifico',
+            'uses' => 'ParametrosController@updateEspecifico',
+        ]);
+
+        Route::post('parametros/updateGeneral', [
+            'as' => 'parametros.updateGeneral',
+            'uses' => 'ParametrosController@updateGeneral',
+        ]);
+
+        Route::get('parametros/destroyDetallado/{id}', [
+            'as' => 'parametros.destroyDetallado',
+            'uses' => 'ParametrosController@destroyDetallado',
+        ]);
+
+        Route::get('parametros/destroyEspecifico/{id}', [
+            'as' => 'parametros.destroyEspecifico',
+            'uses' => 'ParametrosController@destroyEspecifico',
+        ]);
+
+        Route::get('parametros/destroy/{id}', [
+            'as' => 'parametros.destroy',
+            'uses' => 'ParametrosController@destroy',
+        ]);
+
+
+        
+        
+        
+        
+
+        
+
+
+        
+
+        
+
+        
+        
+
+        
  
       
 
