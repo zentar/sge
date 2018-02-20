@@ -47,9 +47,6 @@ Route::get('/publicados', function () {
          $libros = \Auth::User()->libro()->where('estados_id', [7])->get();
         return view('home', compact('libros'));
     }
-
-
- 
 });
 
 //CRUD LIBROS
@@ -124,6 +121,11 @@ Route::get('/publicados', function () {
         Route::post('libro/mensaje', [
             'as' => 'libro.crear_mensaje',
             'uses' => 'LibroController@crearMensaje',
+        ]);
+
+        Route::post('campos/especifico', [
+            'as' => 'campos.campo_especifico',
+            'uses' => 'LibroController@cargar_campo_especifico',
         ]);
 
         

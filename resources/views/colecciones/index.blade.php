@@ -50,9 +50,9 @@
                 {!!link_to_route('coleccion.destroy', $title = '', $parameters = $coleccion->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
                </p>
                 </td>
-                <td  style="vertical-align: middle;" class="dt-body-center">{{$coleccion->id}}</td>          
-                <td  style="vertical-align: middle;" class="dt-body-center">{{$coleccion->titulo}}</td>
-                <td  style="vertical-align: middle;" class="dt-body-center">{{$coleccion->descripcion}}</td>
+                <td  style="vertical-align: middle;" class="dt-body-left">{{$coleccion->id}}</td>          
+                <td  style="vertical-align: middle;" class="dt-body-left">{{$coleccion->titulo}}</td>
+                <td  style="vertical-align: middle;" class="dt-body-left">{{$coleccion->descripcion}}</td>
                
             </tr>
             @endforeach        

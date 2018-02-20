@@ -1,4 +1,4 @@
-      
+
              <div class="col-md-12">
                 <div class="form-group"> 
                <button type="button" class="btn btn-success" id="modal_libro" data-toggle="modal" data-target="#modal_doc_libro">Nuevo</button>     

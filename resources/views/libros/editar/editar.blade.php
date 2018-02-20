@@ -137,4 +137,63 @@ function editar_mensaje(id,mensaje){
          .appendTo('#crear_libro_mensaje'); 
 </script>
 
+<script>
+function cargar_campo_especifico(){
+  var campo_general = $( "#campo_general_id option:selected" ).val();  
+  var campo_detallado = $("#campo_detallado_id");
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   	
+     $.ajax({
+            type: "POST",
+            url: "{{ route('campos.campo_especifico') }}",
+            data: {campo_general: campo_general, tipo: "especifico"},
+            success: function( msg ) { 
+              console.log(msg);
+
+              var campo_especifico = $("#campo_especifico_id");
+              campo_especifico.empty();
+              campo_detallado.empty();
+              campo_especifico.prop( "disabled", false );
+              campo_especifico.append($("<option />").val("null").text("Seleccionar Campo Específico")); 
+                   $.each(msg, function(data) {                     
+                   campo_especifico.append($("<option />").val(this.id).text(this.codigo+"-"+this.titulo));
+                  });
+           
+            }
+        });
+
+}
+
+function cargar_campo_detallado(){
+  var campo_especifico = $( "#campo_especifico_id option:selected" ).val();
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+   	
+     $.ajax({
+            type: "POST",
+            url: "{{ route('campos.campo_especifico') }}",
+            data: {campo_especifico: campo_especifico, tipo: "detallado"},
+            success: function( msg ) { 
+              console.log(msg);
+
+              var campo_detallado = $("#campo_detallado_id");
+              campo_detallado.empty();
+              campo_detallado.prop( "disabled", false );
+              campo_detallado.append($("<option />").val("null").text("Seleccionar Campo Detallado")); 
+                   $.each(msg, function(data) {                     
+                   campo_detallado.append($("<option />").val(this.id).text(this.codigo+"-"+this.titulo));
+                  });
+           
+            }
+        });
+}
+
+</script>
 @stop

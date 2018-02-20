@@ -20,7 +20,8 @@ return [
 			'estado'=>'Estados',
 			'auditoria'=>'Auditoria',
 			'coleccion'=>'Colecciones',
-			'caracteristicas'=>'Características'
+			'caracteristicas'=>'Características',
+			'campos_cine'=>'Parametros CINE'
 	
 		],
 	],

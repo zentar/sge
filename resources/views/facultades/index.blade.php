@@ -34,26 +34,26 @@
         <tbody>
            @foreach($facultades as $facultad)
             <tr>    
-            <td width="6%"  style="vertical-align: middle;" class="dt-body-center"> 
+            <td width="4%"  style="vertical-align: middle;" class="dt-body-left"> 
              
              {!!link_to_route('facultad.show', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-primary fa fa-eye"])!!}
      
              </td>
              
-             <td width="6%"  style="vertical-align: middle;" class="dt-body-center"> 
+             <td width="4%"  style="vertical-align: middle;" class="dt-body-left"> 
  
              {!!link_to_route('facultad.edit', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-warning fa fa-pencil-square-o"])!!}
      
              </td>
              
-             <td width="6%"  style="vertical-align: middle;" class="dt-body-center"> 
+             <td width="4%"  style="vertical-align: middle;" class="dt-body-left"> 
            
              {!!link_to_route('facultad.destroy', $title = '', $parameters = $facultad->id, $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!}
      
              </td>
 
-                <td width="20%"  style="vertical-align: middle;" class="dt-body-center">{{$facultad->id}}</td>          
-                <td width="59%"  style="vertical-align: middle;" class="dt-body-left">{{$facultad->nombre}}</td>
+                <td width="4%"  style="vertical-align: middle;" class="dt-body-left">{{$facultad->id}}</td>          
+                <td width="84%"  style="vertical-align: middle;" class="dt-body-left">{{$facultad->nombre}}</td>
                
             </tr>
             @endforeach        

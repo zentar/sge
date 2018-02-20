@@ -31,7 +31,7 @@
             </li>
         @endcan
         @can('libro_access')
-            <li class="{{ $request->segment(2) == 'publicados' ? 'active' : '' }}">
+            <li class="{{ $request->segment(1) == 'publicados' ? 'active' : '' }}">
                 <a href="{{ url('/publicados') }}">
                     <i class="fa fa-flag-checkered"></i>
                     <span class="title">Publicados </span>
@@ -39,8 +39,7 @@
             </li>
         @endcan
                 </ul>
-            </li>
-        
+            </li>        
 
 
             @can('autor_access')
@@ -159,9 +158,26 @@
                         </a>
                     </li>
                 @endcan
+
+                
+            @can('user_access')
+                <li class="{{ $request->segment(1) == 'auditoria' ? 'active active-sub' : '' }}">
+                        <a href="{{ route('auditoria.index') }}">
+                            <i class="fa fa-list-alt"></i>
+                            <span class="title">
+                               @lang('quickadmin.administrador.fields.campos_cine')
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+
+
                 </ul>
             </li>
             @endcan
+
+
+           
 
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">

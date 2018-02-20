@@ -43,21 +43,21 @@
         <tbody>
            @foreach($tipo_papel as $tipo)
            <tr>
-           <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+           <td  width="4%" style="vertical-align: middle;" class="dt-body-left"> 
                  <p>
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_tipopapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
                 </p>
                 </td>
 
-                <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+                <td  width="4%" style="vertical-align: middle;" class="dt-body-left"> 
                  <p>    
                 {!!link_to_route('caracteristicas.destroytipopapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
              
 
                </p>
                 </td>
-           <td  width="5%" style="vertical-align: middle;">{{$tipo->id}}</td>
-           <td  width="69%" style="vertical-align: middle;" class="dt-body-center">{{$tipo->descripcion}}</td>
+           <td  width="4%" style="vertical-align: middle;" class="dt-body-left">{{$tipo->id}}</td>
+           <td  width="88%" style="vertical-align: middle;" class="dt-body-left">{{$tipo->descripcion}}</td>
            
           
            </tr>
@@ -95,18 +95,18 @@
         <tbody>
         @foreach($tamano_papel as $tipo)
            <tr>
-           <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+           <td  width="4%" style="vertical-align: middle;" class="dt-body-left"> 
                  <p>   
                 <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_tamanopapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
                 </p>
                 </td>
-                <td  width="10%" style="vertical-align: middle;" class="dt-body-center"> 
+                <td  width="4%" style="vertical-align: middle;" class="dt-body-left"> 
                  <p>      
-                {!!link_to_route('caracteristicas.destroytamanopapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-sm btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
+                {!!link_to_route('caracteristicas.destroytamanopapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn  btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
                </p>
                 </td>
-           <td  width="5%" style="vertical-align: middle;">{{$tipo->id}}</td>
-           <td  width="69%" style="vertical-align: middle;" class="dt-body-center">{{$tipo->descripcion}}</td>
+           <td  width="4%" style="vertical-align: middle;" class="dt-body-left">{{$tipo->id}}</td>
+           <td  width="88%" style="vertical-align: middle;" class="dt-body-left">{{$tipo->descripcion}}</td>
           
            </tr>
            @endforeach 
@@ -144,18 +144,18 @@
         <tbody>
         @foreach($color_papel as $tipo)
            <tr>
-           <td  width="10%" style="vertical-align: middle;"  class="dt-body-center"> 
+           <td  width="4%" style="vertical-align: middle;"  class="dt-body-left"> 
                  <p>
                    <button type="button" href="" class="btn btn-warning btn-md fa fa-pencil-square-o" onclick="editar_colorpapel('{{$tipo->id}}','{{$tipo->descripcion}}')"></button>
                    </p>
                 </td>
-                   <td  width="10%" style="vertical-align: middle;"  class="dt-body-center"> 
+                   <td  width="4%" style="vertical-align: middle;"  class="dt-body-left"> 
                  <p>
-                {!!link_to_route('caracteristicas.destroycolorpapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-sm btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
+                {!!link_to_route('caracteristicas.destroycolorpapel', $title = '', $parameters = [$tipo->id], $attributes = ['class'=>"btn btn-danger fa fa-trash-o",'onclick'=>'return confirm("Esta seguro de borrar este registro?")'])!!} 
                </p>
                 </td>
-           <td  width="5%" style="vertical-align: middle;" >{{$tipo->id}}</td>
-           <td  width="69%" style="vertical-align: middle;"  class="dt-body-center">{{$tipo->descripcion}}</td>
+           <td  width="4%" style="vertical-align: middle;" class="dt-body-left" >{{$tipo->id}}</td>
+           <td  width="88%" style="vertical-align: middle;"  class="dt-body-left">{{$tipo->descripcion}}</td>
    
            </tr>
            @endforeach 

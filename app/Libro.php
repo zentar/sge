@@ -37,7 +37,7 @@ class Libro extends Model
     ];
 
     //LOGEA ATRIBUTOS DE ACTIVITYLOG (CAMBIOS EN DATOS)
-    protected static $logAttributes = ['titulo','facultad_id','isbn','iepi','estados_id','coleccion_id','asignado'];
+    protected static $logAttributes = ['titulo','facultad_id','isbn','iepi','estados_id','coleccion_id','asignado','campo_general','campo_especifico','campo_detallado'];
     //IGNORA UPDATED_AT EN CAMBIOS 
     protected static $ignoreChangedAttributes = ['updated_at'];
     //SOLO REGISTRA LOS CAMBIOS E UPDTES

@@ -184,10 +184,18 @@ class LibroController extends Controller
          // dd($libro->campogeneral,$libro->campoespecifico,$libro->campodetallado);
         
          $campo_general = \App\CampoGeneral::all();
-         $campo_especifico = \App\CampoEspecifico::all();
-         $campo_detallado = \App\CampoDetallado::all();;
 
+         if($libro->campo_general != null){
+            $campo_especifico = \App\campoespecifico::where('campo_general',$libro->campo_general)->get();
+         }else 
+         $campo_especifico = null;
 
+         if($libro->campo_especifico != null){
+            $campo_detallado = \App\campodetallado::where('campo_especifico',$libro->campo_especifico)->get();
+         }else 
+         $campo_detallado = null;
+
+        
         if($libro->estados_id < 6){ array_push($doc_no_ingresados,19);}
         if(\Auth::User()->id == 1 || \Auth::User()->id == 2 || \Auth::User()->id == 3)
         $tipos_doc_libro = DB::table('tipodoc')->where([['grupo', '=', 'libro']])->whereNotIn('id', $doc_no_ingresados)->orderBy('nombre', 'asc')->get();        
@@ -232,7 +240,7 @@ class LibroController extends Controller
                     $facultades_nombre[$facultad->id] = $facultad->nombre;                   
                   }  
 
-        //dd($libro->coleccion->titulo);                 
+        //dd($libro->campogeneral);                 
         return view('libros/editar/editar', compact('libro','autores_nombre','flag_editar_autor','facultades_nombre','colecciones','tipos','tamano_papel','tipos_doc_libro','nuevo','flag_ISBN','flag_IEPI','tipos_papel','tipos_color','editores','gestor_p','campo_general','campo_especifico','campo_detallado'));
     }
 
@@ -285,9 +293,29 @@ class LibroController extends Controller
           if(isset($data["coleccion_id"]))    $libro->coleccion_id = $data["coleccion_id"];
           if(isset($data["facultad_id"]))     $libro->facultad_id = $data["facultad_id"];
 
-          if(isset($data["campo_general_id"]))       $libro->campo_general = $data["campo_general_id"];
-          if(isset($data["campo_especifico_id"]))    $libro->campo_especifico = $data["campo_especifico_id"];
-          if(isset($data["campo_detallado_id"]))     $libro->campo_detallado = $data["campo_detallado_id"];
+          if(isset($data["campo_general_id"])){
+              if($data["campo_general_id"] != "null"){
+                 $libro->campo_general = $data["campo_general_id"];
+              }else
+                 $libro->campo_general = null;
+         }
+
+          if(isset($data["campo_especifico_id"])){
+            if($data["campo_especifico_id"] != "null"){
+            $libro->campo_especifico = $data["campo_especifico_id"];
+            }else
+            $libro->campo_especifico = null;
+          } 
+
+          if(isset($data["campo_detallado_id"])){
+              if($data["campo_detallado_id"] != "null"){
+                $libro->campo_detallado = $data["campo_detallado_id"];
+              }else
+              $libro->campo_detallado = null;
+          }    
+                    
+          
+
               
               if(isset($data['ISBN'])) $libro->isbn = $data['ISBN'];
               if(isset($data['IEPI'])) $libro->iepi = $data['IEPI'];
@@ -792,6 +820,24 @@ class LibroController extends Controller
          return redirect()->back();
      }
 
+
+     public function cargar_campo_especifico(Request $request){
+          $data = $request->all();
+          
+          if($data["tipo"]=="especifico"){
+            $campo_especifico = \App\campoespecifico::where('campo_general',$data['campo_general'])->get();
+            return $campo_especifico;
+          }
+
+          if($data["tipo"]=="detallado"){
+            $campo_detallado = \App\campodetallado::where('campo_especifico',$data['campo_especifico'])->get();
+            return $campo_detallado;
+          }
+
+
+       
+     }
+
      public function regresarEstado($id){
        $libro = \App\Libro::find($id);  
      
@@ -853,7 +899,7 @@ class LibroController extends Controller
               Session::flash('message','Se ha regresado al estado '.$libro->estados->nombre.' exitosamente');    
             break;
         default:
-           echo "HOLA MUNDO";
+        Session::flash('warning','Se ha producido un error');
     }
     
     return redirect()->back();

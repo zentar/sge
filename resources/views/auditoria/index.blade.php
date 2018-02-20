@@ -42,7 +42,7 @@
                 <td class="dt-body-left">{{$actividad->description}}</td> 
                 <td class="dt-body-justify">Se afecto el {{$actividad->subject_type}} {{$actividad->subject_id}}  @if($actividad->causer_type == "App\User") por el usuario con id = {{$actividad->causer_id}} @else   {{$actividad->causer_type}} {{$actividad->causer_id}} @endif
                  </td> 
-                <td class="dt-body-left" > @if(isset($actividad->properties['old'])) Original: {{json_encode($actividad->properties['attributes'])}}<br> Actual: {{json_encode($actividad->properties['old'])}} @else {{$actividad->properties}} @endif </td> 
+                <td class="dt-body-left" > @if(isset($actividad->properties['old'])) Actual: {{json_encode($actividad->properties['attributes'])}}<br> Original: {{json_encode($actividad->properties['old'])}} @else {{$actividad->properties}} @endif </td> 
                 
                
               
