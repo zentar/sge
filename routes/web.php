@@ -6,6 +6,9 @@ $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
 $this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
+
+
+
 // Change Password Routes...
 $this->get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
 $this->patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
@@ -26,8 +29,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
 });
 
-Route::get('/publicados', function () {
-
+Route::get('/publicados', function () { 
+  
     if(\Auth::User()->role_id == 1){
         $libros= \App\Libro::with(['autor','estados','coleccion'])->where('estados_id', [7])->get();
         return view('home', compact('libros'));
@@ -47,7 +50,9 @@ Route::get('/publicados', function () {
          $libros = \Auth::User()->libro()->where('estados_id', [7])->get();
         return view('home', compact('libros'));
     }
-});
+
+
+})->middleware('auth');
 
 //CRUD LIBROS
    Route::resource('libro','LibroController');

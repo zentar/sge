@@ -186,12 +186,12 @@ class LibroController extends Controller
          $campo_general = \App\CampoGeneral::all();
 
          if($libro->campo_general != null){
-            $campo_especifico = \App\campoespecifico::where('campo_general',$libro->campo_general)->get();
+            $campo_especifico = \App\CampoEspecifico::where('campo_general',$libro->campo_general)->get();
          }else 
          $campo_especifico = null;
 
          if($libro->campo_especifico != null){
-            $campo_detallado = \App\campodetallado::where('campo_especifico',$libro->campo_especifico)->get();
+            $campo_detallado = \App\CampoDetallado::where('campo_especifico',$libro->campo_especifico)->get();
          }else 
          $campo_detallado = null;
 
@@ -825,12 +825,12 @@ class LibroController extends Controller
           $data = $request->all();
           
           if($data["tipo"]=="especifico"){
-            $campo_especifico = \App\campoespecifico::where('campo_general',$data['campo_general'])->get();
+            $campo_especifico = \App\CampoEspecifico::where('campo_general',$data['campo_general'])->get();
             return $campo_especifico;
           }
 
           if($data["tipo"]=="detallado"){
-            $campo_detallado = \App\campodetallado::where('campo_especifico',$data['campo_especifico'])->get();
+            $campo_detallado = \App\CampoDetallado::where('campo_especifico',$data['campo_especifico'])->get();
             return $campo_detallado;
           }
 

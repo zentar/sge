@@ -174,9 +174,9 @@
                   <div class="form-group col-md-6">               
                       <label>Campo Detallado *</label>
                       <select id="campo_detallado_id"  class="form-control select2" name="campo_detallado_id">
-                      <option value="null"> Seleccionar Campo Detallado </option> 
+                    
                       @if($libro->campo_especifico != null) 
-                                  
+                      <option value="null"> Seleccionar Campo Detallado </option>                                  
                        @foreach($campo_detallado as $campoDT)
                         <option value="{{ $campoDT->id }}" @if( isset($libro->campodetallado) && $campoDT->id == $libro->campodetallado->id) selected @endif>{{ $campoDT->codigo }}- {{ $campoDT->titulo }} </option>
                        @endforeach

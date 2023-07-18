@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CampoEspecificoSeed::class);
         $this->call(CampoDetalladoSeed::class);
         
-        $this->call(LibroSeed::class);
-        $this->call(HistorialSeed::class);
-        $this->call(CaracteristicasSeed::class);
-        $this->call(AutoresSeed::class);
-        $this->call(AutorLibroSeed::class);
+      //  $this->call(LibroSeed::class);
+      //  $this->call(HistorialSeed::class);
+      //  $this->call(CaracteristicasSeed::class);
+      //   $this->call(AutoresSeed::class);
+      //  $this->call(AutorLibroSeed::class);
      
     }
 }

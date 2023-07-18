@@ -47,14 +47,32 @@ class ChangePasswordController extends Controller
     public function changePassword(Request $request)
     {
         $user = Auth::getUser();
-        $this->validator($request->all())->validate();
+        $data = $request->all();
+
+        $rules = array(
+            'new_password' => 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'     
+            );
+
+            $v = Validator::make($data,$rules);      
+
+            if($v->fails())
+            {
+             return redirect()->back()
+                    ->withErrors($v->errors())
+                    ->withInput();
+            }
+            else{
+                
         if (Hash::check($request->get('current_password'), $user->password)) {
             $user->password = $request->get('new_password');
             $user->save();
-            return redirect($this->redirectTo)->with('success', 'Password change successfully!');
+            return redirect($this->redirectTo)->with('success', 'Contraseña cambiada exitosamente!');
         } else {
-            return redirect()->back()->withErrors('Current password is incorrect');
-        }
+            return redirect()->back()->withErrors('La contraseña ingresa no coincide con nuestros registros');
+        }     
+            }
+
+
     }
 
     /**

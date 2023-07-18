@@ -33,7 +33,7 @@ class HomeController extends Controller
       //  return view('home', compact('libros'));
         if(\Auth::User()->role_id == 1){
             $libros= \App\Libro::with(['autor','estados','coleccion'])->whereNotIn('estados_id', [7])->get();
-           return view('home', compact('libros'));
+            return view('home', compact('libros'));
         }
 
         if(\Auth::User()->role_id == 2){
