@@ -1,4 +1,5 @@
 
+              @if(is_array($libro->caracteristicas)) 
                 @if(count($libro->caracteristicas) > 0)  
                 @can('libro_edit_caracteristicas_accion')
                     <div class="form-group col-md-6">                     
@@ -148,6 +149,7 @@
                      {!!Form::textarea('observaciones',$libro->caracteristicas->observaciones,['class'=>'form-control',
                     'placeholder'=>'-','maxlength'=>'150',"style"=>"overflow:auto;resize:none"])!!} 
                     </div>   
+                    @endif
                     @endif
                     <div class="fondo_formulario box-footer col-md-12">
                     <a type="button" href="{{route('libro.index')}}" class="btn btn-primary fa fa-arrow-left"></a>

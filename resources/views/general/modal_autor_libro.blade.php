@@ -39,19 +39,21 @@
 
                     <div class="form-group" id="demo">  
                     @if($nuevo == 1)
-                    @if (count(old('autor'))>0)                        
-                       @foreach (old('autor') as $user)                     
-                      <div class="row col-md-12">
-                       <div class='col-xs-8 col-md-9'>
-                          <input class='form-control' maxlength='200' disabled id='autors{{$user}}' type='text' name='text[]' value='{{$autores_nombre[$user]}}'>
-                       </div>
-                       <div class='col-xs-4 col-md-3'>
-                          <button type='button' class=' btn btn-danger fa fa-minus' id='autor-{{$user}}' onclick='myFunction2({{$user}})'>
-                          </button>
-                       </div>
-                    </div> 
-                       @endforeach
-                       @endif
+                     @if(is_array($nuevo))
+                        @if (count(old('autor'))>0)                        
+                           @foreach (old('autor') as $user)                     
+                           <div class="row col-md-12">
+                           <div class='col-xs-8 col-md-9'>
+                              <input class='form-control' maxlength='200' disabled id='autors{{$user}}' type='text' name='text[]' value='{{$autores_nombre[$user]}}'>
+                           </div>
+                           <div class='col-xs-4 col-md-3'>
+                              <button type='button' class=' btn btn-danger fa fa-minus' id='autor-{{$user}}' onclick='myFunction2({{$user}})'>
+                              </button>
+                           </div>
+                        </div> 
+                           @endforeach
+                           @endif
+                        @endif
                       @endif
 
                       @if($nuevo != 1)

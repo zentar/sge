@@ -22,10 +22,12 @@
 @section('especial')
 
 <script>
-       @if (count(old('autor'))>0)                        
-       @foreach (old('autor') as $user) 
-        autor_global.push("{{$user}}");                  
-       @endforeach
+        @if (is_array(old('autor')))
+          @if (count(old('autor'))>0)                        
+            @foreach (old('autor') as $user) 
+              autor_global.push("{{$user}}");                  
+            @endforeach
+          @endif
        @endif
 
        @if ($errors->count() > 0 and Session::get('error_code') == 5)

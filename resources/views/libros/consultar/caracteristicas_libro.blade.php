@@ -1,3 +1,4 @@
+          @if(is_array($libro->caracteristicas)) 
                 @if(count($libro->caracteristicas) > 0)  
                     <div class="form-group col-md-6">                     
                       <label>Tamaño</label> 
@@ -37,3 +38,4 @@
                   
 
                     @endif
+                @endif
